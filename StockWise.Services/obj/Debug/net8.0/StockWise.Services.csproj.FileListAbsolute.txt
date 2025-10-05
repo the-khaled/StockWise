@@ -15,3 +15,4 @@ E:\New folder\WebAPI\StockWise\StockWise.Services\obj\Debug\net8.0\refint\StockW
 E:\New folder\WebAPI\StockWise\StockWise.Services\obj\Debug\net8.0\StockWise.Services.pdb
 E:\New folder\WebAPI\StockWise\StockWise.Services\obj\Debug\net8.0\StockWise.Services.genruntimeconfig.cache
 E:\New folder\WebAPI\StockWise\StockWise.Services\obj\Debug\net8.0\ref\StockWise.Services.dll
+E:\New folder\WebAPI\StockWise\StockWise.Services\obj\Debug\net8.0\StockWise.Services.sourcelink.json

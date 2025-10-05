@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace StockWise.Domain.Interfaces
 {
-    internal interface IStockRepository
+    public interface IStockRepository
     {
         
-    Task<Stock> GetByIdAsync(int warehouseId, int productId);
+        Task<Stock> GetByIdAsync(int warehouseId, int productId);
         Task<IEnumerable<Stock>> GetAllAsync();
         Task AddAsync(Stock stock);
         Task UpdateAsync(Stock stock);

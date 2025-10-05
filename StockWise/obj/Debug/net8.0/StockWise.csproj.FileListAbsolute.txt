@@ -172,3 +172,17 @@ E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\StockWise.Services.dll
 E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\StockWise.Infrastructure.pdb
 E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\StockWise.Services.pdb
 E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\StockWise.Domain.pdb
+E:\New folder\WebAPI\StockWise\StockWise\obj\Debug\net8.0\StockWise.sourcelink.json
+E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\DnsClient.dll
+E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\log4net.dll
+E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\Newtonsoft.Json.dll
+E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\Rex.Extensions.Models.dll
+E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\Rex.Logging.Core.dll
+E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\Rex.Microsoft.AspNetCore.Mvc.Extensions.dll
+E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\Rex.Utils.Core.dll
+E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\ToolGood.Words.dll
+E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\ToolGood.Words.FirstPinyin.dll
+E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\ToolGood.Words.Pinyin.dll

@@ -61,6 +61,7 @@ namespace StockWise.Infrastructure.DataAccess
                 .HasConversion<string>();
 
             //Stock
+
             modelBuilder.Entity<Stock>()//عملت ال ID بناء علي الجدولين عشان نفس المنتج مينفعش يبقي في مخذنين
                 .HasIndex(p => new{p.WarehouseId,p.ProductId }).IsUnique();
 

@@ -10,6 +10,11 @@ namespace StockWise.Domain.Interfaces
     {
         IProductRepository Products { get; }
         IWarehouseRepository Warehouses { get; }
+        IStockRepository Stocks { get; }
+        IRepresentativeRepository Representatives { get; }
+        ITransferRepository Transfers { get; }
+
+
         Task SaveChangesAsync();
     }
 }

@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using StockWise.Domain.Interfaces;
 using StockWise.Domain.Models;
+using StockWise.Services.DTOS;
+using StockWise.Services.IServices;
+using StockWise.Services.Services;
 
 namespace StockWise.Controllers
 {
@@ -9,53 +12,97 @@ namespace StockWise.Controllers
     [ApiController]
     public class TransfersController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public TransfersController(IUnitOfWork unitOfWork)
+        private readonly ITransferService _transfer;
+        public TransfersController(ITransferService transfer)
         {
-            _unitOfWork = unitOfWork;
+            _transfer = transfer;
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var transfers = await _unitOfWork.Transfers.GetAllAsync();
-            return Ok(transfers);
+            try
+            {
+                var transfers = await _transfer.GetAllTransfersAsync();
+                return Ok(transfers);
+            } catch (Exception ex) { return StatusCode(500, new { error = ex.Message }); }
         }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            var transfers = await _unitOfWork.Transfers.GetByIdAsync(id);
-            if (transfers == null) return NotFound();
-            return Ok(transfers);
+            [HttpGet("{id}")]
+            public async Task<IActionResult> GetById(int id)
+            {
+                try
+                {
+                var transfer = await _transfer.GetTransferByIdAsync(id);
+                return Ok(transfer);
+               
+                }
+                catch (KeyNotFoundException ex)
+                {
+                    return NotFound(new { error = ex.Message });
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, new { error = ex.Message });
+                }
         }
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Transfer Transfer)
+        public async Task<IActionResult> Create([FromBody] TransferDto Transfer)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            await _unitOfWork.Transfers.AddAsync(Transfer);
-            await _unitOfWork.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetById), new { id = Transfer.Id }, Transfer);
+            try
+            {
+                if (!ModelState.IsValid) return BadRequest(ModelState);
+                await _transfer.CreateTransferAsync(Transfer);
+                return CreatedAtAction(nameof(GetById), new { id = Transfer.Id }, Transfer);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, Transfer transfer)
+        public async Task<IActionResult> Update(int id, [FromBody] TransferDto transfer)
         {
-            if (id != transfer.Id) return BadRequest("ID not match");
-            var Transfer = await _unitOfWork.Transfers.GetByIdAsync(id);
+            try
+            {
+                if (id != transfer.Id)
+                    return BadRequest("ID mismatch");
 
-            if (transfer == null) return NotFound();
-            await _unitOfWork.Transfers.UpdateAsync(transfer);
-            await _unitOfWork.SaveChangesAsync();
-            return NoContent();
+                await _transfer.UpdateTransferAsync(transfer);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var transfer = await _unitOfWork.Transfers.GetByIdAsync(id);
-            if (transfer == null)
-                return NotFound();
+            try
+            {
+                await _transfer.DeleteTransferAsync(id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
 
-            await _unitOfWork.Transfers.DeleteAsync(id);
-            await _unitOfWork.SaveChangesAsync();
-            return NoContent();
         }
     }
 }

@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using StockWise.Domain.Interfaces;
 using StockWise.Domain.Models;
+using StockWise.Services.DTOS;
+using StockWise.Services.IServices;
 
 namespace StockWise.Controllers
 {
@@ -9,52 +11,50 @@ namespace StockWise.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public ProductsController(IUnitOfWork unitOfWork)
+        private readonly IProductService _productService;
+        public ProductsController(IProductService productService)
         {
-            _unitOfWork = unitOfWork;
+            _productService = productService;
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var products = await _unitOfWork.Products.GetAllAsync();
+            var products = await _productService.GetAllProductsAsync();
             return Ok(products);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var product = await _unitOfWork.Products.GetByIdAsync(id);
+            var product = await _productService.GetProductByIdAsync(id);
             if (product == null) return NotFound();
             return Ok(product);
         }
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Product product)
+        public async Task<IActionResult> Create([FromBody] ProductDto productDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            await _unitOfWork.Products.AddAsync(product);
-            await _unitOfWork.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
+             await _productService.CreateProductAsync(productDto);
+
+            return CreatedAtAction(nameof(GetById), new { id = productDto.Id }, productDto);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] Product product)
+        public async Task<IActionResult> Update(int id, [FromBody] ProductDto product)
         {
             if (id != product.Id) return BadRequest("ID Not match");
-            var existingProduct = await _unitOfWork.Products.GetByIdAsync(id);
+            var existingProduct = await _productService.GetProductByIdAsync(id);
             if (existingProduct == null)
                 return NotFound();
-            await _unitOfWork.Products.UpdateAsync(product);
-            await _unitOfWork.SaveChangesAsync();
+            await _productService.UpdateProductAsync(product);
             return NoContent();
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var product = await _unitOfWork.Products.GetByIdAsync(id);
+            var product = await _productService.GetProductByIdAsync(id);
             if (product == null)
                 return NotFound();
 
-            await _unitOfWork.Products.DeleteAsync(id);
-            await _unitOfWork.SaveChangesAsync();
+            await _productService.DeleteProductAsync(id);
             return NoContent();
         }
 

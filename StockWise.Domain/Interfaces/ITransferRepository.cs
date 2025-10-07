@@ -7,12 +7,8 @@ using System.Threading.Tasks;
 
 namespace StockWise.Domain.Interfaces
 {
-    public interface ITransferRepository
+    public interface ITransferRepository :IRepository<Transfer>
     {
-        Task<Transfer> GetByIdAsync(int id);
-        Task<IEnumerable<Transfer>> GetAllAsync();
-        Task AddAsync(Transfer transfer);
-        Task UpdateAsync(Transfer transfer);
-        Task DeleteAsync(int id);
+ 
     }
 }

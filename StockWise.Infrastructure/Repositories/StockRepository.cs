@@ -10,40 +10,13 @@ using System.Threading.Tasks;
 
 namespace StockWise.Infrastructure.Repositories
 {
-    public class StockRepository : IStockRepository
+    public class StockRepository : GenericRepository<Stock>, IStockRepository
     {
-        private readonly StockWiseDbContext _context;
-        public StockRepository(StockWiseDbContext context)
-        {
-                _context = context;
-        }
-        public async Task AddAsync(Stock stock)
-        {
-
-            await _context.stocks.AddAsync(stock);
-        }
-
-        public async Task DeleteAsync(int warehouseId, int productId)
-        {
-            var stock = await GetByIdAsync(warehouseId, productId);
-            if (stock != null) _context.stocks.Remove(stock);
-        }
-
-        public async Task<IEnumerable<Stock>> GetAllAsync()
-        {
-            return await _context.Set<Stock>().ToListAsync();
-        }
-
-        public async Task<Stock> GetByIdAsync(int warehouseId, int productId)
+        public StockRepository(StockWiseDbContext context):base(context) { }
+        public async Task<Stock> GetByWarehouseAndProductAsync(int warehouseId, int productId)
         {
             return await _context.stocks
-                 .FirstOrDefaultAsync
-                 (s => s.WarehouseId == warehouseId && s.ProductId == productId);
-        }
-
-        public async Task UpdateAsync(Stock stock)
-        {
-           _context.stocks.Update(stock);
+                .FirstOrDefaultAsync(s => s.WarehouseId == warehouseId && s.ProductId == productId);
         }
     }
 }

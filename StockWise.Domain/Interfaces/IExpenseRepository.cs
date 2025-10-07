@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StockWise.Domain.Interfaces
 {
-    internal interface IStockTransactionRepository
+    public interface IExpenseRepository:IRepository<Expense>
     {
     }
 }

@@ -11,10 +11,6 @@ namespace StockWise.Infrastructure.Repositories
 {
     internal class WarehouseRepository:GenericRepository<Warehouse>,IWarehouseRepository
     {
-        private readonly StockWiseDbContext _Context;
-        public WarehouseRepository(StockWiseDbContext context):base(context)
-        {
-            _Context=context;
-        }
+        public WarehouseRepository(StockWiseDbContext context) : base(context) { }
     }
 }

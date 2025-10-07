@@ -7,12 +7,8 @@ using System.Threading.Tasks;
 
 namespace StockWise.Domain.Interfaces
 {
-    public interface IRepresentativeRepository
+    public interface IRepresentativeRepository: IRepository<Representative>
     {
-        Task<Representative> GetByIdAsync(int id);
-        Task<IEnumerable<Representative>> GetAllAsync();
-        Task AddAsync(Representative representative);
-        Task UpdateAsync(Representative representative);
-        Task DeleteAsync(int id);
+
     }
 }

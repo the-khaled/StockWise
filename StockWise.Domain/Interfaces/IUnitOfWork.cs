@@ -8,6 +8,13 @@ namespace StockWise.Domain.Interfaces
 {
     public interface IUnitOfWork
     {
+        IInvoiceRepository Invoice { get; }
+        IInvoiceItemRepository InvoiceItem { get; }
+        IExpenseRepository expense { get; }
+        IPaymentRepository Payment { get; }
+        ILocationRepository Location { get; }
+        IReturnRepository Return { get; }
+        ICustomerRepository Customer { get; }
         IProductRepository Products { get; }
         IWarehouseRepository Warehouses { get; }
         IStockRepository Stocks { get; }

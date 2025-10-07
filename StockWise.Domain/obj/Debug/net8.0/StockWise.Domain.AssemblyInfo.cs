@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StockWise.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3645fba4db670f4a9c6973fce2d1789247ff224e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e5c2d357ed11a235ad1f575ee0a663ef1f596e43")]
 [assembly: System.Reflection.AssemblyProductAttribute("StockWise.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StockWise.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

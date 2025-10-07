@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StockWise.Domain.Interfaces
 {
-    internal interface ICategoryRepository
+    public interface ICustomerRepository:IRepository<Customer>
     {
     }
 }

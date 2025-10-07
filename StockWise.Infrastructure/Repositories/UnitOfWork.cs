@@ -17,6 +17,21 @@ namespace StockWise.Infrastructure.Repositories
         public IStockRepository Stocks { get; }
         public IRepresentativeRepository Representatives { get; }
         public ITransferRepository Transfers { get; }
+
+        public IInvoiceRepository Invoice { get; }
+
+        public IInvoiceItemRepository InvoiceItem { get; }
+
+        public IExpenseRepository expense { get; }  
+
+        public IPaymentRepository Payment { get; }
+
+        public ILocationRepository Location { get; }
+
+        public IReturnRepository Return { get; }
+
+        public ICustomerRepository Customer { get; }
+
         public UnitOfWork(StockWiseDbContext context)
         {
             _context = context;   
@@ -25,7 +40,8 @@ namespace StockWise.Infrastructure.Repositories
             Stocks = new StockRepository(context);
             Transfers = new TransferRepository(context);
             Representatives=new RepresentativeRepository(context);
-        }
+/*            Invoice =new IInvoiceRepository(context);
+*/        }
         public async Task SaveChangesAsync() 
         {
             await _context.SaveChangesAsync();

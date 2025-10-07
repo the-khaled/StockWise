@@ -12,10 +12,10 @@ namespace StockWise.Infrastructure.Repositories
 {
     public class ProductRepository : GenericRepository<Product>, IProductRepository
     {
-        private readonly StockWiseDbContext _context;
+       /* private readonly StockWiseDbContext _context;*/
         public ProductRepository(StockWiseDbContext context):base(context) 
         {
-            _context = context;
+          /*  _context = context;*/
         }
         public async Task<IEnumerable<Product>> GetExpiringProductsAsync(int daysBeforeExpiry)
         {

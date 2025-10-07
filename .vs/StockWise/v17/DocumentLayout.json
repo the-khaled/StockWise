@@ -3,12 +3,152 @@
   "WorkspaceRootPath": "E:\\New folder\\WebAPI\\StockWise\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{53831EFB-7997-4632-B9D7-A928C9DE79EB}|StockWise\\StockWise.csproj|e:\\new folder\\webapi\\stockwise\\stockwise\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{53831EFB-7997-4632-B9D7-A928C9DE79EB}|StockWise\\StockWise.csproj|solutionrelative:stockwise\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.infrastructure\\repositories\\warehouserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|solutionrelative:stockwise.infrastructure\\repositories\\warehouserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\interfaces\\iwarehouserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\interfaces\\iwarehouserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.infrastructure\\repositories\\transferrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|solutionrelative:stockwise.infrastructure\\repositories\\transferrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\interfaces\\itransferrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\interfaces\\itransferrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.infrastructure\\repositories\\stockrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|solutionrelative:stockwise.infrastructure\\repositories\\stockrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|e:\\new folder\\webapi\\stockwise\\stockwise.infrastructure\\repositories\\returnrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|solutionrelative:stockwise.infrastructure\\repositories\\returnrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.infrastructure\\repositories\\productrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|solutionrelative:stockwise.infrastructure\\repositories\\productrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\interfaces\\irepresentativerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\interfaces\\irepresentativerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.infrastructure\\repositories\\representativerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|solutionrelative:stockwise.infrastructure\\repositories\\representativerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|e:\\new folder\\webapi\\stockwise\\stockwise.infrastructure\\repositories\\paymentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|solutionrelative:stockwise.infrastructure\\repositories\\paymentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|e:\\new folder\\webapi\\stockwise\\stockwise.infrastructure\\repositories\\locationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|solutionrelative:stockwise.infrastructure\\repositories\\locationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|e:\\new folder\\webapi\\stockwise\\stockwise.infrastructure\\repositories\\invoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|solutionrelative:stockwise.infrastructure\\repositories\\invoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|e:\\new folder\\webapi\\stockwise\\stockwise.infrastructure\\repositories\\invoiceitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|solutionrelative:stockwise.infrastructure\\repositories\\invoiceitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|e:\\new folder\\webapi\\stockwise\\stockwise.infrastructure\\repositories\\expenserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|solutionrelative:stockwise.infrastructure\\repositories\\expenserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|e:\\new folder\\webapi\\stockwise\\stockwise.infrastructure\\repositories\\customerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|solutionrelative:stockwise.infrastructure\\repositories\\customerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.infrastructure\\repositories\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|solutionrelative:stockwise.infrastructure\\repositories\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\interfaces\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\interfaces\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|e:\\new folder\\webapi\\stockwise\\stockwise.domain\\interfaces\\iinvoiceitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\interfaces\\iinvoiceitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|e:\\new folder\\webapi\\stockwise\\stockwise.domain\\interfaces\\ireturnrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\interfaces\\ireturnrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|e:\\new folder\\webapi\\stockwise\\stockwise.domain\\interfaces\\ipaymentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\interfaces\\ipaymentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|e:\\new folder\\webapi\\stockwise\\stockwise.domain\\interfaces\\ilocationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\interfaces\\ilocationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\models\\location.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\models\\location.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|e:\\new folder\\webapi\\stockwise\\stockwise.domain\\interfaces\\iinvoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\interfaces\\iinvoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\models\\invoiceitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\models\\invoiceitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|e:\\new folder\\webapi\\stockwise\\stockwise.domain\\interfaces\\iexpenserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\interfaces\\iexpenserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|e:\\new folder\\webapi\\stockwise\\stockwise.domain\\interfaces\\icustomerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\interfaces\\icustomerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\interfaces\\istockrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\interfaces\\istockrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|e:\\new folder\\webapi\\stockwise\\stockwise.domain\\interfaces\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\interfaces\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.infrastructure\\repositories\\genericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|solutionrelative:stockwise.infrastructure\\repositories\\genericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\enums\\enums.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\enums\\enums.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BD3D30B1-D94A-47C0-8767-3EB3A3895EF7}|StockWise.Services\\StockWise.Services.csproj|e:\\new folder\\webapi\\stockwise\\stockwise.services\\services\\customerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD3D30B1-D94A-47C0-8767-3EB3A3895EF7}|StockWise.Services\\StockWise.Services.csproj|solutionrelative:stockwise.services\\services\\customerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BD3D30B1-D94A-47C0-8767-3EB3A3895EF7}|StockWise.Services\\StockWise.Services.csproj|e:\\new folder\\webapi\\stockwise\\stockwise.services\\iservices\\icustomerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD3D30B1-D94A-47C0-8767-3EB3A3895EF7}|StockWise.Services\\StockWise.Services.csproj|solutionrelative:stockwise.services\\iservices\\icustomerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BD3D30B1-D94A-47C0-8767-3EB3A3895EF7}|StockWise.Services\\StockWise.Services.csproj|e:\\new folder\\webapi\\stockwise\\stockwise.services\\iservices\\iwarehouseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD3D30B1-D94A-47C0-8767-3EB3A3895EF7}|StockWise.Services\\StockWise.Services.csproj|solutionrelative:stockwise.services\\iservices\\iwarehouseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BD3D30B1-D94A-47C0-8767-3EB3A3895EF7}|StockWise.Services\\StockWise.Services.csproj|e:\\new folder\\webapi\\stockwise\\stockwise.services\\services\\warehouseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD3D30B1-D94A-47C0-8767-3EB3A3895EF7}|StockWise.Services\\StockWise.Services.csproj|solutionrelative:stockwise.services\\services\\warehouseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BD3D30B1-D94A-47C0-8767-3EB3A3895EF7}|StockWise.Services\\StockWise.Services.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.services\\services\\transferservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD3D30B1-D94A-47C0-8767-3EB3A3895EF7}|StockWise.Services\\StockWise.Services.csproj|solutionrelative:stockwise.services\\services\\transferservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BD3D30B1-D94A-47C0-8767-3EB3A3895EF7}|StockWise.Services\\StockWise.Services.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.services\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BD3D30B1-D94A-47C0-8767-3EB3A3895EF7}|StockWise.Services\\StockWise.Services.csproj|solutionrelative:stockwise.services\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53831EFB-7997-4632-B9D7-A928C9DE79EB}|StockWise\\StockWise.csproj|e:\\new folder\\webapi\\stockwise\\stockwise\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53831EFB-7997-4632-B9D7-A928C9DE79EB}|StockWise\\StockWise.csproj|solutionrelative:stockwise\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BD3D30B1-D94A-47C0-8767-3EB3A3895EF7}|StockWise.Services\\StockWise.Services.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.services\\iservices\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -29,14 +169,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{53831EFB-7997-4632-B9D7-A928C9DE79EB}|StockWise\\StockWise.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise\\controllers\\transferscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{53831EFB-7997-4632-B9D7-A928C9DE79EB}|StockWise\\StockWise.csproj|solutionrelative:stockwise\\controllers\\transferscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\enums\\enums.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\enums\\enums.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BD3D30B1-D94A-47C0-8767-3EB3A3895EF7}|StockWise.Services\\StockWise.Services.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.services\\services\\transferservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BD3D30B1-D94A-47C0-8767-3EB3A3895EF7}|StockWise.Services\\StockWise.Services.csproj|solutionrelative:stockwise.services\\services\\transferservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{53831EFB-7997-4632-B9D7-A928C9DE79EB}|StockWise\\StockWise.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise\\errors\\errorhandlermiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -63,44 +195,8 @@
       "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\stockwise.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.infrastructure\\repositories\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|solutionrelative:stockwise.infrastructure\\repositories\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\interfaces\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\interfaces\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\interfaces\\itransferrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\interfaces\\itransferrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.infrastructure\\repositories\\transferrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|solutionrelative:stockwise.infrastructure\\repositories\\transferrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.infrastructure\\repositories\\representativerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|solutionrelative:stockwise.infrastructure\\repositories\\representativerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\interfaces\\irepresentativerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\interfaces\\irepresentativerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.infrastructure\\repositories\\genericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|solutionrelative:stockwise.infrastructure\\repositories\\genericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.infrastructure\\dataaccess\\stockwisedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|solutionrelative:stockwise.infrastructure\\dataaccess\\stockwisedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.infrastructure\\repositories\\stockrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|solutionrelative:stockwise.infrastructure\\repositories\\stockrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\interfaces\\istockrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\interfaces\\istockrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BD3D30B1-D94A-47C0-8767-3EB3A3895EF7}|StockWise.Services\\StockWise.Services.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.services\\dtos\\locationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -163,10 +259,6 @@
       "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\models\\warehouse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.infrastructure\\repositories\\productrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|solutionrelative:stockwise.infrastructure\\repositories\\productrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\valueobjects\\money.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\valueobjects\\money.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -183,44 +275,12 @@
       "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\models\\stock.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.infrastructure\\repositories\\warehouserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|solutionrelative:stockwise.infrastructure\\repositories\\warehouserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\models\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\models\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\models\\invoiceitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\models\\invoiceitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\models\\location.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\models\\location.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\models\\invoice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\models\\invoice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\interfaces\\iwarehouserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\interfaces\\iwarehouserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\interfaces\\isupplierrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\interfaces\\isupplierrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\interfaces\\istocktransactionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\interfaces\\istocktransactionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\interfaces\\iproductrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\interfaces\\iproductrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.domain\\interfaces\\icategoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D7D055A8-25D8-4C63-8234-BD5BBB492D89}|StockWise.Domain\\StockWise.Domain.csproj|solutionrelative:stockwise.domain\\interfaces\\icategoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8D6C26DF-261A-4FE7-90A3-EC0A250B19DC}|StockWise.Infrastructure\\StockWise.Infrastructure.csproj|E:\\New folder\\WebAPI\\StockWise\\stockwise.infrastructure\\migrations\\20251002002727_stockwise2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -250,7 +310,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -258,31 +318,397 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "TransferService.cs",
-              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\Services\\TransferService.cs",
-              "RelativeDocumentMoniker": "StockWise.Services\\Services\\TransferService.cs",
-              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\Services\\TransferService.cs",
-              "RelativeToolTip": "StockWise.Services\\Services\\TransferService.cs",
-              "ViewState": "AQIAACAAAAAAAAAAAAAhwC0AAAAaAAAA",
+              "DocumentIndex": 5,
+              "Title": "ReturnRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\ReturnRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Infrastructure\\Repositories\\ReturnRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\ReturnRepository.cs",
+              "RelativeToolTip": "StockWise.Infrastructure\\Repositories\\ReturnRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-04T11:40:07.798Z"
+              "WhenOpened": "2025-10-07T18:07:35.97Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ITransferService.cs",
-              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\IServices\\ITransferService.cs",
-              "RelativeDocumentMoniker": "StockWise.Services\\IServices\\ITransferService.cs",
-              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\IServices\\ITransferService.cs",
-              "RelativeToolTip": "StockWise.Services\\IServices\\ITransferService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAoAAAAlAAAA",
+              "DocumentIndex": 7,
+              "Title": "IRepresentativeRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IRepresentativeRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Domain\\Interfaces\\IRepresentativeRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IRepresentativeRepository.cs",
+              "RelativeToolTip": "StockWise.Domain\\Interfaces\\IRepresentativeRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAkAAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-04T11:27:11.231Z"
+              "WhenOpened": "2025-10-05T12:04:34.373Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "StockRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\StockRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Infrastructure\\Repositories\\StockRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\StockRepository.cs",
+              "RelativeToolTip": "StockWise.Infrastructure\\Repositories\\StockRepository.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAhwBEAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-04T13:14:28.998Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TransferRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\TransferRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Infrastructure\\Repositories\\TransferRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\TransferRepository.cs",
+              "RelativeToolTip": "StockWise.Infrastructure\\Repositories\\TransferRepository.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAA4AAABRAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-05T11:49:13.19Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ITransferRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\ITransferRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Domain\\Interfaces\\ITransferRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\ITransferRepository.cs",
+              "RelativeToolTip": "StockWise.Domain\\Interfaces\\ITransferRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAkAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-05T11:47:59.776Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "WarehouseRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\WarehouseRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Infrastructure\\Repositories\\WarehouseRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\WarehouseRepository.cs",
+              "RelativeToolTip": "StockWise.Infrastructure\\Repositories\\WarehouseRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAmAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-01T17:35:19.319Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IWarehouseRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IWarehouseRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Domain\\Interfaces\\IWarehouseRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IWarehouseRepository.cs",
+              "RelativeToolTip": "StockWise.Domain\\Interfaces\\IWarehouseRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAkAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-02T16:30:29.369Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "RepresentativeRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\RepresentativeRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Infrastructure\\Repositories\\RepresentativeRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\RepresentativeRepository.cs",
+              "RelativeToolTip": "StockWise.Infrastructure\\Repositories\\RepresentativeRepository.cs",
+              "ViewState": "AQIAAAoAAAAAAAAAAAAAAAwAAABnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-05T12:07:13.967Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "PaymentRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\PaymentRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Infrastructure\\Repositories\\PaymentRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\PaymentRepository.cs",
+              "RelativeToolTip": "StockWise.Infrastructure\\Repositories\\PaymentRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAABLAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T18:03:06.8Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "LocationRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\LocationRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Infrastructure\\Repositories\\LocationRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\LocationRepository.cs",
+              "RelativeToolTip": "StockWise.Infrastructure\\Repositories\\LocationRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAABKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T18:01:26.996Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "InvoiceRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\InvoiceRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Infrastructure\\Repositories\\InvoiceRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\InvoiceRepository.cs",
+              "RelativeToolTip": "StockWise.Infrastructure\\Repositories\\InvoiceRepository.cs",
+              "ViewState": "AQIAAAQAAAAAAAAAAAAAAA0AAABOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T17:59:38.421Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "InvoiceItemRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\InvoiceItemRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Infrastructure\\Repositories\\InvoiceItemRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\InvoiceItemRepository.cs",
+              "RelativeToolTip": "StockWise.Infrastructure\\Repositories\\InvoiceItemRepository.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAAAA4AAAACAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T17:57:11.404Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "ProductRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\ProductRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Infrastructure\\Repositories\\ProductRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\ProductRepository.cs",
+              "RelativeToolTip": "StockWise.Infrastructure\\Repositories\\ProductRepository.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAawBEAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-01T16:29:30.582Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ExpenseRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\ExpenseRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Infrastructure\\Repositories\\ExpenseRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\ExpenseRepository.cs",
+              "RelativeToolTip": "StockWise.Infrastructure\\Repositories\\ExpenseRepository.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAAAA0AAABOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T17:38:15.021Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "CustomerRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\CustomerRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Infrastructure\\Repositories\\CustomerRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\CustomerRepository.cs",
+              "RelativeToolTip": "StockWise.Infrastructure\\Repositories\\CustomerRepository.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAqwA4AAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T17:29:55.569Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "IReturnRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IReturnRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Domain\\Interfaces\\IReturnRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IReturnRepository.cs",
+              "RelativeToolTip": "StockWise.Domain\\Interfaces\\IReturnRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAA5AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T16:26:39.12Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "IPaymentRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IPaymentRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Domain\\Interfaces\\IPaymentRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IPaymentRepository.cs",
+              "RelativeToolTip": "StockWise.Domain\\Interfaces\\IPaymentRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAA7AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T16:25:25.779Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "ILocationRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\ILocationRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Domain\\Interfaces\\ILocationRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\ILocationRepository.cs",
+              "RelativeToolTip": "StockWise.Domain\\Interfaces\\ILocationRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T16:24:07.722Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "IInvoiceItemRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IInvoiceItemRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Domain\\Interfaces\\IInvoiceItemRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IInvoiceItemRepository.cs",
+              "RelativeToolTip": "StockWise.Domain\\Interfaces\\IInvoiceItemRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAkAAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T16:21:25.918Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "IUnitOfWork.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IUnitOfWork.cs",
+              "RelativeDocumentMoniker": "StockWise.Domain\\Interfaces\\IUnitOfWork.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IUnitOfWork.cs",
+              "RelativeToolTip": "StockWise.Domain\\Interfaces\\IUnitOfWork.cs",
+              "ViewState": "AQIAAAoAAAAAAAAAAAA7wA8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-01T17:42:28.606Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "UnitOfWork.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\UnitOfWork.cs",
+              "RelativeDocumentMoniker": "StockWise.Infrastructure\\Repositories\\UnitOfWork.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\UnitOfWork.cs",
+              "RelativeToolTip": "StockWise.Infrastructure\\Repositories\\UnitOfWork.cs",
+              "ViewState": "AQIAABwAAAAAAAAAAAA0wCkAAABCAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-01T17:24:25.907Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "IInvoiceRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IInvoiceRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Domain\\Interfaces\\IInvoiceRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IInvoiceRepository.cs",
+              "RelativeToolTip": "StockWise.Domain\\Interfaces\\IInvoiceRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAA9AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T15:59:48.539Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "IExpenseRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IExpenseRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Domain\\Interfaces\\IExpenseRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IExpenseRepository.cs",
+              "RelativeToolTip": "StockWise.Domain\\Interfaces\\IExpenseRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAA7AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T15:58:27.954Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "ICustomerRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\ICustomerRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Domain\\Interfaces\\ICustomerRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\ICustomerRepository.cs",
+              "RelativeToolTip": "StockWise.Domain\\Interfaces\\ICustomerRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAA9AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T15:57:11.049Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "InvoiceItem.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Models\\InvoiceItem.cs",
+              "RelativeDocumentMoniker": "StockWise.Domain\\Models\\InvoiceItem.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Models\\InvoiceItem.cs",
+              "RelativeToolTip": "StockWise.Domain\\Models\\InvoiceItem.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-28T16:08:50.105Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "Location.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Models\\Location.cs",
+              "RelativeDocumentMoniker": "StockWise.Domain\\Models\\Location.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Models\\Location.cs",
+              "RelativeToolTip": "StockWise.Domain\\Models\\Location.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-29T01:28:09.9Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "IStockRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IStockRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Domain\\Interfaces\\IStockRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IStockRepository.cs",
+              "RelativeToolTip": "StockWise.Domain\\Interfaces\\IStockRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-01T22:11:00.474Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "IRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Domain\\Interfaces\\IRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IRepository.cs",
+              "RelativeToolTip": "StockWise.Domain\\Interfaces\\IRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T15:29:50.932Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "GenericRepository.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\GenericRepository.cs",
+              "RelativeDocumentMoniker": "StockWise.Infrastructure\\Repositories\\GenericRepository.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\GenericRepository.cs",
+              "RelativeToolTip": "StockWise.Infrastructure\\Repositories\\GenericRepository.cs",
+              "ViewState": "AQIAAAEAAAAAAAAAAAAAAA4AAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-01T15:26:42.463Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "CustomerService.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\Services\\CustomerService.cs",
+              "RelativeDocumentMoniker": "StockWise.Services\\Services\\CustomerService.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\Services\\CustomerService.cs",
+              "RelativeToolTip": "StockWise.Services\\Services\\CustomerService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T15:14:58.714Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
               "Title": "TransfersController.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise\\Controllers\\TransfersController.cs",
               "RelativeDocumentMoniker": "StockWise\\Controllers\\TransfersController.cs",
@@ -294,7 +720,71 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 40,
+              "Title": "ITransferService.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\IServices\\ITransferService.cs",
+              "RelativeDocumentMoniker": "StockWise.Services\\IServices\\ITransferService.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\IServices\\ITransferService.cs",
+              "RelativeToolTip": "StockWise.Services\\IServices\\ITransferService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAoAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-04T11:27:11.231Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "TransferService.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\Services\\TransferService.cs",
+              "RelativeDocumentMoniker": "StockWise.Services\\Services\\TransferService.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\Services\\TransferService.cs",
+              "RelativeToolTip": "StockWise.Services\\Services\\TransferService.cs",
+              "ViewState": "AQIAADIAAAAAAAAAAAAIwCMAAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-04T11:40:07.798Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "WarehouseService.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\Services\\WarehouseService.cs",
+              "RelativeDocumentMoniker": "StockWise.Services\\Services\\WarehouseService.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\Services\\WarehouseService.cs",
+              "RelativeToolTip": "StockWise.Services\\Services\\WarehouseService.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAkwD0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T12:34:54.12Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "IWarehouseService.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\IServices\\IWarehouseService.cs",
+              "RelativeDocumentMoniker": "StockWise.Services\\IServices\\IWarehouseService.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\IServices\\IWarehouseService.cs",
+              "RelativeToolTip": "StockWise.Services\\IServices\\IWarehouseService.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAA0AAAA3AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T12:35:26.731Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "ICustomerService.cs",
+              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\IServices\\ICustomerService.cs",
+              "RelativeDocumentMoniker": "StockWise.Services\\IServices\\ICustomerService.cs",
+              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\IServices\\ICustomerService.cs",
+              "RelativeToolTip": "StockWise.Services\\IServices\\ICustomerService.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAsAAAA2AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T15:10:47.996Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
               "Title": "Enums.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Enums\\Enums.cs",
               "RelativeDocumentMoniker": "StockWise.Domain\\Enums\\Enums.cs",
@@ -302,23 +792,25 @@
               "RelativeToolTip": "StockWise.Domain\\Enums\\Enums.cs",
               "ViewState": "AQIAAAoAAAAAAAAAAAAAAAwAAABaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-28T14:05:14.302Z"
+              "WhenOpened": "2025-09-28T14:05:14.302Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 35,
               "Title": "ProductService.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\Services\\ProductService.cs",
               "RelativeDocumentMoniker": "StockWise.Services\\Services\\ProductService.cs",
               "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\Services\\ProductService.cs",
               "RelativeToolTip": "StockWise.Services\\Services\\ProductService.cs",
-              "ViewState": "AQIAAAgAAAAAAAAAAAArwA0AAAAiAAAA",
+              "ViewState": "AQIAABsAAAAAAAAAAAAhwA0AAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-06T18:01:28.931Z"
+              "WhenOpened": "2025-10-06T18:01:28.931Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 39,
               "Title": "Product.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Models\\Product.cs",
               "RelativeDocumentMoniker": "StockWise.Domain\\Models\\Product.cs",
@@ -330,7 +822,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 37,
               "Title": "IProductService.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\IServices\\IProductService.cs",
               "RelativeDocumentMoniker": "StockWise.Services\\IServices\\IProductService.cs",
@@ -342,7 +834,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 38,
               "Title": "ProductDto.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\DTOS\\ProductDto.cs",
               "RelativeDocumentMoniker": "StockWise.Services\\DTOS\\ProductDto.cs",
@@ -354,20 +846,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 36,
               "Title": "ProductsController.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise\\Controllers\\ProductsController.cs",
               "RelativeDocumentMoniker": "StockWise\\Controllers\\ProductsController.cs",
               "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise\\Controllers\\ProductsController.cs",
               "RelativeToolTip": "StockWise\\Controllers\\ProductsController.cs",
-              "ViewState": "AQIAABkAAAAAAAAAAIA2wCUAAABZAAAA",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAlwCUAAABZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-05T17:18:09.421Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 44,
               "Title": "BusinessException.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\Exceptions\\BusinessException.cs",
               "RelativeDocumentMoniker": "StockWise.Services\\Exceptions\\BusinessException.cs",
@@ -379,7 +871,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 45,
               "Title": "TransferDto.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\DTOS\\TransferDto.cs",
               "RelativeDocumentMoniker": "StockWise.Services\\DTOS\\TransferDto.cs",
@@ -391,7 +883,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 42,
               "Title": "ErrorHandlerMiddleware.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise\\Errors\\ErrorHandlerMiddleware.cs",
               "RelativeDocumentMoniker": "StockWise\\Errors\\ErrorHandlerMiddleware.cs",
@@ -403,7 +895,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 43,
               "Title": "Program.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise\\Program.cs",
               "RelativeDocumentMoniker": "StockWise\\Program.cs",
@@ -415,7 +907,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 46,
               "Title": "Transfer.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Models\\Transfer.cs",
               "RelativeDocumentMoniker": "StockWise.Domain\\Models\\Transfer.cs",
@@ -427,19 +919,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "IUnitOfWork.cs",
-              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IUnitOfWork.cs",
-              "RelativeDocumentMoniker": "StockWise.Domain\\Interfaces\\IUnitOfWork.cs",
-              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IUnitOfWork.cs",
-              "RelativeToolTip": "StockWise.Domain\\Interfaces\\IUnitOfWork.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAGAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-01T17:42:28.606Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 49,
               "Title": "LocationDto.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\DTOS\\LocationDto.cs",
               "RelativeDocumentMoniker": "StockWise.Services\\DTOS\\LocationDto.cs",
@@ -451,19 +931,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "UnitOfWork.cs",
-              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\UnitOfWork.cs",
-              "RelativeDocumentMoniker": "StockWise.Infrastructure\\Repositories\\UnitOfWork.cs",
-              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\UnitOfWork.cs",
-              "RelativeToolTip": "StockWise.Infrastructure\\Repositories\\UnitOfWork.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAswCIAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-01T17:24:25.907Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 47,
               "Title": "StockWise.Domain.csproj",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\StockWise.Domain.csproj",
               "RelativeDocumentMoniker": "StockWise.Domain\\StockWise.Domain.csproj",
@@ -475,79 +943,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "ITransferRepository.cs",
-              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\ITransferRepository.cs",
-              "RelativeDocumentMoniker": "StockWise.Domain\\Interfaces\\ITransferRepository.cs",
-              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\ITransferRepository.cs",
-              "RelativeToolTip": "StockWise.Domain\\Interfaces\\ITransferRepository.cs",
-              "ViewState": "AQIAAAEAAAAAAAAAAAAnwAkAAAAoAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-05T11:47:59.776Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "TransferRepository.cs",
-              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\TransferRepository.cs",
-              "RelativeDocumentMoniker": "StockWise.Infrastructure\\Repositories\\TransferRepository.cs",
-              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\TransferRepository.cs",
-              "RelativeToolTip": "StockWise.Infrastructure\\Repositories\\TransferRepository.cs",
-              "ViewState": "AQIAAAIAAAAAAAAAAAASwAwAAAA5AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-05T11:49:13.19Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "IRepresentativeRepository.cs",
-              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IRepresentativeRepository.cs",
-              "RelativeDocumentMoniker": "StockWise.Domain\\Interfaces\\IRepresentativeRepository.cs",
-              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IRepresentativeRepository.cs",
-              "RelativeToolTip": "StockWise.Domain\\Interfaces\\IRepresentativeRepository.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAkAAAAKAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-05T12:04:34.373Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "RepresentativeRepository.cs",
-              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\RepresentativeRepository.cs",
-              "RelativeDocumentMoniker": "StockWise.Infrastructure\\Repositories\\RepresentativeRepository.cs",
-              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\RepresentativeRepository.cs",
-              "RelativeToolTip": "StockWise.Infrastructure\\Repositories\\RepresentativeRepository.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAASwBsAAABEAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-05T12:07:13.967Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "GenericRepository.cs",
-              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\GenericRepository.cs",
-              "RelativeDocumentMoniker": "StockWise.Infrastructure\\Repositories\\GenericRepository.cs",
-              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\GenericRepository.cs",
-              "RelativeToolTip": "StockWise.Infrastructure\\Repositories\\GenericRepository.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAAAwAAAAzAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-01T15:26:42.463Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "IStockRepository.cs",
-              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IStockRepository.cs",
-              "RelativeDocumentMoniker": "StockWise.Domain\\Interfaces\\IStockRepository.cs",
-              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IStockRepository.cs",
-              "RelativeToolTip": "StockWise.Domain\\Interfaces\\IStockRepository.cs",
-              "ViewState": "AQIAAAgAAAAAAAAAAAAcwAkAAAAKAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-01T22:11:00.474Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 48,
               "Title": "StockWiseDbContext.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\DataAccess\\StockWiseDbContext.cs",
               "RelativeDocumentMoniker": "StockWise.Infrastructure\\DataAccess\\StockWiseDbContext.cs",
@@ -559,19 +955,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "StockRepository.cs",
-              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\StockRepository.cs",
-              "RelativeDocumentMoniker": "StockWise.Infrastructure\\Repositories\\StockRepository.cs",
-              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\StockRepository.cs",
-              "RelativeToolTip": "StockWise.Infrastructure\\Repositories\\StockRepository.cs",
-              "ViewState": "AQIAABcAAAAAAAAAAAAMwCcAAAAlAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-04T13:14:28.998Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 51,
               "Title": "ExpenseDto.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\DTOS\\ExpenseDto.cs",
               "RelativeDocumentMoniker": "StockWise.Services\\DTOS\\ExpenseDto.cs",
@@ -583,7 +967,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 52,
               "Title": "ReturnDto.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\DTOS\\ReturnDto.cs",
               "RelativeDocumentMoniker": "StockWise.Services\\DTOS\\ReturnDto.cs",
@@ -595,7 +979,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 50,
               "Title": "StockDto.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\DTOS\\StockDto.cs",
               "RelativeDocumentMoniker": "StockWise.Services\\DTOS\\StockDto.cs",
@@ -607,7 +991,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 53,
               "Title": "PaymentDto.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\DTOS\\PaymentDto.cs",
               "RelativeDocumentMoniker": "StockWise.Services\\DTOS\\PaymentDto.cs",
@@ -619,7 +1003,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 54,
               "Title": "InvoiceItemDto.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\DTOS\\InvoiceItemDto.cs",
               "RelativeDocumentMoniker": "StockWise.Services\\DTOS\\InvoiceItemDto.cs",
@@ -631,7 +1015,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 55,
               "Title": "InvoiceDto.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\DTOS\\InvoiceDto.cs",
               "RelativeDocumentMoniker": "StockWise.Services\\DTOS\\InvoiceDto.cs",
@@ -643,7 +1027,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 56,
               "Title": "RepresentativeDto.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\DTOS\\RepresentativeDto.cs",
               "RelativeDocumentMoniker": "StockWise.Services\\DTOS\\RepresentativeDto.cs",
@@ -655,7 +1039,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 57,
               "Title": "CustomerDto.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\DTOS\\CustomerDto.cs",
               "RelativeDocumentMoniker": "StockWise.Services\\DTOS\\CustomerDto.cs",
@@ -667,7 +1051,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 58,
               "Title": "WarehouseDto.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Services\\DTOS\\WarehouseDto.cs",
               "RelativeDocumentMoniker": "StockWise.Services\\DTOS\\WarehouseDto.cs",
@@ -679,7 +1063,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 63,
               "Title": "Warehouse.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Models\\Warehouse.cs",
               "RelativeDocumentMoniker": "StockWise.Domain\\Models\\Warehouse.cs",
@@ -691,7 +1075,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 62,
               "Title": "Return.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Models\\Return.cs",
               "RelativeDocumentMoniker": "StockWise.Domain\\Models\\Return.cs",
@@ -703,7 +1087,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 59,
               "Title": "BaseEntity.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Models\\BaseEntity.cs",
               "RelativeDocumentMoniker": "StockWise.Domain\\Models\\BaseEntity.cs",
@@ -715,7 +1099,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 64,
               "Title": "Money.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\ValueObjects\\Money.cs",
               "RelativeDocumentMoniker": "StockWise.Domain\\ValueObjects\\Money.cs",
@@ -727,7 +1111,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 60,
               "Title": "appsettings.json",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise\\appsettings.json",
               "RelativeDocumentMoniker": "StockWise\\appsettings.json",
@@ -739,7 +1123,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 61,
               "Title": "StockWise.csproj",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise\\StockWise.csproj",
               "RelativeDocumentMoniker": "StockWise\\StockWise.csproj",
@@ -751,55 +1135,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
-              "Title": "IStockTransactionRepository.cs",
-              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IStockTransactionRepository.cs",
-              "RelativeDocumentMoniker": "StockWise.Domain\\Interfaces\\IStockTransactionRepository.cs",
-              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IStockTransactionRepository.cs",
-              "RelativeToolTip": "StockWise.Domain\\Interfaces\\IStockTransactionRepository.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAD4vwcAAAAlAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-23T16:26:03.753Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 40,
-              "Title": "ProductRepository.cs",
-              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\ProductRepository.cs",
-              "RelativeDocumentMoniker": "StockWise.Infrastructure\\Repositories\\ProductRepository.cs",
-              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\ProductRepository.cs",
-              "RelativeToolTip": "StockWise.Infrastructure\\Repositories\\ProductRepository.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAawBMAAABEAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-01T16:29:30.582Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 50,
-              "Title": "IWarehouseRepository.cs",
-              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IWarehouseRepository.cs",
-              "RelativeDocumentMoniker": "StockWise.Domain\\Interfaces\\IWarehouseRepository.cs",
-              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IWarehouseRepository.cs",
-              "RelativeToolTip": "StockWise.Domain\\Interfaces\\IWarehouseRepository.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-02T16:30:29.369Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 53,
-              "Title": "IProductRepository.cs",
-              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IProductRepository.cs",
-              "RelativeDocumentMoniker": "StockWise.Domain\\Interfaces\\IProductRepository.cs",
-              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\IProductRepository.cs",
-              "RelativeToolTip": "StockWise.Domain\\Interfaces\\IProductRepository.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAqwBAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-23T16:26:54.691Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 65,
               "Title": "Customer.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Models\\Customer.cs",
               "RelativeDocumentMoniker": "StockWise.Domain\\Models\\Customer.cs",
@@ -811,31 +1147,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
-              "Title": "ICategoryRepository.cs",
-              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\ICategoryRepository.cs",
-              "RelativeDocumentMoniker": "StockWise.Domain\\Interfaces\\ICategoryRepository.cs",
-              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\ICategoryRepository.cs",
-              "RelativeToolTip": "StockWise.Domain\\Interfaces\\ICategoryRepository.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAD4vwkAAAAqAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-23T16:26:41.011Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 51,
-              "Title": "ISupplierRepository.cs",
-              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\ISupplierRepository.cs",
-              "RelativeDocumentMoniker": "StockWise.Domain\\Interfaces\\ISupplierRepository.cs",
-              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Interfaces\\ISupplierRepository.cs",
-              "RelativeToolTip": "StockWise.Domain\\Interfaces\\ISupplierRepository.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAD4vwkAAAAqAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-23T16:26:27.491Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 70,
               "Title": "20251002002727_StockWise2.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Migrations\\20251002002727_StockWise2.cs",
               "RelativeDocumentMoniker": "StockWise.Infrastructure\\Migrations\\20251002002727_StockWise2.cs",
@@ -847,7 +1159,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 66,
               "Title": "Expense.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Models\\Expense.cs",
               "RelativeDocumentMoniker": "StockWise.Domain\\Models\\Expense.cs",
@@ -859,7 +1171,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
+              "DocumentIndex": 72,
               "Title": "20251001234245_StockWise4.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Migrations\\20251001234245_StockWise4.cs",
               "RelativeDocumentMoniker": "StockWise.Infrastructure\\Migrations\\20251001234245_StockWise4.cs",
@@ -871,7 +1183,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 71,
               "Title": "20251002001851_StockWise4.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Migrations\\20251002001851_StockWise4.cs",
               "RelativeDocumentMoniker": "StockWise.Infrastructure\\Migrations\\20251002001851_StockWise4.cs",
@@ -883,19 +1195,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
-              "Title": "WarehouseRepository.cs",
-              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\WarehouseRepository.cs",
-              "RelativeDocumentMoniker": "StockWise.Infrastructure\\Repositories\\WarehouseRepository.cs",
-              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Repositories\\WarehouseRepository.cs",
-              "RelativeToolTip": "StockWise.Infrastructure\\Repositories\\WarehouseRepository.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAsAAABYAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-01T17:35:19.319Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 68,
               "Title": "Payment.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Models\\Payment.cs",
               "RelativeDocumentMoniker": "StockWise.Domain\\Models\\Payment.cs",
@@ -907,31 +1207,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
-              "Title": "InvoiceItem.cs",
-              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Models\\InvoiceItem.cs",
-              "RelativeDocumentMoniker": "StockWise.Domain\\Models\\InvoiceItem.cs",
-              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Models\\InvoiceItem.cs",
-              "RelativeToolTip": "StockWise.Domain\\Models\\InvoiceItem.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAAAQAAAASAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-28T16:08:50.105Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 48,
-              "Title": "Location.cs",
-              "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Models\\Location.cs",
-              "RelativeDocumentMoniker": "StockWise.Domain\\Models\\Location.cs",
-              "ToolTip": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Models\\Location.cs",
-              "RelativeToolTip": "StockWise.Domain\\Models\\Location.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-29T01:28:09.9Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 69,
               "Title": "Invoice.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Models\\Invoice.cs",
               "RelativeDocumentMoniker": "StockWise.Domain\\Models\\Invoice.cs",
@@ -943,7 +1219,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 58,
+              "DocumentIndex": 73,
               "Title": "Representative.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Models\\Representative.cs",
               "RelativeDocumentMoniker": "StockWise.Domain\\Models\\Representative.cs",
@@ -955,7 +1231,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 67,
               "Title": "Stock.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Domain\\Models\\Stock.cs",
               "RelativeDocumentMoniker": "StockWise.Domain\\Models\\Stock.cs",
@@ -967,7 +1243,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 59,
+              "DocumentIndex": 74,
               "Title": "Class1.cs",
               "DocumentMoniker": "E:\\New folder\\WebAPI\\StockWise\\StockWise.Infrastructure\\Class1.cs",
               "RelativeDocumentMoniker": "StockWise.Infrastructure\\Class1.cs",

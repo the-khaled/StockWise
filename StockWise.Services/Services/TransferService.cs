@@ -1,6 +1,7 @@
 ﻿using StockWise.Domain.Interfaces;
 using StockWise.Domain.Models;
 using StockWise.Services.DTOS;
+using StockWise.Services.Exceptions;
 using StockWise.Services.IServices;
 using System;
 using System.Collections.Generic;
@@ -21,15 +22,15 @@ namespace StockWise.Services.Services
         public async Task CreateTransferAsync(TransferDto transferdto)
         {
             if (transferdto == null) throw new ArgumentNullException(nameof(transferdto));
-            //التاكد ان الكميه مش سالبه 
-            if (transferdto.Quantity <= 0) throw new ArgumentException("Quantity must be greater than zero.");
+             if (transferdto.Quantity <= 0) throw new ArgumentException("Quantity must be greater than zero.");
             //التاكد ان المخذنين موجودين 
             var fromwarehouse = await _unitOfWork.Warehouses.GetByIdAsync(transferdto.FromWarehouseId);
-            var tomwarehouse = await _unitOfWork.Warehouses.GetByIdAsync(transferdto.ToWarehouseId);
-            if (fromwarehouse == null || tomwarehouse == null) throw new ArgumentNullException("One or both warehouses not found.");
+            var towarehouse = await _unitOfWork.Warehouses.GetByIdAsync(transferdto.ToWarehouseId);
+            //التاكد ان الكميه مش سالبه 
+           if (fromwarehouse == null || towarehouse == null) throw new BusinessException("One or both warehouses not found.");
             //التاكد ان المنتج نفسو موجود
             var prod = await _unitOfWork.Products.GetByIdAsync(transferdto.ProductId);
-            if (prod == null) throw new KeyNotFoundException("Product Not Found");
+            if (prod == null) throw new BusinessException("Product Not Found");
             var transfer = MapToEntity(transferdto);
             await _unitOfWork.Transfers.AddAsync(transfer);
             await _unitOfWork.SaveChangesAsync();

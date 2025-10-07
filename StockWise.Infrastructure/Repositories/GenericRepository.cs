@@ -12,7 +12,7 @@ namespace StockWise.Infrastructure.Repositories
 {
     public class GenericRepository<T> : IRepository<T> where T : BaseEntity
     {
-        private readonly StockWiseDbContext _context;
+        protected readonly StockWiseDbContext _context;
         public GenericRepository(StockWiseDbContext context)
         {
             _context=context;

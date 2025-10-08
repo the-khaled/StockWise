@@ -15,10 +15,10 @@ namespace StockWise.Services.DTOS
         public int ProductId { get; set; }
 
         [Required(ErrorMessage = "RepresentativeId is required.")]
-        public int RepresentativeId { get; set; }
+        public int? RepresentativeId { get; set; }
 
         [Required(ErrorMessage = "CustomerId is required.")]
-        public int CustomerId { get; set; }
+        public int? CustomerId { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "Quantity must be greater than zero.")]
         public int Quantity { get; set; }

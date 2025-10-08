@@ -35,13 +35,19 @@ namespace StockWise.Infrastructure.Repositories
         public UnitOfWork(StockWiseDbContext context)
         {
             _context = context;   
+            Customer =new CustomerRepository(context);
             Products= new ProductRepository(context);
             Warehouses=new WarehouseRepository(context);
             Stocks = new StockRepository(context);
             Transfers = new TransferRepository(context);
             Representatives=new RepresentativeRepository(context);
-/*            Invoice =new IInvoiceRepository(context);
-*/        }
+            Invoice = new InvoiceRepository(context);
+            InvoiceItem = new InvoiceItemRepository(context);
+            expense = new ExpenseRepository(context);
+            Payment = new PaymentRepository(context);
+            Location = new LocationRepository(context);
+            Return = new ReturnRepository(context);
+        }
         public async Task SaveChangesAsync() 
         {
             await _context.SaveChangesAsync();

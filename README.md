@@ -46,7 +46,7 @@ StockWise/
 
 Clone the repository:
 
-git clone https://github.com/the-khaled/StockWise.git
+git clone https://github.com/the-khaled/StockWise
 
 
 Update the connection string in appsettings.json.

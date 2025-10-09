@@ -34,7 +34,7 @@ namespace StockWise.Services.Services
         public async Task DeleteCustomerAsync(int id)
         {
             var existingCustomer = await _unitOfWork.Customer.GetByIdAsync(id);
-            if (existingCustomer != null)
+            if (existingCustomer == null)
                 throw new KeyNotFoundException($"Customer with ID {id} not found.");
             await _unitOfWork.Customer.DeleteAsync(id);
             await _unitOfWork.SaveChangesAsync();

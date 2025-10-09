@@ -28,7 +28,7 @@ namespace StockWise.Errors
         {
             var code = HttpStatusCode.InternalServerError;
             var message = "An unexpected error occurred.";
-
+            var innerException = exception.InnerException?.Message;
             // يمكنك إضافة حالات أخرى (مثل ValidationException)
             if (exception is UnauthorizedAccessException)
             {

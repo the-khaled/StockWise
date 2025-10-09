@@ -5,6 +5,7 @@ using StockWise.Services.Exceptions;
 using StockWise.Services.IServices;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -105,6 +106,7 @@ namespace StockWise.Services.Services
             existingReturn.CustomerId = ReturnDto.CustomerId;
             existingReturn.Quantity = ReturnDto.Quantity;
             existingReturn.ReturnType = ReturnDto.ReturnType;
+            existingReturn.Reason = ReturnDto.Reason;   
             existingReturn.UpdatedAt = DateTime.Now;
 
             await _unitOfWork.Return.UpdateAsync(existingReturn);
@@ -119,6 +121,7 @@ namespace StockWise.Services.Services
                 RepresentativeId=Entityreturn.RepresentativeId,
                 CustomerId =Entityreturn.CustomerId,
                 Quantity = Entityreturn.Quantity,
+                Reason = Entityreturn.Reason,
                 ReturnType=Entityreturn.ReturnType,
                 CreatedAt = Entityreturn.CreatedAt,
                 UpdatedAt = Entityreturn.UpdatedAt,
@@ -133,6 +136,7 @@ namespace StockWise.Services.Services
                 RepresentativeId = dto.RepresentativeId,
                 CustomerId = dto.CustomerId,
                 Quantity = dto.Quantity,
+                Reason= dto.Reason,
                 ReturnType = dto.ReturnType,
                 CreatedAt = dto.CreatedAt,
                 UpdatedAt = dto.UpdatedAt,

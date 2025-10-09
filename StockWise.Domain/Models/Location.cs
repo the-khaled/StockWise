@@ -12,6 +12,6 @@ namespace StockWise.Domain.Models
         public Representative Representative { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-        public DateTime Timestamp { get; set; }
+        public DateTime? Timestamp { get; set; }
     }
 }

@@ -36,7 +36,7 @@ namespace StockWise.Services.Services
 
         public async Task DeleteProductAsync(int id)
         {
-            var product = _UnitOfWork.Products.GetByIdAsync(id);
+            var product = await _UnitOfWork.Products.GetByIdAsync(id);
             if (product == null) 
                 throw new KeyNotFoundException($"Product with ID {id} not found.");
             await _UnitOfWork.Products.DeleteAsync(id);

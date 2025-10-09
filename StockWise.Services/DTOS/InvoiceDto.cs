@@ -21,7 +21,7 @@ namespace StockWise.Services.DTOS
         [Required(ErrorMessage = "TotalAmount is required.")]
         public Money TotalAmount { get; set; }
 
-        public List<InvoiceItemDto> InvoiceItems { get; set; }
+        public List<InvoiceItemDto> Items { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
     }

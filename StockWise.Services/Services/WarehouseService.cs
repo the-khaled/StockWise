@@ -1,4 +1,5 @@
-﻿using StockWise.Domain.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using StockWise.Domain.Interfaces;
 using StockWise.Domain.Models;
 using StockWise.Services.DTOS;
 using StockWise.Services.IServices;
@@ -27,12 +28,43 @@ namespace StockWise.Services.Services
 
         public async Task DeleteWarehouseAsync(int id)
         {
-         
-                var warehouse = await _unitOfWork.Warehouses.GetByIdAsync(id);
-                if (warehouse == null)
-                    throw new KeyNotFoundException($"warehouse with ID {id} Not found");
-                await _unitOfWork.Warehouses.DeleteAsync(id);
-                await _unitOfWork.SaveChangesAsync();
+
+            // تحميل الـ Warehouse بكل العلاقات المرتبطة
+            var warehouse = await _unitOfWork.Warehouses
+                .GetQueryable()
+                .Include(w => w.TransfersFrom)
+                .Include(w => w.TransfersTo)
+                .FirstOrDefaultAsync(w => w.Id == id);
+
+            if (warehouse == null)
+                throw new KeyNotFoundException($"Warehouse with ID {id} not found");
+
+            // حذف التحويلات المرتبطة قبل حذف المستودع
+            foreach (var transfer in warehouse.TransfersFrom.ToList())
+                await _unitOfWork.Transfers.DeleteAsync(transfer.Id);
+
+            foreach (var transfer in warehouse.TransfersTo.ToList())
+                await _unitOfWork.Transfers.DeleteAsync(transfer.Id);
+
+            await _unitOfWork.SaveChangesAsync();
+
+            // حذف المستودع نفسه
+            await _unitOfWork.Warehouses.DeleteAsync(id);
+            await _unitOfWork.SaveChangesAsync();
+
+            /*  var warehouse = await _unitOfWork.Warehouses.GetByIdAsync(id);
+              if (warehouse == null)
+                  throw new KeyNotFoundException($"warehouse with ID {id} Not found");
+          // حذف التحويلات المرتبطة قبل حذف المستودع
+          var transfersFrom = warehouse.TransfersFrom.ToList();
+          var transfersTo = warehouse.TransfersTo.ToList();
+
+          foreach (var transfer in transfersFrom.Concat(transfersTo))
+              await _unitOfWork.Transfers.DeleteAsync(transfer.Id);
+
+          await _unitOfWork.SaveChangesAsync();
+          await _unitOfWork.Warehouses.DeleteAsync(id);
+              await _unitOfWork.SaveChangesAsync();*/
         }
 
         public async Task<IEnumerable<WarehouseDto>> GetAllWarehousesAsync()

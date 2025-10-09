@@ -33,7 +33,8 @@ namespace StockWise.Services.Services
             var customer = await _unitOfWork.Customer.GetByIdAsync(paymentDto.CustomerId);
             if (customer == null)
                 throw new BusinessException("Customer not found.");
-
+            if (string.IsNullOrEmpty(paymentDto.TransactionId))
+                paymentDto.TransactionId = Guid.NewGuid().ToString();
             await _unitOfWork.Payment.AddAsync(MapToEntity(paymentDto));
             await _unitOfWork.SaveChangesAsync();
         }
@@ -102,7 +103,8 @@ namespace StockWise.Services.Services
                 Method = payment.Method,
                 Status = payment.Status,
                 CreatedAt = payment.CreatedAt,
-                UpdatedAt = payment.UpdatedAt
+                UpdatedAt = payment.UpdatedAt,
+                TransactionId = payment.TransactionId,
             };
         }
         public Payment MapToEntity(PaymentDto paymentdto)
@@ -116,7 +118,9 @@ namespace StockWise.Services.Services
                 Method = paymentdto.Method,
                 Status = paymentdto.Status,
                 CreatedAt = paymentdto.CreatedAt,
-                UpdatedAt = paymentdto.UpdatedAt
+                UpdatedAt = paymentdto.UpdatedAt,
+                TransactionId = paymentdto.TransactionId
+
             };
         }
     }

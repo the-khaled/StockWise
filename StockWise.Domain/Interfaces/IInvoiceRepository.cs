@@ -9,5 +9,7 @@ namespace StockWise.Domain.Interfaces
 {
     public interface IInvoiceRepository : IRepository<Invoice>
     {
+        Task<IEnumerable<Invoice>> GetAllWithItemsAsync();
+        Task<Invoice> GetByIdWithItemsAsync(int id);
     }
 }

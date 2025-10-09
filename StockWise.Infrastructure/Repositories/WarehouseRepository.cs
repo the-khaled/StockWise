@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace StockWise.Infrastructure.Repositories
 {
-    internal class WarehouseRepository:GenericRepository<Warehouse>,IWarehouseRepository
+    public class WarehouseRepository:GenericRepository<Warehouse>,IWarehouseRepository
     {
         public WarehouseRepository(StockWiseDbContext context) : base(context) { }
     }

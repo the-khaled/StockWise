@@ -10,7 +10,7 @@ namespace StockWise.Domain.Models
 {
     public class Expense:BaseEntity
     {
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public Money Amount { get; set; }
         public ExpenseType ExpenseType { get; set; } = ExpenseType.General;
         public int? RepresentativeId { get; set; }

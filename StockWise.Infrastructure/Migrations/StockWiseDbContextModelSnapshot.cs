@@ -64,7 +64,6 @@ namespace StockWise.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ExpenseType")
@@ -168,7 +167,7 @@ namespace StockWise.Infrastructure.Migrations
                     b.Property<int>("RepresentativeId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Timestamp")
+                    b.Property<DateTime?>("Timestamp")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -192,10 +191,10 @@ namespace StockWise.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("InvoiceId")
+                    b.Property<int>("InvoiceId")
                         .HasColumnType("int");
 
                     b.Property<string>("Method")
@@ -615,11 +614,15 @@ namespace StockWise.Infrastructure.Migrations
                 {
                     b.HasOne("StockWise.Domain.Models.Customer", "Customer")
                         .WithMany("Payments")
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("StockWise.Domain.Models.Invoice", "Invoice")
                         .WithMany("Payments")
-                        .HasForeignKey("InvoiceId");
+                        .HasForeignKey("InvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.OwnsOne("StockWise.Domain.ValueObjects.Money", "Amount", b1 =>
                         {

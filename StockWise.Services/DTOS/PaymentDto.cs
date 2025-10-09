@@ -26,7 +26,8 @@ namespace StockWise.Services.DTOS
 
         [Required(ErrorMessage = "Status is required.")]
         public PaymentStatus Status { get; set; }
-
+      
+        public string TransactionId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
     }

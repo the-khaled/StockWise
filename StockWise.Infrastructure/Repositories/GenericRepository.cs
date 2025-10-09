@@ -43,5 +43,9 @@ namespace StockWise.Infrastructure.Repositories
         {
             _context.Set<T>().Update(entity);
         }
+        public IQueryable<T> GetQueryable()
+        {
+            return _context.Set<T>().AsQueryable();
+        }
     }
 }

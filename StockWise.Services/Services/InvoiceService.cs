@@ -48,13 +48,13 @@ namespace StockWise.Services.Services
 
         public async Task<IEnumerable<InvoiceDto>> GetAllInvoicesAsync()
         {
-            var invoice = await _unitOfWork.Invoice.GetAllAsync();
+            var invoice = await _unitOfWork.Invoice.GetAllWithItemsAsync();
             return invoice.Select(i=>MapToDto(i)).ToList();
         }
 
         public async Task<InvoiceDto> GetInvoiceByIdAsync(int id)
         {
-           var invoice = await _unitOfWork.Invoice.GetByIdAsync(id);
+           var invoice = await _unitOfWork.Invoice.GetByIdWithItemsAsync(id);
             if (invoice == null) throw new KeyNotFoundException($"Invoice with ID {id} not found.");
             return MapToDto(invoice);
         }
@@ -91,7 +91,7 @@ namespace StockWise.Services.Services
                 CustomerId = invoice.CustomerId,
                 RepresentativeId = invoice.RepresentativeId,
                 TotalAmount = invoice.TotalAmount,
-                InvoiceItems = invoice.Items?.Select(i => new InvoiceItemDto 
+                Items = invoice.Items?.Select(i => new InvoiceItemDto 
                 {
                     Id = i.Id,
                     InvoiceId = i.InvoiceId,
@@ -113,7 +113,7 @@ namespace StockWise.Services.Services
                 CustomerId = invoicedto.CustomerId,
                 RepresentativeId = invoicedto.RepresentativeId,
                 TotalAmount = invoicedto.TotalAmount,
-                Items = invoicedto.InvoiceItems?.Select(i => new InvoiceItem
+                Items = invoicedto.Items?.Select(i => new InvoiceItem
                 {
                     Id = i.Id,
                     InvoiceId = i.InvoiceId,

@@ -1,5 +1,7 @@
 ﻿using StockWise.Domain.Interfaces;
+using StockWise.Domain.Models;
 using StockWise.Services.DTOS;
+using StockWise.Services.Exceptions;
 using StockWise.Services.IServices;
 using System;
 using System.Collections.Generic;
@@ -16,30 +18,100 @@ namespace StockWise.Services.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public Task CreateExpenseAsync(ExpenseDto expenseDto)
+        public async Task CreateExpenseAsync(ExpenseDto expenseDto)
         {
-            throw new NotImplementedException();
+            if (expenseDto == null)
+                throw new ArgumentNullException(nameof(expenseDto));
+
+            if (expenseDto.Amount.Amount < 0)
+                throw new BusinessException("Expense amount cannot be negative.");
+
+            if (expenseDto.RepresentativeId != null)
+            {
+                var representative = await _unitOfWork.Representatives.GetByIdAsync(expenseDto.RepresentativeId.Value);
+                if (representative == null)
+                    throw new BusinessException("Representative not found.");
+            }
+
+            await _unitOfWork.expense.AddAsync(MapToEntity(expenseDto));
+            await _unitOfWork.SaveChangesAsync();
         }
 
-        public Task DeleteExpenseAsync(int id)
+        public async Task DeleteExpenseAsync(int id)
         {
-            throw new NotImplementedException();
+            var expense = await _unitOfWork.expense.GetByIdAsync(id);
+            if (expense == null)
+                throw new KeyNotFoundException($"Expense with ID {id} not found.");
+            
+            await _unitOfWork.expense.DeleteAsync(id);
+            await _unitOfWork.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<ExpenseDto>> GetAllExpenseAsync()
+        public async Task<IEnumerable<ExpenseDto>> GetAllExpenseAsync()
         {
-            throw new NotImplementedException();
+            var expenses = await _unitOfWork.expense.GetAllAsync();
+            return expenses.Select(e => MapToDto(e)).ToList();
         }
 
-        public Task<ExpenseDto> GetExpenseByIdAsync(int id)
+        public async Task<ExpenseDto> GetExpenseByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var expense = await _unitOfWork.expense.GetByIdAsync(id);
+            if (expense == null)
+                throw new KeyNotFoundException($"Expense with ID {id} not found.");
+
+            return MapToDto(expense);
         }
 
-        public Task UpdateExpenseAsync(ExpenseDto expenseDto)
+        public async Task UpdateExpenseAsync(ExpenseDto expenseDto)
         {
-            throw new NotImplementedException();
+            if (expenseDto == null)
+                throw new ArgumentNullException(nameof(expenseDto));
+
+            var existingExpense = await _unitOfWork.expense.GetByIdAsync(expenseDto.Id);
+            if (existingExpense == null)
+                throw new KeyNotFoundException($"Expense with ID {expenseDto.Id} not found.");
+            
+
+            if (expenseDto.RepresentativeId.HasValue)
+            {
+                var representative = await _unitOfWork.Representatives.GetByIdAsync(expenseDto.RepresentativeId.Value);
+                if (representative == null)
+                    throw new BusinessException("Representative not found.");
+            }
+
+            existingExpense.Amount = expenseDto.Amount;
+            existingExpense.ExpenseType = expenseDto.ExpenseType;
+            existingExpense.RepresentativeId = expenseDto.RepresentativeId;
+            existingExpense.UpdatedAt = DateTime.Now;
+
+            await _unitOfWork.expense.UpdateAsync(existingExpense);
+            await _unitOfWork.SaveChangesAsync();
+        }
+        private ExpenseDto MapToDto(Expense expense)
+        {
+            return new ExpenseDto
+            {
+                Id = expense.Id,
+                Amount = expense.Amount,
+                ExpenseType = expense.ExpenseType,
+                RepresentativeId = expense.RepresentativeId,
+                CreatedAt = expense.CreatedAt,
+                UpdatedAt = expense.UpdatedAt
+            };
         }
 
+        private Expense MapToEntity(ExpenseDto dto)
+        {
+            return new Expense
+            {
+                Id = dto.Id,
+                Amount = dto.Amount,
+                ExpenseType = dto.ExpenseType,
+                RepresentativeId = dto.RepresentativeId,
+                CreatedAt = dto.CreatedAt,
+                UpdatedAt = dto.UpdatedAt
+            };
+        }
     }
 }
+

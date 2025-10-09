@@ -36,6 +36,19 @@ namespace StockWise
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<ITransferService, TransferService>();
             builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<ICustomerService, CustomerService>();
+            builder.Services.AddScoped<IExpenseService, ExpenseService>();
+            builder.Services.AddScoped<IInvoiceItemService, InvoiceItemService>();
+            builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+            builder.Services.AddScoped<ILocationService, LocationService>();
+            builder.Services.AddScoped<IPaymentService, PaymentService>();
+            builder.Services.AddScoped<IRepresentativeService, RepresentativeService>();
+            builder.Services.AddScoped<IReturnService, ReturnService>();
+            builder.Services.AddScoped<IStockService, StockService>();
+            builder.Services.AddScoped<IWarehouseService, WarehouseService>();
+
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

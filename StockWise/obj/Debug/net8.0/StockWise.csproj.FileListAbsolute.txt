@@ -186,3 +186,5 @@ E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\Rex.Utils.Core.dll
 E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\ToolGood.Words.dll
 E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\ToolGood.Words.FirstPinyin.dll
 E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\ToolGood.Words.Pinyin.dll
+E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\AutoMapper.dll
+E:\New folder\WebAPI\StockWise\StockWise\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

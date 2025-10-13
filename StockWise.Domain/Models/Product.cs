@@ -11,9 +11,11 @@ namespace StockWise.Domain.Models
     public class Product:BaseEntity
     {
         public string Name { get; set; }
-        public Money Price { get; set; }
-        public DateTime? ProductionDate { get; set; }
-        public DateTime? ExpiryDate { get; set; }
+        public Money Price { get; set; }//
+        public DateTime? ProductionDate { get; set; }//
+        public DateTime? ExpiryDate { get; set; }//
+        public int? InitialQuantity { get; set; } = 0;//
+        public int? WarehouseId { get; set; }//???????????
         public ProductCondition Condition { get; set; } = ProductCondition.Good;
 
         public ICollection<Stock> stocks { get; set; } = new List<Stock>();

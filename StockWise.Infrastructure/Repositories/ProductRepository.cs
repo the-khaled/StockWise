@@ -17,11 +17,19 @@ namespace StockWise.Infrastructure.Repositories
         {
           /*  _context = context;*/
         }
+        public  async Task<Product> GetByIdAsync(int id)
+        {
+            return await _context.Products
+                .Include(p => p.stocks)
+                    .ThenInclude(s => s.Warehouse)
+                .FirstOrDefaultAsync(p => p.Id == id);
+        }
         public async Task<IEnumerable<Product>> GetExpiringProductsAsync(int daysBeforeExpiry)
         {
             var Expire= DateTime.UtcNow.AddDays(daysBeforeExpiry);
             return await _context.Products
                 .Where(p => p.ExpiryDate.HasValue && p.ExpiryDate <= Expire)
+                .Include(p => p.stocks)
                 .ToListAsync();
         }
     }

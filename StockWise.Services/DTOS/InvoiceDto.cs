@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static StockWise.Domain.Enums.Enums;
 
 namespace StockWise.Services.DTOS
 {
@@ -18,9 +19,9 @@ namespace StockWise.Services.DTOS
         [Required(ErrorMessage = "RepresentativeId is required.")]
         public int RepresentativeId { get; set; }
 
-        [Required(ErrorMessage = "TotalAmount is required.")]
-        public Money TotalAmount { get; set; }
-
+       
+        public Money? TotalAmount { get; set; }
+        public InvoiceStatus Status { get; set; }= InvoiceStatus.Draft;
         public List<InvoiceItemDto> Items { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }

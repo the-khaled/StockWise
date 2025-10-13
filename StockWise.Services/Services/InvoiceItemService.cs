@@ -100,8 +100,7 @@ namespace StockWise.Services.Services
                 ProductId = InvoiceItemdto.ProductId,
                 Quantity = InvoiceItemdto.Quantity,
                 Price = InvoiceItemdto.Price,
-                CreatedAt = InvoiceItemdto.CreatedAt,
-                UpdatedAt = InvoiceItemdto.UpdatedAt
+             
             };
         }
         public InvoiceItemDto MapToDto(InvoiceItem invoiceItem) 
@@ -113,8 +112,7 @@ namespace StockWise.Services.Services
                 ProductId = invoiceItem.ProductId,
                 Quantity = invoiceItem.Quantity,
                 Price = invoiceItem.Price,
-                CreatedAt = invoiceItem.CreatedAt,
-                UpdatedAt = invoiceItem.UpdatedAt
+               
 
             };
         }

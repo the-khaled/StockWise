@@ -41,25 +41,31 @@ namespace StockWise.Infrastructure.DataAccess
             modelBuilder.Entity<Transfer>().ToTable("Transfers");
             modelBuilder.Entity<Location>().ToTable("Locations");
 
-
+           // modelBuilder.Entity<BaseEntity>().HasKey(e => e.Id);  عمل Error لانو اعبرو جدول منفصل 
             //Warehouse
-            modelBuilder.Entity<Warehouse>().Property(w => w.WarehouseType)
+            modelBuilder.Entity<Warehouse>()
+                .Property(w => w.WarehouseType)
                 .HasConversion<string>(); // store Enum as string (not int )
 
-            modelBuilder.Entity<Warehouse>().Property(w => w.Address)
+            modelBuilder.Entity<Warehouse>()
+                .Property(w => w.Address)
                 .IsRequired(false);
 
             //Product
             modelBuilder.Entity<Product>()
                 .OwnsOne(p => p.Price, price =>
                 {
-                    price.Property(m => m.Amount).HasColumnName("PriceAmount");
+                    price.WithOwner();
+                    price.Property(m => m.Amount).HasPrecision(18, 2).HasColumnName("PriceAmount");
                     price.Property(m => m.Currency).HasColumnName("PriceCurrency");
                 });
 
             modelBuilder.Entity<Product>().Property(p=>p.Condition)
                 .HasConversion<string>();
 
+            modelBuilder.Entity<Product>()
+                .Property(p => p.InitialQuantity) //////////////////////
+                .HasDefaultValue(0);
             //Stock
 
             modelBuilder.Entity<Stock>()//عملت ال ID بناء علي الجدولين عشان نفس المنتج مينفعش يبقي في مخذنين
@@ -67,7 +73,8 @@ namespace StockWise.Infrastructure.DataAccess
 
             modelBuilder.Entity<Stock>()
                 .HasOne(h => h.Warehouse)
-                .WithMany(h => h.Stocks).HasForeignKey(h => h.WarehouseId)
+                .WithMany(h => h.Stocks)
+                .HasForeignKey(h => h.WarehouseId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Stock>()
@@ -78,7 +85,8 @@ namespace StockWise.Infrastructure.DataAccess
 
             //Representative
             modelBuilder.Entity<Representative>()
-                .HasOne(h => h.Warehouse).WithMany(h => h.Representatives)
+                .HasOne(h => h.Warehouse)
+                .WithMany(h => h.Representatives)
                 .HasForeignKey(h=>h.WarehouseId)
                 .OnDelete(DeleteBehavior.Restrict);
 
@@ -108,6 +116,7 @@ namespace StockWise.Infrastructure.DataAccess
             //customer
             modelBuilder.Entity<Customer>()
                 .OwnsOne(c => c.CreditBalance, cb => {
+                    cb.WithOwner();
                     cb.Property(m => m.Amount).HasColumnName("CreditBalanceAmount");
                     cb.Property(m => m.Currency).HasColumnName("CreditBalanceCurrency");
                 });
@@ -124,9 +133,16 @@ namespace StockWise.Infrastructure.DataAccess
                 .IsRequired(false);
 
             //Invoice
+
+            modelBuilder.Entity<Invoice>()
+                .Property(i => i.Status)
+                .HasConversion<string>(); // Enum as string
+            
+
             modelBuilder.Entity<Invoice>()
                 .OwnsOne(p => p.TotalAmount, p => {
-                    p.Property(p => p.Amount).HasColumnName("TotalAmount");
+                   p.WithOwner().HasForeignKey("InvoiceItemId"); //  هنا  بيقول للـ EF إن ده مملوك بالكامل بدون مفتاح منفصل
+                    p.Property(p => p.Amount).HasPrecision(18, 2).HasColumnName("TotalAmount");
                     p.Property(p => p.Currency).HasColumnName("TotalAmountCurrency");
                 });
 
@@ -146,15 +162,29 @@ namespace StockWise.Infrastructure.DataAccess
             modelBuilder.Entity<InvoiceItem>()
                 .OwnsOne(i => i.Price, price =>
                 {
-                    price.Property(m => m.Amount).HasColumnName("PriceAmount");
+
+                    price.WithOwner();
+                    price.Property(m => m.Amount).HasPrecision(18, 2).HasColumnName("PriceAmount");
                     price.Property(m => m.Currency).HasColumnName("PriceCurrency");
                 });
+            modelBuilder.Entity<InvoiceItem>()
+            .HasOne(ii => ii.Invoice)
+            .WithMany(i => i.Items)
+            .HasForeignKey(ii => ii.InvoiceId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<InvoiceItem>()
+            .HasOne(ii => ii.Product)
+            .WithMany(p => p.invoiceItems)
+            .HasForeignKey(ii => ii.ProductId)
+            .OnDelete(DeleteBehavior.Restrict);
 
             //Payment
             modelBuilder.Entity<Payment>()
                 .OwnsOne(p => p.Amount, amount =>
                 {
-                    amount.Property(m => m.Amount).HasJsonPropertyName("Amount");
+                    amount.WithOwner();
+                    amount.Property(m => m.Amount).HasPrecision(18, 2).HasJsonPropertyName("Amount");
                     amount.Property(m => m.Currency).HasJsonPropertyName("Currency");
 
                 });
@@ -167,17 +197,35 @@ namespace StockWise.Infrastructure.DataAccess
                 .Property(p => p.Status)
                 .HasConversion<string>();
 
+            modelBuilder.Entity<Payment>()
+                .HasOne(p => p.Customer)
+                .WithMany(c => c.Payments)
+                .HasForeignKey(p => p.CustomerId) ///////////////
+                .OnDelete(DeleteBehavior.Restrict); 
+
+            modelBuilder.Entity<Payment>()
+                .HasOne(p => p.Invoice)
+                .WithMany(i => i.Payments) /////////////////////
+                .HasForeignKey(p => p.InvoiceId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             //Return
             modelBuilder.Entity<Return>()
                 .Property(r => r.ReturnType)
                 .HasConversion<string>();
 
+            modelBuilder.Entity<Return>()
+                .HasOne(r => r.Product)
+                .WithMany(p => p.returns)
+                .HasForeignKey(r => r.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
             //Expense
             modelBuilder.Entity<Expense>()
                 .OwnsOne(p => p.Amount, amount =>
                 {
+                    amount.WithOwner();
                     amount.Property(p => p.Currency).HasColumnName("Currency");
-                    amount.Property(p => p.Amount).HasColumnName("Amount");
+                    amount.Property(p => p.Amount).HasPrecision(18, 2).HasColumnName("Amount");
 
                 });
 
@@ -203,6 +251,14 @@ namespace StockWise.Infrastructure.DataAccess
                     .HasForeignKey(t => t.ToWarehouseId)
                     .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Transfer>()
+            .HasOne(t => t.Product)
+            .WithMany(p => p.transfers)
+            .HasForeignKey(t => t.ProductId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+
+
             //Location
             modelBuilder.Entity<Location>()
                 .HasOne(p => p.Representative)
@@ -210,7 +266,14 @@ namespace StockWise.Infrastructure.DataAccess
                 .HasForeignKey(p=>p.RepresentativeId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
+            // Indexes for performance
+            // للاستعلامات السريعة 
+            modelBuilder.Entity<Invoice>()
+                .HasIndex(i => i.CustomerId);
+            modelBuilder.Entity<Invoice>()
+                .HasIndex(i => i.RepresentativeId);
+            modelBuilder.Entity<Invoice>()
+                .HasIndex(i => i.Status);
 
 
         }

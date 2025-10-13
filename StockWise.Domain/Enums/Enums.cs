@@ -14,6 +14,8 @@ namespace StockWise.Domain.Enums
         public enum PaymentMethod { Cash, Electronic }
         public enum PaymentStatus { Pending, Completed, Failed }
         public enum ReturnType { FromRepresentative, FromCustomer }
-        public enum ExpenseType { General, Advance, Fuel, Rent, Maintenance } 
+        public enum ExpenseType { General, Advance, Fuel, Rent, Maintenance }
+        public enum InvoiceStatus { Draft, Issued, Paid, Cancelled }
+
     }
 }

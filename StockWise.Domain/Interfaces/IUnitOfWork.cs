@@ -22,6 +22,6 @@ namespace StockWise.Domain.Interfaces
         ITransferRepository Transfers { get; }
 
 
-        Task SaveChangesAsync();
+        Task<int> SaveChangesAsync();
     }
 }

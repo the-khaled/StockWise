@@ -54,9 +54,11 @@ namespace StockWise.Controllers
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
+                var createdProduct = await _productService.CreateProductAsync(productDto);
+                return CreatedAtAction(nameof(GetById), new { id = createdProduct.Id }, createdProduct);
 
-                await _productService.CreateProductAsync(productDto);
-                return CreatedAtAction(nameof(GetById), new { id = productDto.Id }, productDto);
+                /*                await _productService.CreateProductAsync(productDto);
+                                return CreatedAtAction(nameof(GetById), new { id = productDto.Id }, productDto);*/
             }
             catch (BusinessException ex)
             {

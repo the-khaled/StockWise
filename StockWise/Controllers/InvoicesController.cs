@@ -49,15 +49,15 @@ namespace StockWise.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] InvoiceDto dto)
+        public async Task<IActionResult> Create([FromBody] InvoiceDto invoiceDto)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                await _invoiceService.CreatInvoiceAsync(dto);
-                return CreatedAtAction(nameof(GetById), new { id = dto.Id }, dto);
+                var createdInvoice = await _invoiceService.CreateInvoiceAsync(invoiceDto);
+                return CreatedAtAction(nameof(GetById), new { id = createdInvoice.Id }, createdInvoice);
             }
             catch (BusinessException ex)
             {

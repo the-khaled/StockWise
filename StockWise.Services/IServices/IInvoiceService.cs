@@ -11,8 +11,8 @@ namespace StockWise.Services.IServices
     {
         Task<IEnumerable<InvoiceDto>> GetAllInvoicesAsync();
         Task<InvoiceDto> GetInvoiceByIdAsync(int id);
-        Task CreatInvoiceAsync(InvoiceDto invoiceDto);
-        Task UpdateInvoiceAsync(InvoiceDto invoiceDto);
+        Task<InvoiceDto> CreateInvoiceAsync(InvoiceDto invoiceDto);
+        Task<InvoiceDto> UpdateInvoiceAsync(InvoiceDto invoiceDto);
         Task DeleteInvoiceAsync(int id);
     }
 }

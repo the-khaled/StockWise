@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static StockWise.Domain.Enums.Enums;
 
 namespace StockWise.Domain.Models
 {
@@ -15,7 +16,7 @@ namespace StockWise.Domain.Models
         public Representative Representative { get; set; }
         public DateTime Date { get; set; }
         public Money TotalAmount { get; set; }
-
+        public InvoiceStatus Status { get; set; } = InvoiceStatus.Draft;
         public ICollection<InvoiceItem> Items { get; set; } = new List<InvoiceItem>();
         public ICollection<Payment> Payments { get; set; } = new List<Payment>();
 

@@ -10,10 +10,11 @@ namespace StockWise.Domain.ValueObjects
     {
         public decimal Amount { get; set; }
         public string Currency { get; set; } = "EGP";
-        public Money(decimal amount)
+        public Money(decimal amount, string currency)
         {
             if (amount < 0) throw new ArgumentException("Amount cannot be negative");
             Amount = amount;
+            Currency = currency ?? "EGP";
         }
     }
 }

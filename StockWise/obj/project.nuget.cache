@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "GAtB3zvgY9/ZaSSNa/0GXSzhLA/s5hhH0U2cpNmNoj3p8P9ydFC4eQxNeB0hk8wa5oGZH4gQ6EBBG0WdDYltWA==",
+  "dgSpecHash": "trKT1VB1/eYiGUaiKK+jBsUYOz8DBuIKI5tB0JNLESDtQxIMVHdfwGM7UOHF6McMWqlR1LmckoAWo7lfwWlcNQ==",
   "success": true,
   "projectFilePath": "E:\\New folder\\WebAPI\\StockWise\\StockWise\\StockWise.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\HP\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\HP\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\dnsclient\\1.7.0\\dnsclient.1.7.0.nupkg.sha512",

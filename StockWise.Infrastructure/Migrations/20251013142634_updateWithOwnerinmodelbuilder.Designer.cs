@@ -12,8 +12,8 @@ using StockWise.Infrastructure.DataAccess;
 namespace StockWise.Infrastructure.Migrations
 {
     [DbContext(typeof(StockWiseDbContext))]
-    [Migration("20251009212808_MakeDescriptionNullable")]
-    partial class MakeDescriptionNullable
+    [Migration("20251013142634_updateWithOwnerinmodelbuilder")]
+    partial class updateWithOwnerinmodelbuilder
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -106,6 +106,10 @@ namespace StockWise.Infrastructure.Migrations
                     b.Property<int>("RepresentativeId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -114,6 +118,8 @@ namespace StockWise.Infrastructure.Migrations
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("RepresentativeId");
+
+                    b.HasIndex("Status");
 
                     b.ToTable("Invoices", (string)null);
                 });
@@ -170,7 +176,7 @@ namespace StockWise.Infrastructure.Migrations
                     b.Property<int>("RepresentativeId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Timestamp")
+                    b.Property<DateTime?>("Timestamp")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -242,6 +248,11 @@ namespace StockWise.Infrastructure.Migrations
                     b.Property<DateTime?>("ExpiryDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("InitialQuantity")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -251,6 +262,9 @@ namespace StockWise.Infrastructure.Migrations
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("WarehouseId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -492,6 +506,7 @@ namespace StockWise.Infrastructure.Migrations
                                 .HasColumnType("int");
 
                             b1.Property<decimal>("Amount")
+                                .HasPrecision(18, 2)
                                 .HasColumnType("decimal(18,2)")
                                 .HasColumnName("Amount");
 
@@ -530,10 +545,11 @@ namespace StockWise.Infrastructure.Migrations
 
                     b.OwnsOne("StockWise.Domain.ValueObjects.Money", "TotalAmount", b1 =>
                         {
-                            b1.Property<int>("InvoiceId")
+                            b1.Property<int>("InvoiceItemId")
                                 .HasColumnType("int");
 
                             b1.Property<decimal>("Amount")
+                                .HasPrecision(18, 2)
                                 .HasColumnType("decimal(18,2)")
                                 .HasColumnName("TotalAmount");
 
@@ -542,12 +558,12 @@ namespace StockWise.Infrastructure.Migrations
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("TotalAmountCurrency");
 
-                            b1.HasKey("InvoiceId");
+                            b1.HasKey("InvoiceItemId");
 
                             b1.ToTable("Invoices");
 
                             b1.WithOwner()
-                                .HasForeignKey("InvoiceId");
+                                .HasForeignKey("InvoiceItemId");
                         });
 
                     b.Navigation("Customer");
@@ -563,13 +579,13 @@ namespace StockWise.Infrastructure.Migrations
                     b.HasOne("StockWise.Domain.Models.Invoice", "Invoice")
                         .WithMany("Items")
                         .HasForeignKey("InvoiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("StockWise.Domain.Models.Product", "Product")
                         .WithMany("invoiceItems")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.OwnsOne("StockWise.Domain.ValueObjects.Money", "Price", b1 =>
@@ -578,6 +594,7 @@ namespace StockWise.Infrastructure.Migrations
                                 .HasColumnType("int");
 
                             b1.Property<decimal>("Amount")
+                                .HasPrecision(18, 2)
                                 .HasColumnType("decimal(18,2)")
                                 .HasColumnName("PriceAmount");
 
@@ -618,13 +635,13 @@ namespace StockWise.Infrastructure.Migrations
                     b.HasOne("StockWise.Domain.Models.Customer", "Customer")
                         .WithMany("Payments")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("StockWise.Domain.Models.Invoice", "Invoice")
                         .WithMany("Payments")
                         .HasForeignKey("InvoiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.OwnsOne("StockWise.Domain.ValueObjects.Money", "Amount", b1 =>
@@ -633,6 +650,7 @@ namespace StockWise.Infrastructure.Migrations
                                 .HasColumnType("int");
 
                             b1.Property<decimal>("Amount")
+                                .HasPrecision(18, 2)
                                 .HasColumnType("decimal(18,2)")
                                 .HasAnnotation("Relational:JsonPropertyName", "Amount");
 
@@ -665,6 +683,7 @@ namespace StockWise.Infrastructure.Migrations
                                 .HasColumnType("int");
 
                             b1.Property<decimal>("Amount")
+                                .HasPrecision(18, 2)
                                 .HasColumnType("decimal(18,2)")
                                 .HasColumnName("PriceAmount");
 
@@ -705,7 +724,7 @@ namespace StockWise.Infrastructure.Migrations
                     b.HasOne("StockWise.Domain.Models.Product", "Product")
                         .WithMany("returns")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("StockWise.Domain.Models.Representative", "Representative")
@@ -749,7 +768,7 @@ namespace StockWise.Infrastructure.Migrations
                     b.HasOne("StockWise.Domain.Models.Product", "Product")
                         .WithMany("transfers")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("StockWise.Domain.Models.Warehouse", "ToWarehouse")

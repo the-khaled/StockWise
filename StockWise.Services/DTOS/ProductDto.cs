@@ -19,12 +19,13 @@ namespace StockWise.Services.DTOS
         public DateTime ProductionDate { get; set; }
         [Required(ErrorMessage = "ExpiryDate is required.")]
         public DateTime ExpiryDate { get; set; }
+        public int? InitialQuantity { get; set; } = 0;
 
         [Required(ErrorMessage = "Price is required.")]
-        public Money Price { get; set; }
+        public MoneyDto Price { get; set; }
         [Required(ErrorMessage = "Condition is required.")]
         public ProductCondition Condition { get; set; }
-
+        public int? WarehouseId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
     }

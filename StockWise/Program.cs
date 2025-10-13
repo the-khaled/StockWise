@@ -1,11 +1,13 @@
-
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using StockWise.Domain.Interfaces;
 using StockWise.Errors;
 using StockWise.Infrastructure.DataAccess;
 using StockWise.Infrastructure.Repositories;
 using StockWise.Services.IServices;
 using StockWise.Services.Services;
+using StockWise.Services.Mappings;
 
 namespace StockWise
 {
@@ -48,7 +50,13 @@ namespace StockWise
             builder.Services.AddScoped<IWarehouseService, WarehouseService>();
 
 
+            builder.Services.AddAutoMapper(typeof(StockWise.Services.Mappings.AutoMapperProfile));
 
+            /*            builder.Services.AddAutoMapper(typeof(StockWise.Services.Mappings.AutoMapperProfile));
+            */            /*   builder.Services.AddAutoMapper(cfg =>
+                           {
+                               cfg.AddProfile<AutoMapperProfile>();
+                           });*/
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

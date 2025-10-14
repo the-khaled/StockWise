@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using StockWise.Services.DTOS;
+using StockWise.Services.DTOS.InvoiceDto;
 using StockWise.Services.Exceptions;
 using StockWise.Services.IServices;
 using StockWise.Services.Services;
@@ -49,7 +49,7 @@ namespace StockWise.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] InvoiceDto invoiceDto)
+        public async Task<IActionResult> Create([FromBody] InvoiceCreateDto invoiceDto)
         {
             try
             {
@@ -70,14 +70,14 @@ namespace StockWise.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] InvoiceDto dto)
+        public async Task<IActionResult> Update(int id, [FromBody] InvoiceCreateDto updateDto)
         {
             try
             {
-                if (id != dto.Id)
-                    return BadRequest("ID mismatch");
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
 
-                await _invoiceService.UpdateInvoiceAsync(dto);
+               await _invoiceService.UpdateInvoiceAsync(id, updateDto);
                 return NoContent();
             }
             catch (KeyNotFoundException ex)

@@ -10,7 +10,7 @@ namespace StockWise.Domain.Interfaces
     {
         IInvoiceRepository Invoice { get; }
         IInvoiceItemRepository InvoiceItem { get; }
-        IExpenseRepository expense { get; }
+        IExpenseRepository Expense { get; }
         IPaymentRepository Payment { get; }
         ILocationRepository Location { get; }
         IReturnRepository Return { get; }

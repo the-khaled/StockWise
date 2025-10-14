@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using StockWise.Services.DTOS;
+using StockWise.Services.DTOS.InvoiceDto;
+using StockWise.Services.DTOS.InvoiceItemDto;
+using StockWise.Services.DTOS.InvoiceItemDto.InvoiceItemDto;
 using StockWise.Services.Exceptions;
 using StockWise.Services.IServices;
 
@@ -51,15 +53,15 @@ namespace StockWise.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] InvoiceItemDto dto)
+        public async Task<IActionResult> Create([FromBody] InvoiceItemCreateDto createDto)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                await _invoiceItemService.CreateInvoiceItemAsync(dto);
-                return CreatedAtAction(nameof(GetById), new { id = dto.Id }, dto);
+                var createdItem = await _invoiceItemService.CreateInvoiceItemAsync(createDto);
+                return CreatedAtAction(nameof(GetById), new { id = createdItem.Id }, createdItem);
             }
             catch (BusinessException ex)
             {
@@ -72,14 +74,14 @@ namespace StockWise.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] InvoiceItemDto dto)
+        public async Task<IActionResult> Update(int id, [FromBody] InvoiceItemCreateDto updateDto)
         {
             try
             {
-                if (id != dto.Id)
+                if (updateDto.InvoiceId != id)
                     return BadRequest("ID mismatch");
 
-                await _invoiceItemService.UpdateInvoiceItemAsync(dto);
+                var updatedItem = await _invoiceItemService.UpdateInvoiceItemAsync(id,updateDto);
                 return NoContent();
             }
             catch (KeyNotFoundException ex)

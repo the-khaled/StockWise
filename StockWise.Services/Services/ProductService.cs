@@ -2,138 +2,196 @@
 using StockWise.Domain.Interfaces;
 using StockWise.Domain.Models;
 using StockWise.Services.DTOS;
+using StockWise.Services.DTOS.ProductDto;
 using StockWise.Services.Exceptions;
 using StockWise.Services.IServices;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace StockWise.Services.Services
 {
     public class ProductService : IProductService
     {
-        private readonly IUnitOfWork _UnitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public ProductService(IUnitOfWork unitOfWork,IMapper mapper)
-        {
-            _UnitOfWork = unitOfWork;
-            _mapper=mapper;
-        }
-        public async Task<ProductDto> CreateProductAsync(ProductDto productdto)
-        {
-            if (productdto == null)
-                throw new ArgumentNullException(nameof(productdto));
 
-            if (string.IsNullOrWhiteSpace(productdto.Name))
+        public ProductService(IUnitOfWork unitOfWork, IMapper mapper)
+        {
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
+
+        public async Task<ProductResponseDto> CreateProductAsync(StandaloneProductCreateDto productDto)
+        {
+            
+            if (productDto == null)
+                throw new ArgumentNullException(nameof(productDto));
+
+            if (string.IsNullOrWhiteSpace(productDto.Name))
                 throw new BusinessException("Product name is required.");
 
-            if (productdto.Price.Amount < 0)
+            if (productDto.Price.Amount < 0)
                 throw new BusinessException("Price cannot be negative.");
 
-            if (productdto.ExpiryDate <= productdto.ProductionDate)
+            if (productDto.InitialQuantity < 0)
+                throw new BusinessException("Initial quantity cannot be negative.");
+
+            if (productDto.ExpiryDate <= productDto.ProductionDate)
                 throw new BusinessException("Expiry date must be after production date.");
-            //هل المنتج موجود اصلا ولا لا   
-            var existingProduct = await _UnitOfWork.Products.FirstOrDefaultAsync(p => p.Name == productdto.Name);
+
+            var existingProduct = await _unitOfWork.Products.FirstOrDefaultAsync(p => p.Name == productDto.Name);
             if (existingProduct != null)
-                throw new BusinessException($"Product with name {productdto.Name} already exists.");
+                throw new BusinessException($"Product with name {productDto.Name} already exists.");
+
+            var warehouse = await _unitOfWork.Warehouses.GetByIdAsync(productDto.WarehouseId);
+            if (warehouse == null)
+                throw new BusinessException($"Warehouse with ID {productDto.WarehouseId} not found.");
+
             // Map DTO to Entity
-            var product = _mapper.Map<Product>(productdto);
+            var product = _mapper.Map<Product>(productDto);
             product.CreatedAt = DateTime.UtcNow;
             product.UpdatedAt = DateTime.UtcNow;
 
-            await _UnitOfWork.Products.AddAsync(product);
-            await _UnitOfWork.SaveChangesAsync();
-            var defaultWarehouseId = productdto.WarehouseId ?? 1;
+            await _unitOfWork.Products.AddAsync(product);
+            await _unitOfWork.SaveChangesAsync();
+
             var stock = new Stock
             {
                 ProductId = product.Id,
-                WarehouseId = defaultWarehouseId,
-                Quantity = productdto.InitialQuantity ?? 0,
+                WarehouseId = productDto.WarehouseId,
+                Quantity = productDto.InitialQuantity ?? 0,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow
             };
+            await _unitOfWork.Stocks.AddAsync(stock);
+            await _unitOfWork.SaveChangesAsync();
 
-            // Validate warehouse
-            var warehouse = await _UnitOfWork.Warehouses.GetByIdAsync(defaultWarehouseId);
+            var createdProduct = await _unitOfWork.Products.GetByIdAsync(product.Id);
+            return _mapper.Map<ProductResponseDto>(createdProduct);
+        }
+
+        public async Task<ProductResponseDto> UpdateProductAsync(int id, StandaloneProductCreateDto productDto)
+        {
+            if (productDto == null)
+                throw new ArgumentNullException(nameof(productDto));
+
+            if (string.IsNullOrWhiteSpace(productDto.Name))
+                throw new BusinessException("Product name is required.");
+
+            if (productDto.Price.Amount < 0)
+                throw new BusinessException("Price cannot be negative.");
+
+            if (productDto.InitialQuantity < 0)
+                throw new BusinessException("Initial quantity cannot be negative.");
+
+            if (productDto.ExpiryDate <= productDto.ProductionDate)
+                throw new BusinessException("Expiry date must be after production date.");
+
+            var product = await _unitOfWork.Products.GetByIdAsync(id);
+            if (product == null)
+                throw new KeyNotFoundException($"Product with ID {id} not found.");
+
+            var existingProduct = await _unitOfWork.Products.FirstOrDefaultAsync(p => p.Name == productDto.Name && p.Id != id);
+            if (existingProduct != null)
+                throw new BusinessException($"Product with name {productDto.Name} already exists.");
+
+            var warehouse = await _unitOfWork.Warehouses.GetByIdAsync(productDto.WarehouseId);
             if (warehouse == null)
-                throw new BusinessException($"Warehouse with ID {defaultWarehouseId} not found.");
+                throw new BusinessException($"Warehouse with ID {productDto.WarehouseId} not found.");
 
-            await _UnitOfWork.Stocks.AddAsync(stock);
-            await _UnitOfWork.SaveChangesAsync();
-            // Map back to DTO
-            return _mapper.Map<ProductDto>(product);
+            // Map DTO to existing entity
+            _mapper.Map(productDto, product);
+            product.UpdatedAt = DateTime.UtcNow;
 
+            await _unitOfWork.Products.UpdateAsync(product);
+
+            var stock = await _unitOfWork.Stocks.FirstOrDefaultAsync(s => s.ProductId == id && s.WarehouseId == productDto.WarehouseId);
+            if (stock != null)
+            {
+                stock.Quantity = productDto.InitialQuantity ?? 0;
+                stock.UpdatedAt = DateTime.UtcNow;
+                await _unitOfWork.Stocks.UpdateAsync(stock); 
+            }
+            else
+            {
+                var newStock = new Stock
+                {
+                    ProductId = product.Id,
+                    WarehouseId = productDto.WarehouseId,
+                    Quantity = productDto.InitialQuantity ?? 0,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow
+                };
+                await _unitOfWork.Stocks.AddAsync(newStock);
+            }
+
+            await _unitOfWork.SaveChangesAsync();
+            return _mapper.Map<ProductResponseDto>(product);
         }
 
         public async Task DeleteProductAsync(int id)
         {
-            var product = await _UnitOfWork.Products.GetByIdAsync(id);
-            if (product == null) 
+            var product = await _unitOfWork.Products.GetByIdAsync(id);
+            if (product == null)
                 throw new KeyNotFoundException($"Product with ID {id} not found.");
-            if (product.stocks.Any())
-                throw new InvalidOperationException("Cannot delete product with existing stock.");
-            await _UnitOfWork.Products.DeleteAsync(id);
-            await _UnitOfWork.SaveChangesAsync();
-        }
 
-        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
-        {
-            var product= await _UnitOfWork.Products.GetAllAsync();
-            return _mapper.Map<IEnumerable<ProductDto>>(product);
-        }
+            if (product.stocks.Any() || product.invoiceItems.Any() || product.returns.Any() || product.transfers.Any())
+                throw new BusinessException("Cannot delete product because it is referenced in stocks, invoices, returns, or transfers.");
 
-        public async Task<ProductDto> GetProductByIdAsync(int id)
-        {
-            var Product =await _UnitOfWork.Products.GetByIdAsync(id);
-            if (Product == null) throw new KeyNotFoundException($"Product with ID {id} not found.");
-            return _mapper.Map<ProductDto>(Product);
-        }
-
-        public async Task UpdateProductAsync(ProductDto productdto)
-        {
-            if (productdto == null)
-                throw new ArgumentNullException(nameof(productdto));
-
-            var productExist = await _UnitOfWork.Products.GetByIdAsync(productdto.Id);
-            if (productExist == null)
-                throw new KeyNotFoundException($"Product with ID {productdto.Id} not found.");
-
-            _mapper.Map(productdto, productExist); // Map DTO to existing entity
-            productExist.UpdatedAt = DateTime.UtcNow;
-
-            _UnitOfWork.Products.UpdateAsync(productExist);
-            await _UnitOfWork.SaveChangesAsync();
-            /*  if(productdto == null) { throw new ArgumentNullException( nameof(productdto)); }
-
-              var productexist = await _UnitOfWork.Products.GetByIdAsync(productdto.Id);
-              if (productexist == null)
-                  throw new KeyNotFoundException($"Product with ID {productdto.Id} not found.");
-              productexist.Name = productdto.Name;
-              productexist.Price = productdto.Price;
-              productexist.Condition = productdto.Condition;
-              productexist.ProductionDate = productdto.ProductionDate;
-              productexist.ExpiryDate = productdto.ExpiryDate;
-              productexist.UpdatedAt = DateTime.Now;
-              await _UnitOfWork.Products.UpdateAsync(productexist);
-              await _UnitOfWork.SaveChangesAsync();*/
-        }
-/*        private ProductDto MapToDto(Product product)
-        {
-            return new ProductDto
+            var stocks = await _unitOfWork.Stocks.GetAllAsync(s => s.ProductId == id);
+            foreach (var stock in stocks)
             {
-                Id = product.Id,
-                Name = product.Name,
-                ProductionDate = (DateTime)product.ProductionDate,
-                ExpiryDate = (DateTime)product.ExpiryDate,
-                Price = product.Price,
-                Condition = product.Condition,
-                CreatedAt = product.CreatedAt,
-                UpdatedAt = product.UpdatedAt
-            };
-        }*/
+                _unitOfWork.Stocks.Remove(stock);
+            }
 
-  
+            await _unitOfWork.Products.DeleteAsync(id);
+            await _unitOfWork.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<ProductResponseDto>> GetAllProductsAsync()
+        {
+            var products = await _unitOfWork.Products.GetAllAsync();
+            return _mapper.Map<IEnumerable<ProductResponseDto>>(products);
+        }
+
+        public async Task<ProductResponseDto> GetProductByIdAsync(int id)
+        {
+            var product = await _unitOfWork.Products.GetByIdAsync(id);
+            if (product == null)
+                throw new KeyNotFoundException($"Product with ID {id} not found.");
+            return _mapper.Map<ProductResponseDto>(product);
+        }
+
+        public async Task<IEnumerable<ProductResponseDto>> GetExpiringProductsAsync(int daysBeforeExpiry)
+        {
+            if (daysBeforeExpiry < 0)
+                throw new BusinessException("Days before expiry cannot be negative.");
+
+            var products = await _unitOfWork.Products.GetExpiringProductsAsync(daysBeforeExpiry);
+            return _mapper.Map<IEnumerable<ProductResponseDto>>(products);
+        }
+
+        public async Task<IEnumerable<ProductResponseDto>> GetProductsByWarehouseAsync(int warehouseId)
+        {
+            if (warehouseId <= 0)
+                throw new BusinessException("Warehouse ID must be greater than zero.");
+
+            var warehouse = await _unitOfWork.Warehouses.GetByIdAsync(warehouseId);
+            if (warehouse == null)
+                throw new BusinessException($"Warehouse with ID {warehouseId} not found.");
+
+            var products = await _unitOfWork.Products.GetByWarehouseAsync(warehouseId);
+            return _mapper.Map<IEnumerable<ProductResponseDto>>(products);
+        }
+
+        public async Task<IEnumerable<ProductResponseDto>> GetProductsByNameAsync(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new BusinessException("Name cannot be empty.");
+
+            var products = await _unitOfWork.Products.GetByNameAsync(name);
+            return _mapper.Map<IEnumerable<ProductResponseDto>>(products);
+        }
     }
 }

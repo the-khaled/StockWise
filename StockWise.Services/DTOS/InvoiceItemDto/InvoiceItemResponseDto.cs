@@ -6,22 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StockWise.Services.DTOS
+namespace StockWise.Services.DTOS.InvoiceItemDto
 {
-    public class InvoiceItemDto
+    public class InvoiceItemResponseDto
     {
         public int Id { get; set; }
-
-        [Required(ErrorMessage = "InvoiceId is required.")]
         public int InvoiceId { get; set; }
-
-        [Required(ErrorMessage = "ProductId is required.")]
         public int ProductId { get; set; }
-
-        [Range(1, int.MaxValue, ErrorMessage = "Quantity must be greater than zero.")]
+        public string ProductName { get; set; } 
         public int Quantity { get; set; }
-
-        [Required(ErrorMessage = "Price is required.")]
-        public Money Price { get; set; }
+        public MoneyDto Price { get; set; }
+        public decimal Subtotal { get; set; }
     }
 }

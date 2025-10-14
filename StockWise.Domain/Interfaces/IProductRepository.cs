@@ -10,7 +10,7 @@ namespace StockWise.Domain.Interfaces
     public interface IProductRepository:IRepository<Product>
     {
         Task<IEnumerable<Product>> GetExpiringProductsAsync(int daysBeforeExpiry);
-        /*Task<IEnumerable<Product>> GetProductsWithCategoryAsync();
-        Task<IEnumerable<Product>> GetProductsBySupplierAsync(int supplierId);*/
+        Task<IEnumerable<Product>> GetByWarehouseAsync(int warehouseId);
+        Task<IEnumerable<Product>> GetByNameAsync(string name);
     }
 }

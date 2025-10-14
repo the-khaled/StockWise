@@ -20,7 +20,6 @@ namespace StockWise.Domain.Models
         public ICollection<InvoiceItem> Items { get; set; } = new List<InvoiceItem>();
         public ICollection<Payment> Payments { get; set; } = new List<Payment>();
 
-        /* public ICollection<Item> items { get; set; }
-         public ICollection<Payment> payments { get; set; }*/
+   
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using StockWise.Domain.Interfaces;
 using StockWise.Domain.Models;
 using StockWise.Domain.ValueObjects;
-using StockWise.Services.DTOS;
+using StockWise.Services.DTOS.InvoiceDto;
 using StockWise.Services.Exceptions;
 using StockWise.Services.IServices;
 using System;
@@ -27,7 +27,7 @@ namespace StockWise.Services.Services
             _logger = logger;
         }
 
-        public async Task<InvoiceDto> CreateInvoiceAsync(InvoiceDto invoiceDto)
+        public async Task<InvoiceResponseDto> CreateInvoiceAsync(InvoiceCreateDto invoiceDto)
         {
             try
             {
@@ -86,7 +86,7 @@ namespace StockWise.Services.Services
                 {
                     CustomerId = invoiceDto.CustomerId,
                     RepresentativeId = invoiceDto.RepresentativeId,
-                    TotalAmount = finalTotalAmount, // المحسوب تلقائيًا
+                    TotalAmount = finalTotalAmount, 
                     Status = invoiceDto.Status,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
@@ -95,7 +95,10 @@ namespace StockWise.Services.Services
 
                 await _unitOfWork.Invoice.AddAsync(invoice);
                 await _unitOfWork.SaveChangesAsync();
-
+                foreach (var item in invoice.Items)
+                {
+                    item.InvoiceId = invoice.Id; 
+                }
                 // Update Stock
                 foreach (var item in invoice.Items)
                 {
@@ -111,7 +114,8 @@ namespace StockWise.Services.Services
                 await _unitOfWork.SaveChangesAsync();
 
                 _logger.LogInformation("Invoice created with ID {Id}, Total: {Total}", invoice.Id, calculatedTotal);
-                return _mapper.Map<InvoiceDto>(invoice);
+                var createdInvoice = await _unitOfWork.Invoice.GetByIdWithItemsAsync(invoice.Id);
+                return _mapper.Map<InvoiceResponseDto>(createdInvoice);
             }
             catch (BusinessException ex)
             {
@@ -124,7 +128,7 @@ namespace StockWise.Services.Services
                 throw;
             }
         }
-        public async Task<InvoiceDto> GetInvoiceByIdAsync(int id)
+        public async Task<InvoiceResponseDto> GetInvoiceByIdAsync(int id)
         {
             try
             {
@@ -133,7 +137,7 @@ namespace StockWise.Services.Services
                 if (invoice == null)
                     throw new KeyNotFoundException($"Invoice with ID {id} not found.");
 
-                return _mapper.Map<InvoiceDto>(invoice);
+                return _mapper.Map<InvoiceResponseDto>(invoice);
             }
             catch (Exception ex)
             {
@@ -142,13 +146,13 @@ namespace StockWise.Services.Services
             }
         }
 
-        public async Task<IEnumerable<InvoiceDto>> GetAllInvoicesAsync()
+        public async Task<IEnumerable<InvoiceResponseDto>> GetAllInvoicesAsync()
         {
             try
             {
                 _logger.LogInformation("Getting all invoices");
                 var invoices = await _unitOfWork.Invoice.GetAllWithItemsAsync();
-                return _mapper.Map<IEnumerable<InvoiceDto>>(invoices);
+                return _mapper.Map<IEnumerable<InvoiceResponseDto>>(invoices);
             }
             catch (Exception ex)
             {
@@ -157,17 +161,17 @@ namespace StockWise.Services.Services
             }
         }
 
-        public async Task<InvoiceDto> UpdateInvoiceAsync(InvoiceDto invoiceDto)
+        public async Task<InvoiceResponseDto> UpdateInvoiceAsync(int id, InvoiceCreateDto invoiceDto)
         {
             try
             {
-                _logger.LogInformation("Updating invoice ID {Id}", invoiceDto.Id);
+                _logger.LogInformation("Updating invoice ID {Id}", id);
                 if (invoiceDto == null)
                     throw new ArgumentNullException(nameof(invoiceDto));
 
-                var existingInvoice = await _unitOfWork.Invoice.GetByIdWithItemsAsync(invoiceDto.Id);
+                var existingInvoice = await _unitOfWork.Invoice.GetByIdWithItemsAsync(id);
                 if (existingInvoice == null)
-                    throw new KeyNotFoundException($"Invoice with ID {invoiceDto.Id} not found.");
+                    throw new KeyNotFoundException($"Invoice with ID {id} not found.");
 
                 if (existingInvoice.Status == InvoiceStatus.Issued || existingInvoice.Status == InvoiceStatus.Paid)
                     throw new BusinessException("Cannot modify an invoice that is Issued or Paid.");
@@ -192,26 +196,23 @@ namespace StockWise.Services.Services
                     var stock = await _unitOfWork.Stocks.GetByWarehouseAndProductAsync(item.ProductId, warehouseId);
                     if (stock == null || stock.Quantity < item.Quantity)
                         throw new BusinessException($"Insufficient stock for product ID {item.ProductId}. Available: {stock?.Quantity ?? 0}, Requested: {item.Quantity}");
-                    
+
                     calculatedTotal += item.Quantity * item.Price.Amount;
                 }
-
-                if (Math.Abs(invoiceDto.TotalAmount.Amount - calculatedTotal) > 0.01m)
-                    throw new BusinessException($"Total amount mismatch. Expected: {calculatedTotal}, Provided: {invoiceDto.TotalAmount.Amount}");
 
                 // Update basic invoice properties
                 existingInvoice.CustomerId = invoiceDto.CustomerId;
                 existingInvoice.RepresentativeId = invoiceDto.RepresentativeId;
-                existingInvoice.TotalAmount = new Money(calculatedTotal, invoiceDto.TotalAmount.Currency ?? "EGP");
+                existingInvoice.TotalAmount = new Money(calculatedTotal, "EGP");
                 existingInvoice.UpdatedAt = DateTime.UtcNow;
 
                 // Delete existing InvoiceItems
                 var existingItems = (await _unitOfWork.InvoiceItem.GetAllAsync())
-                    .Where(ii => ii.InvoiceId == existingInvoice.Id)
+                    .Where(ii => ii.InvoiceId == id)
                     .ToList();
                 foreach (var item in existingItems)
                 {
-                    _unitOfWork.InvoiceItem.Remove(item); 
+                    _unitOfWork.InvoiceItem.Remove(item);
                 }
 
                 // Add new InvoiceItems
@@ -219,38 +220,39 @@ namespace StockWise.Services.Services
                 {
                     var newItem = new InvoiceItem
                     {
-                        InvoiceId = existingInvoice.Id,
+                        InvoiceId = id,
                         ProductId = itemDto.ProductId,
                         Quantity = itemDto.Quantity,
                         Price = new Money(itemDto.Price.Amount, itemDto.Price.Currency ?? "EGP"),
                         CreatedAt = DateTime.UtcNow,
                         UpdatedAt = DateTime.UtcNow
                     };
-                    await _unitOfWork.InvoiceItem.AddAsync(newItem);
+                    await _unitOfWork.InvoiceItem.AddAsync(newItem); 
                 }
 
-                // Update Stock for new items (نقص الكمية)
+                // Update Stock for new items 
                 foreach (var itemDto in invoiceDto.Items)
                 {
                     var warehouseId = representative.WarehouseId > 0 ? representative.WarehouseId : 1;
                     var stock = await _unitOfWork.Stocks.GetByWarehouseAndProductAsync(itemDto.ProductId, warehouseId);
                     if (stock != null)
                     {
-                        stock.Quantity -= itemDto.Quantity; // نقص الكمية
+                        stock.Quantity -= itemDto.Quantity;
                         stock.UpdatedAt = DateTime.UtcNow;
-                        _unitOfWork.Stocks.UpdateAsync(stock);
+                        _unitOfWork.Stocks.UpdateAsync(stock); 
                     }
                 }
 
                 await _unitOfWork.SaveChangesAsync();
-                _logger.LogInformation("Invoice ID {Id} updated successfully", invoiceDto.Id);
+                _logger.LogInformation("Invoice ID {Id} updated successfully", id);
 
                 // Return updated invoice
-                return _mapper.Map<InvoiceDto>(existingInvoice);
+                var updatedInvoice = await _unitOfWork.Invoice.GetByIdWithItemsAsync(id);
+                return _mapper.Map<InvoiceResponseDto>(updatedInvoice);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error updating invoice ID {Id}: {Message}", invoiceDto.Id, ex.Message);
+                _logger.LogError(ex, "Error updating invoice ID {Id}: {Message}", id, ex.Message);
                 throw;
             }
         }
@@ -267,7 +269,7 @@ namespace StockWise.Services.Services
                 if (invoice.Status == InvoiceStatus.Issued || invoice.Status == InvoiceStatus.Paid)
                     throw new BusinessException("Cannot delete an invoice that is Issued or Paid.");
 
-                // Delete associated InvoiceItems first
+                // Delete InvoiceItems 
                 var items = (await _unitOfWork.InvoiceItem.GetAllAsync())
                     .Where(ii => ii.InvoiceId == id)
                     .ToList();
@@ -288,19 +290,3 @@ namespace StockWise.Services.Services
         }
     }
 }
-/*
-  public int Id { get; set; }
-
-        [Required(ErrorMessage = "CustomerId is required.")]
-        public int CustomerId { get; set; }
-
-        [Required(ErrorMessage = "RepresentativeId is required.")]
-        public int RepresentativeId { get; set; }
-
-        [Required(ErrorMessage = "TotalAmount is required.")]
-        public Money TotalAmount { get; set; }
-
-        public List<InvoiceItemDto> InvoiceItems { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
- */

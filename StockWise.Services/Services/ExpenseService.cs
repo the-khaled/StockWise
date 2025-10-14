@@ -33,29 +33,29 @@ namespace StockWise.Services.Services
                     throw new BusinessException("Representative not found.");
             }
 
-            await _unitOfWork.expense.AddAsync(MapToEntity(expenseDto));
+            await _unitOfWork.Expense.AddAsync(MapToEntity(expenseDto));
             await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task DeleteExpenseAsync(int id)
         {
-            var expense = await _unitOfWork.expense.GetByIdAsync(id);
+            var expense = await _unitOfWork.Expense.GetByIdAsync(id);
             if (expense == null)
                 throw new KeyNotFoundException($"Expense with ID {id} not found.");
             
-            await _unitOfWork.expense.DeleteAsync(id);
+            await _unitOfWork.Expense.DeleteAsync(id);
             await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<ExpenseDto>> GetAllExpenseAsync()
         {
-            var expenses = await _unitOfWork.expense.GetAllAsync();
+            var expenses = await _unitOfWork.Expense.GetAllAsync();
             return expenses.Select(e => MapToDto(e)).ToList();
         }
 
         public async Task<ExpenseDto> GetExpenseByIdAsync(int id)
         {
-            var expense = await _unitOfWork.expense.GetByIdAsync(id);
+            var expense = await _unitOfWork.Expense.GetByIdAsync(id);
             if (expense == null)
                 throw new KeyNotFoundException($"Expense with ID {id} not found.");
 
@@ -67,7 +67,7 @@ namespace StockWise.Services.Services
             if (expenseDto == null)
                 throw new ArgumentNullException(nameof(expenseDto));
 
-            var existingExpense = await _unitOfWork.expense.GetByIdAsync(expenseDto.Id);
+            var existingExpense = await _unitOfWork.Expense.GetByIdAsync(expenseDto.Id);
             if (existingExpense == null)
                 throw new KeyNotFoundException($"Expense with ID {expenseDto.Id} not found.");
             
@@ -84,7 +84,7 @@ namespace StockWise.Services.Services
             existingExpense.RepresentativeId = expenseDto.RepresentativeId;
             existingExpense.UpdatedAt = DateTime.Now;
 
-            await _unitOfWork.expense.UpdateAsync(existingExpense);
+            await _unitOfWork.Expense.UpdateAsync(existingExpense);
             await _unitOfWork.SaveChangesAsync();
         }
         private ExpenseDto MapToDto(Expense expense)

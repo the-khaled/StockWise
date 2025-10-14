@@ -3,6 +3,12 @@ using StockWise.Domain.Models;
 using StockWise.Domain.ValueObjects;
 using StockWise.Services.DTOS;
 using StockWise.Domain.Enums;
+using StockWise.Services.DTOS.InvoiceDto;
+using StockWise.Services.DTOS.InvoiceItemDto.InvoiceItemDto;
+using StockWise.Services.DTOS.InvoiceItemDto;
+using StockWise.Services.DTOS.ProductDto;
+using StockWise.Services.DTOS.WarehouseDto;
+using StockWise.Services.DTOS.StockDto;
 
 namespace StockWise.Services.Mappings
 {
@@ -22,49 +28,56 @@ namespace StockWise.Services.Mappings
                 .ForMember(dest => dest.Currency, opt => opt.MapFrom(src => src.Currency));
 
             // Product Mappings
-            CreateMap<ProductDto, Product>()
-                .ForMember(dest => dest.Price, opt => opt.Ignore()) // تجاهل Price لأننا بننشئه يدويًا
-                .ForMember(dest => dest.InitialQuantity, opt => opt.MapFrom(src => src.InitialQuantity ?? 0))
-                .ForMember(dest => dest.ProductionDate, opt => opt.MapFrom(src => src.ProductionDate))
-                .ForMember(dest => dest.ExpiryDate, opt => opt.MapFrom(src => src.ExpiryDate))
-                .ForMember(dest => dest.Condition, opt => opt.MapFrom(src => src.Condition));
+            CreateMap<ProductForCreationDto, Product>()
+              .ForMember(dest => dest.Price, opt => opt.MapFrom(src => new Money(src.Price.Amount, src.Price.Currency ?? "EGP")))
+              .ForMember(dest => dest.stocks, opt => opt.Ignore())
+              .ForMember(dest => dest.invoiceItems, opt => opt.Ignore())
+              .ForMember(dest => dest.returns, opt => opt.Ignore())
+              .ForMember(dest => dest.transfers, opt => opt.Ignore());
 
-            CreateMap<Product, ProductDto>()
+            CreateMap<StandaloneProductCreateDto, Product>()
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => new Money(src.Price.Amount, src.Price.Currency ?? "EGP")))
+                .ForMember(dest => dest.stocks, opt => opt.Ignore())
+                .ForMember(dest => dest.invoiceItems, opt => opt.Ignore())
+                .ForMember(dest => dest.returns, opt => opt.Ignore())
+                .ForMember(dest => dest.transfers, opt => opt.Ignore());
+
+            CreateMap<Product, ProductResponseDto>()
                 .ForMember(dest => dest.Price, opt => opt.MapFrom(src => new MoneyDto
                 {
                     Amount = src.Price.Amount,
                     Currency = src.Price.Currency
-                }));
-
-            // Invoice Mappings
-            CreateMap<InvoiceDto, Invoice>()
-                .ForMember(dest => dest.TotalAmount, opt => opt.Ignore()) // تجاهل لأننا بنحسبه يدويًا
-                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
-                .ForMember(dest => dest.Items, opt => opt.Ignore()); // تجاهل لأننا بننشئها يدويًا
-
-            CreateMap<Invoice, InvoiceDto>()
-                .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => new MoneyDto
-                {
-                    Amount = src.TotalAmount.Amount,
-                    Currency = src.TotalAmount.Currency
                 }))
-                .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items));
+                .ForMember(dest => dest.WarehouseIds, opt => opt.MapFrom(src => src.stocks.Select(s => s.WarehouseId).ToList()));
+            // Invoice Mappings
+            CreateMap<InvoiceCreateDto, Invoice>()
+            .ForMember(dest => dest.TotalAmount, opt => opt.Ignore()) // هيتحسب تلقائيًا
+            .ForMember(dest => dest.Items, opt => opt.Ignore());
 
+         
+
+            CreateMap<Invoice, InvoiceResponseDto>()
+            .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Customer.Name))
+            .ForMember(dest => dest.RepresentativeName, opt => opt.MapFrom(src => src.Representative.Name))
+            .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items));
+
+        
             // InvoiceItem Mappings
-            CreateMap<InvoiceItemDto, InvoiceItem>()
-                .ForMember(dest => dest.Price, opt => opt.Ignore()) // تجاهل لأننا بننشئه يدويًا
-                .ForMember(dest => dest.InvoiceId, opt => opt.Ignore()); // تجاهل لأننا بنعينه يدويًا
+            CreateMap<InvoiceItemCreateDto, InvoiceItem>()
+                 .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price != null
+                    ? new Money(src.Price.Amount, src.Price.Currency ?? "EGP")
+                    : null));// سيتم التعامل مع null في الـ Service
 
-            CreateMap<InvoiceItem, InvoiceItemDto>()
-                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => new MoneyDto
-                {
-                    Amount = src.Price.Amount,
-                    Currency = src.Price.Currency
-                }));
-
+            CreateMap<InvoiceItem, InvoiceItemResponseDto>()
+            .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name))
+            .ForMember(dest => dest.Subtotal, opt => opt.MapFrom(src => src.Quantity * src.Price.Amount));
             // Warehouse Mappings
-            CreateMap<WarehouseDto, Warehouse>();
-            CreateMap<Warehouse, WarehouseDto>();
+            CreateMap<WarehouseCreateDto, Warehouse>();
+
+            CreateMap<Warehouse, WarehouseResponseDto>()
+                .ForMember(dest => dest.RepresentativeId, opt => opt.MapFrom(src => src.Representatives.Select(r => r.Id).ToList()))
+                .ForMember(dest => dest.StockId , opt => opt.MapFrom(src => src.Stocks.Select(s => s.Id).ToList()));
+
 
             // Customer Mappings
             CreateMap<CustomerDto, Customer>()
@@ -116,9 +129,11 @@ namespace StockWise.Services.Mappings
                 }));
 
             // Stock Mappings
-            CreateMap<StockDto, Stock>();
-            CreateMap<Stock, StockDto>();
-
+            CreateMap<StockCreateDto, Stock>()
+                 .ForMember(dest => dest.MinQuantity, opt => opt.MapFrom(src => src.MinQuantity ?? 10));
+            CreateMap<Stock, StockResponseDto>()
+                .ForMember(dest => dest.WarehouseName, opt => opt.MapFrom(src => src.Warehouse.Name))
+                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name));
             // Transfer Mappings
             CreateMap<TransferDto, Transfer>();
             CreateMap<Transfer, TransferDto>();

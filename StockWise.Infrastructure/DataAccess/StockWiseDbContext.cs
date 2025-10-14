@@ -41,7 +41,7 @@ namespace StockWise.Infrastructure.DataAccess
             modelBuilder.Entity<Transfer>().ToTable("Transfers");
             modelBuilder.Entity<Location>().ToTable("Locations");
 
-           // modelBuilder.Entity<BaseEntity>().HasKey(e => e.Id);  عمل Error لانو اعبرو جدول منفصل 
+           // modelBuilder.Entity<BaseEntity>().HasKey(e => e.Id);  عمل Error لانو اعتبرو جدول منفصل 
             //Warehouse
             modelBuilder.Entity<Warehouse>()
                 .Property(w => w.WarehouseType)

@@ -15,9 +15,7 @@ namespace StockWise.Domain.Models
         public DateTime? ProductionDate { get; set; }//
         public DateTime? ExpiryDate { get; set; }//
         public int? InitialQuantity { get; set; } = 0;//
-        public int? WarehouseId { get; set; }//???????????
         public ProductCondition Condition { get; set; } = ProductCondition.Good;
-
         public ICollection<Stock> stocks { get; set; } = new List<Stock>();
         public ICollection<InvoiceItem> invoiceItems { get; set; }= new List<InvoiceItem>();
         public ICollection<Return> returns { get; set; } = new List<Return>();

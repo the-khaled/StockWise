@@ -16,13 +16,7 @@ namespace StockWise.Infrastructure.Repositories
         public InvoiceRepository(StockWiseDbContext context):base(context) { }
         public override async Task<Invoice> GetByIdAsync(int id)
         {
-            return await _context.invoices
-                .Include(i => i.Items )
-                    .ThenInclude(ii => ii.Product)
-                .Include(i => i.Customer)
-                .Include(i => i.Representative)
-                .Include(i => i.Payments)
-                .FirstOrDefaultAsync(i => i.Id == id);
+            return await _context.invoices.FirstOrDefaultAsync(i => i.Id == id); 
         }
         public async Task<IEnumerable<Invoice>> GetAllWithItemsAsync()
         {
@@ -46,8 +40,10 @@ namespace StockWise.Infrastructure.Repositories
         {
             return await _context.invoices
                 .Include(i => i.Items)
+                    .ThenInclude(ii => ii.Product)
                 .Include(i => i.Customer)
                 .Include(i => i.Representative)
+                .Include(i => i.Payments)
                 .Where(i => i.Status  == status)
                 .ToListAsync();
         }

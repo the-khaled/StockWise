@@ -39,7 +39,7 @@ namespace StockWise.Infrastructure.Repositories
         public ITransferRepository Transfers => _transfers ??= new TransferRepository(_context);
         public IInvoiceRepository Invoice => _invoices ??= new InvoiceRepository(_context);
         public IInvoiceItemRepository InvoiceItem => _invoiceItems ??= new InvoiceItemRepository(_context);
-        public IExpenseRepository expense => _expenses ??= new ExpenseRepository(_context);
+        public IExpenseRepository Expense => _expenses ??= new ExpenseRepository(_context);
         public IPaymentRepository Payment => _payments ??= new PaymentRepository(_context);
         public ILocationRepository Location => _locations ??= new LocationRepository(_context);
         public IReturnRepository Return => _returns ??= new ReturnRepository(_context);

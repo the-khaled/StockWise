@@ -9,5 +9,6 @@ namespace StockWise.Domain.Interfaces
 {
     public interface IWarehouseRepository:IRepository<Warehouse>
     {
+        Task<IEnumerable<Warehouse>> GetByNameAsync(string name);
     }
 }

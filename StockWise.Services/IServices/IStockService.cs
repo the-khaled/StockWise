@@ -1,4 +1,5 @@
 ﻿using StockWise.Services.DTOS;
+using StockWise.Services.DTOS.StockDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,11 @@ namespace StockWise.Services.IServices
 {
     public interface IStockService
     {
-        Task<IEnumerable<StockDto>> GetAllStocksAsync();
-        Task<StockDto> GetStockByIdAsync(int id);
-        Task CreateStockAsync(StockDto dto);
-        Task UpdateStockAsync(StockDto dto);
+        Task<IEnumerable<StockResponseDto>> GetAllStocksAsync();
+        Task<StockResponseDto> GetStockByIdAsync(int id);
+        Task<StockResponseDto> CreateStockAsync(StockCreateDto dto);
+        Task<StockResponseDto> UpdateStockAsync(int id, StockCreateDto dto);
+        Task<StockResponseDto> GetByWarehouseAndProductAsync(int warehouseId, int productId);
         Task DeleteStockAsync(int id);
     }
 }

@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StockWise.Services.DTOS;
+using StockWise.Services.DTOS.StockDto;
 using StockWise.Services.Exceptions;
 using StockWise.Services.IServices;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace StockWise.Controllers
 {
@@ -27,7 +31,11 @@ namespace StockWise.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { error = ex.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    error = ex.Message,
+                    traceId = HttpContext.TraceIdentifier
+                });
             }
         }
 
@@ -45,20 +53,30 @@ namespace StockWise.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { error = ex.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    error = ex.Message,
+                    traceId = HttpContext.TraceIdentifier
+                });
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] StockDto dto)
+        public async Task<IActionResult> Create([FromBody] StockCreateDto stockDto)
         {
             try
             {
                 if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
+                {
+                    var errors = ModelState
+                        .SelectMany(x => x.Value.Errors)
+                        .Select(x => x.ErrorMessage)
+                        .ToList();
+                    return BadRequest(new { errors });
+                }
 
-                await _stockService.CreateStockAsync(dto);
-                return CreatedAtAction(nameof(GetById), new { id = dto.Id }, dto);
+                var createdStock = await _stockService.CreateStockAsync(stockDto);
+                return CreatedAtAction(nameof(GetById), new { id = createdStock.Id }, createdStock);
             }
             catch (BusinessException ex)
             {
@@ -66,20 +84,34 @@ namespace StockWise.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { error = ex.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    error = ex.Message,
+                    traceId = HttpContext.TraceIdentifier
+                });
             }
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] StockDto dto)
+        public async Task<IActionResult> Update(int id, [FromBody] StockCreateDto stockDto)
         {
             try
             {
-                if (id != dto.Id)
-                    return BadRequest("ID mismatch");
+                if (!ModelState.IsValid)
+                {
+                    var errors = ModelState
+                        .SelectMany(x => x.Value.Errors)
+                        .Select(x => x.ErrorMessage)
+                        .ToList();
+                    return BadRequest(new { errors });
+                }
 
-                await _stockService.UpdateStockAsync(dto);
-                return NoContent();
+                var updatedStock = await _stockService.UpdateStockAsync(id, stockDto);
+                return Ok(updatedStock);
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(new { error = ex.Message });
             }
             catch (KeyNotFoundException ex)
             {
@@ -91,7 +123,11 @@ namespace StockWise.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { error = ex.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    error = ex.Message,
+                    traceId = HttpContext.TraceIdentifier
+                });
             }
         }
 
@@ -107,9 +143,43 @@ namespace StockWise.Controllers
             {
                 return NotFound(new { error = ex.Message });
             }
+            catch (BusinessException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
             catch (Exception ex)
             {
-                return StatusCode(500, new { error = ex.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    error = ex.Message,
+                    traceId = HttpContext.TraceIdentifier
+                });
+            }
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> GetByWarehouseAndProduct([FromQuery] int warehouseId, [FromQuery] int productId)
+        {
+            try
+            {
+                var stock = await _stockService.GetByWarehouseAndProductAsync(warehouseId, productId);
+                return Ok(stock);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { error = ex.Message });
+            }
+            catch (BusinessException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    error = ex.Message,
+                    traceId = HttpContext.TraceIdentifier
+                });
             }
         }
     }

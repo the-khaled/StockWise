@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StockWise.Services.DTOS;
+using StockWise.Services.DTOS.CustomerDto;
 using StockWise.Services.Exceptions;
 using StockWise.Services.IServices;
 
@@ -26,7 +27,35 @@ namespace StockWise.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { error = ex.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    error = ex.Message,
+                    traceId = HttpContext.TraceIdentifier
+                });
+            }
+        }
+        [HttpGet("search")]
+        public async Task<IActionResult> GetByName([FromQuery] string name)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(name))
+                    return BadRequest(new { error = "Name cannot be empty or whitespace." });
+
+                var customers = await _customerService.GetCustomersByNameAsync(name);
+                return Ok(customers);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    error = ex.Message,
+                    traceId = HttpContext.TraceIdentifier
+                });
             }
         }
 
@@ -44,20 +73,30 @@ namespace StockWise.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { error = ex.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    error = ex.Message,
+                    traceId = HttpContext.TraceIdentifier
+                });
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CustomerDto dto)
+        public async Task<IActionResult> Create([FromBody] CustomerCreateDto customerDto)
         {
             try
             {
                 if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
+                {
+                    var errors = ModelState
+                        .SelectMany(x => x.Value.Errors)
+                        .Select(x => x.ErrorMessage)
+                        .ToList();
+                    return BadRequest(new { errors });
+                }
 
-                await _customerService.CreatCastomerAsync(dto);
-                return CreatedAtAction(nameof(GetById), new { id = dto.Id }, dto);
+                var createdCustomer = await _customerService.CreatCastomerAsync(customerDto);
+                return CreatedAtAction(nameof(GetById), new { id = createdCustomer.Id }, createdCustomer);
             }
             catch (BusinessException ex)
             {
@@ -65,20 +104,30 @@ namespace StockWise.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { error = ex.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    error = ex.Message,
+                    traceId = HttpContext.TraceIdentifier
+                });
             }
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] CustomerDto dto)
+        public async Task<IActionResult> Update(int id, [FromBody] CustomerCreateDto customerDto)
         {
             try
             {
-                if (id != dto.Id)
-                    return BadRequest("ID mismatch");
+                if (!ModelState.IsValid)
+                {
+                    var errors = ModelState
+                        .SelectMany(x => x.Value.Errors)
+                        .Select(x => x.ErrorMessage)
+                        .ToList();
+                    return BadRequest(new { errors });
+                }
 
-                await _customerService.UpdateCustomerAsync(dto);
-                return NoContent();
+                var updatedCustomer = await _customerService.UpdateCustomerAsync(id, customerDto);
+                return Ok(updatedCustomer);
             }
             catch (KeyNotFoundException ex)
             {
@@ -90,10 +139,13 @@ namespace StockWise.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { error = ex.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    error = ex.Message,
+                    traceId = HttpContext.TraceIdentifier
+                });
             }
         }
-
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -106,11 +158,19 @@ namespace StockWise.Controllers
             {
                 return NotFound(new { error = ex.Message });
             }
+            catch (BusinessException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
             catch (Exception ex)
             {
-                return StatusCode(500, new { error = ex.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    error = ex.Message,
+                    traceId = HttpContext.TraceIdentifier
+                });
             }
         }
-    
-}
+
+    }
 }

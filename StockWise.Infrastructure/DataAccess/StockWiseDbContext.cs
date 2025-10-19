@@ -25,6 +25,7 @@ namespace StockWise.Infrastructure.DataAccess
         public DbSet<Stock> stocks { get; set; }
         public DbSet<Transfer> transfers { get; set; }
         public DbSet<Warehouse> warehouses { get; set; }
+        public DbSet<DamagedProduct> damagedProducts { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -40,6 +41,8 @@ namespace StockWise.Infrastructure.DataAccess
             modelBuilder.Entity<Expense>().ToTable("Expenses");
             modelBuilder.Entity<Transfer>().ToTable("Transfers");
             modelBuilder.Entity<Location>().ToTable("Locations");
+            modelBuilder.Entity<DamagedProduct>().ToTable("DamagedProduct");
+
 
            // modelBuilder.Entity<BaseEntity>().HasKey(e => e.Id);  عمل Error لانو اعتبرو جدول منفصل 
             //Warehouse

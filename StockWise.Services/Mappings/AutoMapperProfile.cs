@@ -9,6 +9,12 @@ using StockWise.Services.DTOS.InvoiceItemDto;
 using StockWise.Services.DTOS.ProductDto;
 using StockWise.Services.DTOS.WarehouseDto;
 using StockWise.Services.DTOS.StockDto;
+using StockWise.Services.DTOS.CustomerDto;
+using StockWise.Services.DTOS.ExpenseDto;
+using StockWise.Services.DTOS.RepresentativeDto;
+using StockWise.Services.DTOS.ReturnDto;
+using StockWise.Services.DTOS.PaymentDto;
+using StockWise.Services.DTOS.TransferDto;
 
 namespace StockWise.Services.Mappings
 {
@@ -80,48 +86,46 @@ namespace StockWise.Services.Mappings
 
 
             // Customer Mappings
-            CreateMap<CustomerDto, Customer>()
-                .ForMember(dest => dest.CreditBalance, opt => opt.Ignore())
+            CreateMap<CustomerCreateDto, Customer>()
+                  .ForMember(dest => dest.CreditBalance, opt => opt.MapFrom(src => new Money(src.CreditBalance.Amount, src.CreditBalance.Currency ?? "EGP")))
+                  .ForMember(dest => dest.PhoneNumbers, opt => opt.MapFrom(src => src.PhoneNumbers ?? new List<string>()))
+                  .ForMember(dest => dest.Invoices, opt => opt.Ignore())
+                  .ForMember(dest => dest.Payments, opt => opt.Ignore())
+                  .ForMember(dest => dest.Returns, opt => opt.Ignore());
+            CreateMap<Customer, CustomerResponseDto>()
+                .ForMember(dest => dest.CreditBalance, opt => opt.MapFrom(src => new MoneyDto { Amount = src.CreditBalance.Amount, Currency = src.CreditBalance.Currency }))
                 .ForMember(dest => dest.PhoneNumbers, opt => opt.MapFrom(src => src.PhoneNumbers ?? new List<string>()));
-
-            CreateMap<Customer, CustomerDto>()
-                .ForMember(dest => dest.CreditBalance, opt => opt.MapFrom(src => new MoneyDto
-                {
-                    Amount = src.CreditBalance.Amount,
-                    Currency = src.CreditBalance.Currency
-                }));
-
             // Representative Mappings
-            CreateMap<RepresentativeDto, Representative>()
+            CreateMap<RepresentativeCreateDto, Representative>()
+                  .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber ?? new List<string>()));
+            CreateMap<Representative, RepresentativeResponseDto>()
                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber ?? new List<string>()));
 
-            CreateMap<Representative, RepresentativeDto>();
-
             // Payment Mappings
-            CreateMap<PaymentDto, Payment>()
-                .ForMember(dest => dest.Amount, opt => opt.Ignore())
-                .ForMember(dest => dest.Method, opt => opt.MapFrom(src => src.Method))
-                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status));
+            CreateMap<Payment, PaymentResponseDto>()
+                    .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.Amount))
+                    .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
+                    .ForMember(dest => dest.InvoiceId, opt => opt.MapFrom(src => src.InvoiceId))
+                    .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.CustomerId));
 
-            CreateMap<Payment, PaymentDto>()
-                .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => new MoneyDto
-                {
-                    Amount = src.Amount.Amount,
-                    Currency = src.Amount.Currency
-                }));
+            CreateMap<PaymentCreateDto, Payment>()
+                .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.Amount))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
+                .ForMember(dest => dest.InvoiceId, opt => opt.MapFrom(src => src.InvoiceId))
+                .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.CustomerId));
 
             // Return Mappings
-            CreateMap<ReturnDto, Return>()
-                .ForMember(dest => dest.ReturnType, opt => opt.MapFrom(src => src.ReturnType));
-
-            CreateMap<Return, ReturnDto>();
+            CreateMap<ReturnCreateDto, Return>();
+               
+            CreateMap<Return, ReturnResponseDto>()
+                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name))
+                .ForMember(dest => dest.RepresentativeName, opt => opt.MapFrom(src => src.Representative != null ? src.Representative.Name : null))
+                .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Customer != null ? src.Customer.Name : null));
 
             // Expense Mappings
-            CreateMap<ExpenseDto, Expense>()
-                .ForMember(dest => dest.Amount, opt => opt.Ignore())
-                .ForMember(dest => dest.ExpenseType, opt => opt.MapFrom(src => src.ExpenseType));
-
-            CreateMap<Expense, ExpenseDto>()
+            CreateMap<ExpenseCreateDto, Expense>()
+                .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => new Money(src.Amount.Amount, src.Amount.Currency ?? "EGP")));
+            CreateMap<Expense, ExpenseResponseDto>()
                 .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => new MoneyDto
                 {
                     Amount = src.Amount.Amount,
@@ -135,8 +139,8 @@ namespace StockWise.Services.Mappings
                 .ForMember(dest => dest.WarehouseName, opt => opt.MapFrom(src => src.Warehouse.Name))
                 .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name));
             // Transfer Mappings
-            CreateMap<TransferDto, Transfer>();
-            CreateMap<Transfer, TransferDto>();
+            CreateMap<Transfer, TransferResponseDto>();
+            CreateMap<TransferCreateDto, Transfer>();
 
             // Location Mappings
             CreateMap<LocationDto, Location>();

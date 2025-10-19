@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using StockWise.Domain.Interfaces;
 using StockWise.Domain.Models;
 using StockWise.Services.DTOS;
+using StockWise.Services.DTOS.TransferDto;
 using StockWise.Services.IServices;
 using StockWise.Services.Services;
 
@@ -44,14 +45,28 @@ namespace StockWise.Controllers
                     return StatusCode(500, new { error = ex.Message });
                 }
         }
+
+        [HttpGet("warehouse/{warehouseId}")]
+        public async Task<IActionResult> GetByWarehouseId(int warehouseId)
+        {
+            try
+            {
+                var transfers = await _transfer.GetByWarehouseIdAsync(warehouseId);
+                return Ok(transfers);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { error = ex.Message });
+            }
+        }
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] TransferDto Transfer)
+        public async Task<IActionResult> Create([FromBody] TransferCreateDto Transferdto)
         {
             try
             {
                 if (!ModelState.IsValid) return BadRequest(ModelState);
-                await _transfer.CreateTransferAsync(Transfer);
-                return CreatedAtAction(nameof(GetById), new { id = Transfer.Id }, Transfer);
+                var createdTransfer = await _transfer.CreateTransferAsync(Transferdto);
+                return CreatedAtAction(nameof(GetById), new { id = createdTransfer.Id }, createdTransfer);
             }
             catch (ArgumentException ex)
             {
@@ -67,15 +82,15 @@ namespace StockWise.Controllers
             }
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] TransferDto transfer)
+        public async Task<IActionResult> Update(int id, [FromBody] TransferCreateDto transferdto)
         {
             try
             {
-                if (id != transfer.Id)
-                    return BadRequest("ID mismatch");
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
 
-                await _transfer.UpdateTransferAsync(transfer);
-                return NoContent();
+                var updatedTransfer = await _transfer.UpdateTransferAsync(id, transferdto);
+                return Ok(updatedTransfer);
             }
             catch (KeyNotFoundException ex)
             {
@@ -87,11 +102,11 @@ namespace StockWise.Controllers
             }
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> cancel(int id)
         {
             try
             {
-                await _transfer.DeleteTransferAsync(id);
+                await _transfer.cancelTransferAsync(id);
                 return NoContent();
             }
             catch (KeyNotFoundException ex)

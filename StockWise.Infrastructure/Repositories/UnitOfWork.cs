@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace StockWise.Infrastructure.Repositories
 {
 
-    public class UnitOfWork : IUnitOfWork , IDisposable
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly StockWiseDbContext _context;
 
@@ -26,6 +26,7 @@ namespace StockWise.Infrastructure.Repositories
         private ILocationRepository _locations;
         private IReturnRepository _returns;
         private ICustomerRepository _customers;
+        private IDamagedProductRepositories _DamagedProduct;
 
         public UnitOfWork(StockWiseDbContext context)
         {
@@ -44,6 +45,8 @@ namespace StockWise.Infrastructure.Repositories
         public ILocationRepository Location => _locations ??= new LocationRepository(_context);
         public IReturnRepository Return => _returns ??= new ReturnRepository(_context);
         public ICustomerRepository Customer => _customers ??= new CustomerRepository(_context);
+
+        public IDamagedProductRepositories DamagedProduct => _DamagedProduct ??= new DamagedProductRepositories(_context);
 
         public async Task<int> SaveChangesAsync() => await _context.SaveChangesAsync();
 

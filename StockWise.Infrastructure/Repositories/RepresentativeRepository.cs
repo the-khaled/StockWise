@@ -23,5 +23,17 @@ namespace StockWise.Infrastructure.Repositories
                 .Include(r => r.Locations)
                 .FirstOrDefaultAsync(r => r.Id == id);
         }
+        public async Task<IEnumerable<Representative>> GetByWarehouseIdAsync(int warehouseId)
+        {
+            return await _context.representatives
+                .Where(r => r.WarehouseId == warehouseId)
+                .ToListAsync();
+        }
+        public async Task<Representative> GetByNationalIdAsync(string nationalId)
+        {
+            return await _context.representatives   
+                .FirstOrDefaultAsync(r => r.NationalId == nationalId);
+        }
+
     }
 }

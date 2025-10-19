@@ -12,6 +12,7 @@ namespace StockWise.Domain.Models
         public ReturnType ReturnType { get; set; } // FromRepresentative or FromCustomer
         public int ProductId { get; set; }
         public Product Product { get; set; }
+        public ProductCondition Condition { get; set; }
         public int Quantity { get; set; }
         public string Reason { get; set; }
         public int? RepresentativeId { get; set; }

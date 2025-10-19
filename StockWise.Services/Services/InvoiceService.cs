@@ -78,7 +78,7 @@ namespace StockWise.Services.Services
                     calculatedTotal += itemDto.Quantity * itemDto.Price.Amount;
                 }
 
-                // TotalAmount is calculated automatically - ignore user input if provided
+                // TotalAmount is calculated automatically - ignore user input 
                 var finalTotalAmount = new Money(calculatedTotal, "EGP");
 
                 // Create Invoice
@@ -244,7 +244,7 @@ namespace StockWise.Services.Services
                 }
 
                 await _unitOfWork.SaveChangesAsync();
-                _logger.LogInformation("Invoice ID {Id} updated successfully", id);
+                _logger.LogInformation($"Invoice ID {id} updated successfully", id);
 
                 // Return updated invoice
                 var updatedInvoice = await _unitOfWork.Invoice.GetByIdWithItemsAsync(id);

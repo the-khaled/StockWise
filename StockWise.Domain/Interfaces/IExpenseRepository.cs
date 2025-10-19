@@ -9,5 +9,6 @@ namespace StockWise.Domain.Interfaces
 {
     public interface IExpenseRepository:IRepository<Expense>
     {
+        Task<IEnumerable<Expense>> GetByRepresentativeIdAsync(int representativeId);
     }
 }

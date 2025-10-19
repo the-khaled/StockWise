@@ -13,6 +13,7 @@ namespace StockWise.Services.IServices
         Task<InvoiceResponseDto> GetInvoiceByIdAsync(int id);
         Task<InvoiceResponseDto> CreateInvoiceAsync(InvoiceCreateDto invoiceDto);
         Task<InvoiceResponseDto> UpdateInvoiceAsync(int id,InvoiceCreateDto invoiceDto);
+
         Task DeleteInvoiceAsync(int id);
     }
 }

@@ -22,6 +22,11 @@ namespace StockWise.Infrastructure.Repositories
             .Include(c => c.Returns)
             .FirstOrDefaultAsync(c => c.Id == id);
         }
+        public async Task<IEnumerable<Customer>> GetByNameAsync(string name) 
+        {
+            return await _context.customers.Where(c => c.Name.ToLower().Contains(name.ToLower()))
+                .ToListAsync();
+        }
 
     }
 }

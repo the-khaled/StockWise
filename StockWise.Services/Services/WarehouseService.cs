@@ -25,13 +25,13 @@ namespace StockWise.Services.Services
 
         public async Task<IEnumerable<WarehouseResponseDto>> GetAllWarehousesAsync()
         {
-            var warehouses = await _unitOfWork.Warehouses.GetAllAsync();
+            var warehouses = await _unitOfWork.Warehouses.GetAllWithStocksandRepresentativesAsync();
             return _mapper.Map<IEnumerable<WarehouseResponseDto>>(warehouses);
         }
 
         public async Task<WarehouseResponseDto> GetWarehouseByIdAsync(int id)
         {
-            var warehouse = await _unitOfWork.Warehouses.GetByIdAsync(id);
+            var warehouse = await _unitOfWork.Warehouses.GetWarehouseByIdWithStockAsync(id);
             if (warehouse == null)
                 throw new KeyNotFoundException($"Warehouse with ID {id} not found.");
             return _mapper.Map<WarehouseResponseDto>(warehouse);

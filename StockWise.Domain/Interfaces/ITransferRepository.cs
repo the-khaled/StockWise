@@ -9,6 +9,10 @@ namespace StockWise.Domain.Interfaces
 {
     public interface ITransferRepository :IRepository<Transfer>
     {
- 
+        Task<Transfer> GetByIdAsync(int id);
+        Task<IEnumerable<Transfer>> GetAllAsync();
+        Task<IEnumerable<Transfer>> GetByFromWarehouseIdAsync(int warehouseId);
+        Task<IEnumerable<Transfer>> GetByToWarehouseIdAsync(int warehouseId);
+        Task<IEnumerable<Transfer>> GetByProductIdAsync(int productId);
     }
 }

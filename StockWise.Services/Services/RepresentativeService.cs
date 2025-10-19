@@ -1,6 +1,8 @@
-﻿using StockWise.Domain.Interfaces;
+﻿using AutoMapper;
+using StockWise.Domain.Interfaces;
 using StockWise.Domain.Models;
 using StockWise.Services.DTOS;
+using StockWise.Services.DTOS.RepresentativeDto;
 using StockWise.Services.Exceptions;
 using StockWise.Services.IServices;
 using System;
@@ -14,93 +16,128 @@ namespace StockWise.Services.Services
     public class RepresentativeService : IRepresentativeService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public RepresentativeService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public RepresentativeService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
-        public async Task CreateRepresentativeAsync(RepresentativeDto Representativedto)
+        public async Task<RepresentativeResponseDto> CreateRepresentativeAsync(RepresentativeCreateDto Representativedto)
         {
-           if (Representativedto == null) throw new ArgumentNullException(nameof(Representativedto));
+            if (Representativedto == null)
+                throw new ArgumentNullException(nameof(Representativedto));
+
+            // Validate WarehouseId
             var warehouse = await _unitOfWork.Warehouses.GetByIdAsync(Representativedto.WarehouseId);
-            if (warehouse == null) throw new BusinessException("Warehouse not found.");
-            if(!string.IsNullOrEmpty(Representativedto.NationalId) && Representativedto.NationalId.Length != 14)
-                throw new BusinessException("National ID must be 14 characters.");
-            await _unitOfWork.Representatives.AddAsync(MapToEntity(Representativedto));
+            if (warehouse == null)
+                throw new BusinessException($"Warehouse with ID {Representativedto.WarehouseId} not found.");
+
+            // Validate NationalId uniqueness if provided
+            if (!string.IsNullOrWhiteSpace(Representativedto.NationalId))
+            {
+                var existingRepresentative = await _unitOfWork.Representatives.GetByNationalIdAsync(Representativedto.NationalId);
+                if (existingRepresentative != null)
+                    throw new BusinessException($"Representative with National ID {Representativedto.NationalId} already exists.");
+            }
+
+            // Validate PhoneNumber
+            if (!Representativedto.PhoneNumber.Any())
+                throw new BusinessException("At least one phone number is required.");
+
+            var representative = _mapper.Map<Representative>(Representativedto);
+            representative.CreatedAt = DateTime.UtcNow;
+            representative.UpdatedAt = DateTime.UtcNow;
+
+            await _unitOfWork.Representatives.AddAsync(representative);
             await _unitOfWork.SaveChangesAsync();
+
+            var createdRepresentative = await _unitOfWork.Representatives.GetByIdAsync(representative.Id);
+            return _mapper.Map<RepresentativeResponseDto>(createdRepresentative);
         }
 
         public async Task DeleteRepresentativeAsync(int id)
         {
-            var existRepresentativedto = await _unitOfWork.Representatives.GetByIdAsync(id);
-            if (existRepresentativedto == null)
+            var representative = await _unitOfWork.Representatives.GetByIdAsync(id);
+            if (representative == null)
                 throw new KeyNotFoundException($"Representative with ID {id} not found.");
+
+            // Check for related entities
+            if (representative.Invoices.Any() || representative.Returns.Any() || representative.Locations.Any() || representative.Expenses.Any())
+                throw new BusinessException("Cannot delete representative with associated invoices, returns, locations, or expenses.");
+
             await _unitOfWork.Representatives.DeleteAsync(id);
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<RepresentativeDto>> GetAllRepresentativeAsync()
+        public async Task<IEnumerable<RepresentativeResponseDto>> GetAllRepresentativeAsync()
         {
-            var Representative = await _unitOfWork.Representatives.GetAllAsync();
-            return Representative.Select(p=>MapToDto(p)).ToList();
+            var representatives = await _unitOfWork.Representatives.GetAllAsync();
+            return _mapper.Map<IEnumerable<RepresentativeResponseDto>>(representatives);
         }
 
-        public async Task<RepresentativeDto> GetRepresentativeByIdAsync(int id)
+        public async Task<RepresentativeResponseDto> GetRepresentativeByIdAsync(int id)
         {
-            var Representative = await _unitOfWork.Representatives.GetByIdAsync(id);
-            if(Representative ==null) throw new KeyNotFoundException($"Representative with ID {id} not found.");
-            return MapToDto(Representative);
+            var representative = await _unitOfWork.Representatives.GetByIdAsync(id);
+            if (representative == null)
+                throw new KeyNotFoundException($"Representative with ID {id} not found.");
+            return _mapper.Map<RepresentativeResponseDto>(representative);
         }
 
-        public async Task UpdateRepresentativeAsync(RepresentativeDto dto)
+        public async Task<RepresentativeResponseDto> UpdateRepresentativeAsync(int id, RepresentativeCreateDto representativeDto)
         {
-            if (dto == null) throw new ArgumentNullException(nameof(dto));
-            var existingRepresentative = await _unitOfWork.Representatives.GetByIdAsync(dto.Id);
+            if (representativeDto == null)
+                throw new ArgumentNullException(nameof(representativeDto));
+
+            var existingRepresentative = await _unitOfWork.Representatives.GetByIdAsync(id);
             if (existingRepresentative == null)
-                throw new KeyNotFoundException($"Representative with ID {dto.Id} not found.");
+                throw new KeyNotFoundException($"Representative with ID {id} not found.");
 
-            var warehouse = await _unitOfWork.Warehouses.GetByIdAsync(dto.WarehouseId);
+            // Validate WarehouseId
+            var warehouse = await _unitOfWork.Warehouses.GetByIdAsync(representativeDto.WarehouseId);
             if (warehouse == null)
-                throw new BusinessException("Warehouse not found.");
-            existingRepresentative.Name = dto.Name;
-            existingRepresentative.NationalId = dto.NationalId;
-            existingRepresentative.PhoneNumber = dto.PhoneNumber;
-            existingRepresentative.Address = dto.Address;
-            existingRepresentative.Notes = dto.Notes;
-            existingRepresentative.WarehouseId = dto.WarehouseId;
-            existingRepresentative.UpdatedAt = DateTime.Now;
+                throw new BusinessException($"Warehouse with ID {representativeDto.WarehouseId} not found.");
+
+            // Validate NationalId uniqueness if provided
+            if (!string.IsNullOrWhiteSpace(representativeDto.NationalId))
+            {
+                var existingByNationalId = await _unitOfWork.Representatives.GetByNationalIdAsync(representativeDto.NationalId);
+                if (existingByNationalId != null && existingByNationalId.Id != id)
+                    throw new BusinessException($"Representative with National ID {representativeDto.NationalId} already exists.");
+            }
+
+            // Validate PhoneNumber
+            if (!representativeDto.PhoneNumber.Any())
+                throw new BusinessException("At least one phone number is required.");
+
+            _mapper.Map(representativeDto, existingRepresentative);
+            existingRepresentative.UpdatedAt = DateTime.UtcNow;
 
             await _unitOfWork.Representatives.UpdateAsync(existingRepresentative);
             await _unitOfWork.SaveChangesAsync();
+
+            return _mapper.Map<RepresentativeResponseDto>(existingRepresentative);
         }
-        public RepresentativeDto MapToDto(Representative Representative) 
+        public async Task<IEnumerable<RepresentativeResponseDto>> GetRepresentativesByWarehouseIdAsync(int warehouseId)
         {
-            return new RepresentativeDto 
-            {
-                Id = Representative.Id,
-                Name = Representative.Name,
-                NationalId = Representative.NationalId,
-                PhoneNumber = Representative.PhoneNumber.ToList(),
-                Address = Representative.Address,
-                Notes = Representative.Notes,
-                WarehouseId = Representative.WarehouseId,
-                CreatedAt = Representative.CreatedAt,
-                UpdatedAt = Representative.UpdatedAt
-            };
+            var warehouse = await _unitOfWork.Warehouses.GetByIdAsync(warehouseId);
+            if (warehouse == null)
+                throw new KeyNotFoundException($"Warehouse with ID {warehouseId} not found.");
+
+            var representatives = await _unitOfWork.Representatives.GetByWarehouseIdAsync(warehouseId);
+            return _mapper.Map<IEnumerable<RepresentativeResponseDto>>(representatives);
         }
-        public Representative MapToEntity(RepresentativeDto Representativedto)
+
+        public async Task<RepresentativeResponseDto> GetRepresentativeByNationalIdAsync(string nationalId)
         {
-            return new Representative
-            {
-                Id = Representativedto.Id,
-                Name = Representativedto.Name,
-                NationalId = Representativedto.NationalId,
-                PhoneNumber = Representativedto.PhoneNumber.ToList(),
-                Address = Representativedto.Address,
-                Notes = Representativedto.Notes,
-                WarehouseId = Representativedto.WarehouseId,
-                CreatedAt = Representativedto.CreatedAt,
-                UpdatedAt = Representativedto.UpdatedAt
-            };
+            if (string.IsNullOrWhiteSpace(nationalId))
+                throw new ArgumentException("National ID cannot be empty or whitespace.", nameof(nationalId));
+
+            var representative = await _unitOfWork.Representatives.GetByNationalIdAsync(nationalId);
+            if (representative == null)
+                throw new KeyNotFoundException($"Representative with National ID {nationalId} not found.");
+
+            return _mapper.Map<RepresentativeResponseDto>(representative);
         }
     }
-}
+
+    }

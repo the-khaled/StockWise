@@ -9,5 +9,8 @@ namespace StockWise.Domain.Interfaces
 {
     public interface IPaymentRepository:IRepository<Payment>
     {
+        Task<IEnumerable<Payment>> GetPaymentsByInvoiceIdAsync(int invoiceId);
+        Task<IEnumerable<Payment>> GetPaymentsByCustomerIdAsync(int customerId);
+         Task<IEnumerable<Payment>> GetPendingPaymentsAsync();
     }
 }

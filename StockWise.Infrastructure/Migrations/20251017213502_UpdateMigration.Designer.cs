@@ -12,8 +12,8 @@ using StockWise.Infrastructure.DataAccess;
 namespace StockWise.Infrastructure.Migrations
 {
     [DbContext(typeof(StockWiseDbContext))]
-    [Migration("20251013134721_AddWithOwnerinmodelbuilder")]
-    partial class AddWithOwnerinmodelbuilder
+    [Migration("20251017213502_UpdateMigration")]
+    partial class UpdateMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,6 +53,35 @@ namespace StockWise.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers", (string)null);
+                });
+
+            modelBuilder.Entity("StockWise.Domain.Models.DamagedProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DamagedProduct", (string)null);
                 });
 
             modelBuilder.Entity("StockWise.Domain.Models.Expense", b =>
@@ -263,9 +292,6 @@ namespace StockWise.Infrastructure.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("WarehouseId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Products", (string)null);
@@ -324,6 +350,9 @@ namespace StockWise.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Condition")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -545,7 +574,7 @@ namespace StockWise.Infrastructure.Migrations
 
                     b.OwnsOne("StockWise.Domain.ValueObjects.Money", "TotalAmount", b1 =>
                         {
-                            b1.Property<int>("InvoiceId")
+                            b1.Property<int>("InvoiceItemId")
                                 .HasColumnType("int");
 
                             b1.Property<decimal>("Amount")
@@ -558,12 +587,12 @@ namespace StockWise.Infrastructure.Migrations
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("TotalAmountCurrency");
 
-                            b1.HasKey("InvoiceId");
+                            b1.HasKey("InvoiceItemId");
 
                             b1.ToTable("Invoices");
 
                             b1.WithOwner()
-                                .HasForeignKey("InvoiceId");
+                                .HasForeignKey("InvoiceItemId");
                         });
 
                     b.Navigation("Customer");

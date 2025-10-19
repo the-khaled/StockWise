@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace StockWise.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class updateCustomer : Migration
+    public partial class UpdateMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,6 +31,23 @@ namespace StockWise.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DamagedProduct",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DamagedProduct", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -42,7 +59,6 @@ namespace StockWise.Infrastructure.Migrations
                     ProductionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     InitialQuantity = table.Column<int>(type: "int", nullable: true, defaultValue: 0),
-                    WarehouseId = table.Column<int>(type: "int", nullable: true),
                     Condition = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -250,6 +266,7 @@ namespace StockWise.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ReturnType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
+                    Condition = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Reason = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RepresentativeId = table.Column<int>(type: "int", nullable: true),
@@ -444,6 +461,9 @@ namespace StockWise.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "DamagedProduct");
+
             migrationBuilder.DropTable(
                 name: "Expenses");
 

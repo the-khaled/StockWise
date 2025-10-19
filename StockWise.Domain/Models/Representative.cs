@@ -20,5 +20,6 @@ namespace StockWise.Domain.Models
         public ICollection<Return> Returns { get; set; } = new List<Return>(); // Returns from rep to main
         public ICollection<Location> Locations { get; set; } = new List<Location>();
         public ICollection<Expense> Expenses { get; set; }
+
     }
 }

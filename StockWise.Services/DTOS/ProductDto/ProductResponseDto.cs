@@ -14,7 +14,7 @@ namespace StockWise.Services.DTOS.ProductDto
         public MoneyDto Price { get; set; }
         public DateTime ProductionDate { get; set; }
         public DateTime ExpiryDate { get; set; }
-        public int? InitialQuantity { get; set; }
+        public int? InitialQuantity { get; set; }//
         public ProductCondition Condition { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }

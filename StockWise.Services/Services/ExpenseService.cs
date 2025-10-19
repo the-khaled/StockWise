@@ -1,6 +1,8 @@
-﻿using StockWise.Domain.Interfaces;
+﻿using AutoMapper;
+using StockWise.Domain.Interfaces;
 using StockWise.Domain.Models;
 using StockWise.Services.DTOS;
+using StockWise.Services.DTOS.ExpenseDto;
 using StockWise.Services.Exceptions;
 using StockWise.Services.IServices;
 using System;
@@ -14,11 +16,14 @@ namespace StockWise.Services.Services
     public class ExpenseService : IExpenseService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public ExpenseService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public ExpenseService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
+            
         }
-        public async Task CreateExpenseAsync(ExpenseDto expenseDto)
+        public async Task<ExpenseResponseDto> CreateExpenseAsync(ExpenseCreateDto expenseDto)
         {
             if (expenseDto == null)
                 throw new ArgumentNullException(nameof(expenseDto));
@@ -32,9 +37,14 @@ namespace StockWise.Services.Services
                 if (representative == null)
                     throw new BusinessException("Representative not found.");
             }
+            var Expen = _mapper.Map<Expense>(expenseDto);
+            Expen.CreatedAt = DateTime.UtcNow;
+            Expen.UpdatedAt = DateTime.UtcNow;
 
-            await _unitOfWork.Expense.AddAsync(MapToEntity(expenseDto));
+            await _unitOfWork.Expense.AddAsync(Expen);
             await _unitOfWork.SaveChangesAsync();
+            var CreatedExpense = _unitOfWork.Expense.GetByIdAsync(Expen.Id);
+            return _mapper.Map<ExpenseResponseDto>(CreatedExpense);
         }
 
         public async Task DeleteExpenseAsync(int id)
@@ -47,29 +57,39 @@ namespace StockWise.Services.Services
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ExpenseDto>> GetAllExpenseAsync()
+        public async Task<IEnumerable<ExpenseResponseDto>> GetAllExpenseAsync()
         {
             var expenses = await _unitOfWork.Expense.GetAllAsync();
-            return expenses.Select(e => MapToDto(e)).ToList();
+            return _mapper.Map<IEnumerable<ExpenseResponseDto>>(expenses);
         }
 
-        public async Task<ExpenseDto> GetExpenseByIdAsync(int id)
+        public async Task<ExpenseResponseDto> GetExpenseByIdAsync(int id)
         {
             var expense = await _unitOfWork.Expense.GetByIdAsync(id);
             if (expense == null)
                 throw new KeyNotFoundException($"Expense with ID {id} not found.");
 
-            return MapToDto(expense);
+            return _mapper.Map<ExpenseResponseDto>(expense);
         }
 
-        public async Task UpdateExpenseAsync(ExpenseDto expenseDto)
+        public async Task<IEnumerable<ExpenseResponseDto>> GetExpensesByRepresentativeIdAsync(int representativeId)
+        {
+            var representative = await _unitOfWork.Representatives.GetByIdAsync(representativeId);
+            if (representative == null)
+                throw new KeyNotFoundException($"Representative with ID {representativeId} not found.");
+
+            var expenses = await _unitOfWork.Expense.GetByRepresentativeIdAsync(representativeId);
+            return _mapper.Map<IEnumerable<ExpenseResponseDto>>(expenses);
+        }
+
+        public async Task<ExpenseResponseDto> UpdateExpenseAsync(int id,ExpenseCreateDto expenseDto)
         {
             if (expenseDto == null)
                 throw new ArgumentNullException(nameof(expenseDto));
 
-            var existingExpense = await _unitOfWork.Expense.GetByIdAsync(expenseDto.Id);
+            var existingExpense = await _unitOfWork.Expense.GetByIdAsync(id);
             if (existingExpense == null)
-                throw new KeyNotFoundException($"Expense with ID {expenseDto.Id} not found.");
+                throw new KeyNotFoundException($"Expense with ID {id} not found.");
             
 
             if (expenseDto.RepresentativeId.HasValue)
@@ -78,40 +98,13 @@ namespace StockWise.Services.Services
                 if (representative == null)
                     throw new BusinessException("Representative not found.");
             }
-
-            existingExpense.Amount = expenseDto.Amount;
-            existingExpense.ExpenseType = expenseDto.ExpenseType;
-            existingExpense.RepresentativeId = expenseDto.RepresentativeId;
-            existingExpense.UpdatedAt = DateTime.Now;
-
+            _mapper.Map(expenseDto, existingExpense);
+            existingExpense.UpdatedAt = DateTime.UtcNow;
             await _unitOfWork.Expense.UpdateAsync(existingExpense);
             await _unitOfWork.SaveChangesAsync();
+            return _mapper.Map<ExpenseResponseDto>(existingExpense);
         }
-        private ExpenseDto MapToDto(Expense expense)
-        {
-            return new ExpenseDto
-            {
-                Id = expense.Id,
-                Amount = expense.Amount,
-                ExpenseType = expense.ExpenseType,
-                RepresentativeId = expense.RepresentativeId,
-                CreatedAt = expense.CreatedAt,
-                UpdatedAt = expense.UpdatedAt
-            };
-        }
-
-        private Expense MapToEntity(ExpenseDto dto)
-        {
-            return new Expense
-            {
-                Id = dto.Id,
-                Amount = dto.Amount,
-                ExpenseType = dto.ExpenseType,
-                RepresentativeId = dto.RepresentativeId,
-                CreatedAt = dto.CreatedAt,
-                UpdatedAt = dto.UpdatedAt
-            };
-        }
+        
     }
 }
 

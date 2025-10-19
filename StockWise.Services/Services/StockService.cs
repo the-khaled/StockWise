@@ -59,6 +59,7 @@ namespace StockWise.Services.Services
             if (existingStock != null)
                 throw new BusinessException($"Stock for Warehouse ID {stockDto.WarehouseId} and Product ID {stockDto.ProductId} already exists.");
 
+
             var stock = _mapper.Map<Stock>(stockDto);
             stock.CreatedAt = DateTime.UtcNow;
             stock.UpdatedAt = DateTime.UtcNow;
@@ -96,6 +97,7 @@ namespace StockWise.Services.Services
             var duplicateStock = await _unitOfWork.Stocks.GetByWarehouseAndProductAsync(stockDto.WarehouseId, stockDto.ProductId);
             if (duplicateStock != null && duplicateStock.Id != id)
                 throw new BusinessException($"Stock for Warehouse ID {stockDto.WarehouseId} and Product ID {stockDto.ProductId} already exists.");
+
 
             _mapper.Map(stockDto, existingStock);
             existingStock.UpdatedAt = DateTime.UtcNow;

@@ -1,6 +1,8 @@
-﻿using StockWise.Domain.Interfaces;
+﻿using AutoMapper;
+using StockWise.Domain.Interfaces;
 using StockWise.Domain.Models;
 using StockWise.Services.DTOS;
+using StockWise.Services.DTOS.TransferDto;
 using StockWise.Services.Exceptions;
 using StockWise.Services.IServices;
 using System;
@@ -14,88 +16,187 @@ namespace StockWise.Services.Services
 {
     public class TransferService : ITransferService
     {
-        private IUnitOfWork _unitOfWork;
-        public TransferService( IUnitOfWork unitOfWork)
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+
+        public TransferService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
-        public async Task CreateTransferAsync(TransferDto transferdto)
+
+        public async Task<TransferResponseDto> CreateTransferAsync(TransferCreateDto transferDto)
         {
-            if (transferdto == null) throw new ArgumentNullException(nameof(transferdto));
-             if (transferdto.Quantity <= 0) throw new ArgumentException("Quantity must be greater than zero.");
-            //التاكد ان المخذنين موجودين 
-            var fromwarehouse = await _unitOfWork.Warehouses.GetByIdAsync(transferdto.FromWarehouseId);
-            var towarehouse = await _unitOfWork.Warehouses.GetByIdAsync(transferdto.ToWarehouseId);
-            //التاكد ان الكميه مش سالبه 
-           if (fromwarehouse == null || towarehouse == null) throw new BusinessException("One or both warehouses not found.");
-            //التاكد ان المنتج نفسو موجود
-            var prod = await _unitOfWork.Products.GetByIdAsync(transferdto.ProductId);
-            if (prod == null) throw new BusinessException("Product Not Found");
-            var transfer = MapToEntity(transferdto);
+            if (transferDto == null)
+                throw new ArgumentNullException(nameof(transferDto));
+
+            if (transferDto.Quantity <= 0)
+                throw new BusinessException("Quantity must be greater than zero.");
+
+            if (transferDto.FromWarehouseId == transferDto.ToWarehouseId)
+                throw new BusinessException("Cannot transfer to the same warehouse.");
+
+            var fromWarehouse = await _unitOfWork.Warehouses.GetWarehouseByIdWithStockAsync(transferDto.FromWarehouseId);
+            if (fromWarehouse == null)
+                throw new BusinessException($"FromWarehouse with ID {transferDto.FromWarehouseId} not found.");
+
+            var toWarehouse = await _unitOfWork.Warehouses.GetWarehouseByIdWithStockAsync(transferDto.ToWarehouseId);
+            if (toWarehouse == null)
+                throw new BusinessException($"ToWarehouse with ID {transferDto.ToWarehouseId} not found.");
+
+            var product = await _unitOfWork.Products.GetByIdAsync(transferDto.ProductId);
+            if (product == null)
+                throw new BusinessException($"Product with ID {transferDto.ProductId} not found.");
+
+            // Check stock availability in FromWarehouse
+            var fromStock = fromWarehouse.Stocks.FirstOrDefault(s => s.ProductId == transferDto.ProductId);
+            if (fromStock == null || fromStock.Quantity < transferDto.Quantity)
+                throw new BusinessException($"Insufficient stock in FromWarehouse ID {transferDto.FromWarehouseId} for Product ID {transferDto.ProductId}. Available: {fromStock?.Quantity ?? 0}, Requested: {transferDto.Quantity}");
+
+            // Update stock in FromWarehouse and ToWarehouse
+            fromStock.Quantity -= transferDto.Quantity;
+            var toStock = toWarehouse.Stocks.FirstOrDefault(s => s.ProductId == transferDto.ProductId);
+            if (toStock != null)
+                toStock.Quantity += transferDto.Quantity;
+            else
+                toWarehouse.Stocks.Add(new Stock { ProductId = transferDto.ProductId, Quantity = transferDto.Quantity });
+
+            var transfer = _mapper.Map<Transfer>(transferDto);
+            transfer.CreatedAt = DateTime.UtcNow;
+            transfer.UpdatedAt = DateTime.UtcNow;
+
+            await _unitOfWork.Warehouses.UpdateAsync(fromWarehouse);
+            await _unitOfWork.Warehouses.UpdateAsync(toWarehouse);
             await _unitOfWork.Transfers.AddAsync(transfer);
             await _unitOfWork.SaveChangesAsync();
+
+            var createdTransfer = await _unitOfWork.Transfers.GetByIdAsync(transfer.Id);
+            return _mapper.Map<TransferResponseDto>(createdTransfer);
         }
-        public async Task<IEnumerable<TransferDto>> GetAllTransfersAsync()
+        public async Task<IEnumerable<TransferResponseDto>> GetAllTransfersAsync()
         {
             var transfers = await _unitOfWork.Transfers.GetAllAsync();
-            return transfers.Select(t => MapToDto(t)).ToList();
+            return _mapper.Map<IEnumerable<TransferResponseDto>>(transfers);
         }
 
-        public async Task<TransferDto> GetTransferByIdAsync(int id)
+        public async Task<TransferResponseDto> GetTransferByIdAsync(int id)
         {
-            var transfer=await _unitOfWork.Transfers.GetByIdAsync(id);
-            if (transfer == null) { throw new KeyNotFoundException($"Transfer with ID {id} not found."); }
-            return MapToDto(transfer);
+            var transfer = await _unitOfWork.Transfers.GetByIdAsync(id);
+            if (transfer == null)
+                throw new BusinessException($"Transfer with ID {id} not found.");
+
+            return _mapper.Map<TransferResponseDto>(transfer);
         }
 
-        public async Task UpdateTransferAsync(TransferDto transferdto)
+        public async Task<TransferResponseDto> UpdateTransferAsync(int id, TransferCreateDto transferDto)
         {
-            if (transferdto == null) throw new ArgumentNullException(nameof(transferdto));
-            var transferexist = await _unitOfWork.Transfers.GetByIdAsync(transferdto.Id);
-            if (transferexist == null)
-                throw new KeyNotFoundException($"Transfer with ID {transferdto.Id} not found.");
-            transferexist.FromWarehouseId=transferdto.FromWarehouseId;
-            transferexist.ToWarehouseId=transferdto.ToWarehouseId;
-            transferexist.ProductId=transferdto.ProductId;
-            transferexist.Quantity=transferdto.Quantity;
-            transferexist.UpdatedAt=DateTime.Now;
-            await _unitOfWork.Transfers.UpdateAsync(transferexist);
+            if (transferDto == null)
+                throw new ArgumentNullException(nameof(transferDto));
+
+            if (transferDto.Quantity <= 0)
+                throw new BusinessException("Quantity must be greater than zero.");
+
+            if (transferDto.FromWarehouseId == transferDto.ToWarehouseId)
+                throw new BusinessException("Cannot transfer to the same warehouse.");
+
+            var existingTransfer = await _unitOfWork.Transfers.GetByIdAsync(id);
+            if (existingTransfer == null)
+                throw new BusinessException($"Transfer with ID {id} not found.");
+
+            var fromWarehouse = await _unitOfWork.Warehouses.GetWarehouseByIdWithStockAsync(transferDto.FromWarehouseId);
+            if (fromWarehouse == null)
+                throw new BusinessException($"FromWarehouse with ID {transferDto.FromWarehouseId} not found.");
+
+            var toWarehouse = await _unitOfWork.Warehouses.GetWarehouseByIdWithStockAsync(transferDto.ToWarehouseId);
+            if (toWarehouse == null)
+                throw new BusinessException($"ToWarehouse with ID {transferDto.ToWarehouseId} not found.");
+
+            var product = await _unitOfWork.Products.GetByIdAsync(transferDto.ProductId);
+            if (product == null)
+                throw new BusinessException($"Product with ID {transferDto.ProductId} not found.");
+
+            // Revert previous stock changes
+            var oldFromWarehouse = await _unitOfWork.Warehouses.GetWarehouseByIdWithStockAsync(existingTransfer.FromWarehouseId);
+            var oldToWarehouse = await _unitOfWork.Warehouses.GetWarehouseByIdWithStockAsync(existingTransfer.ToWarehouseId);
+            if (oldFromWarehouse != null)
+            {
+                var oldFromStock = oldFromWarehouse.Stocks.FirstOrDefault(s => s.ProductId == existingTransfer.ProductId);
+                if (oldFromStock != null)
+                    oldFromStock.Quantity += existingTransfer.Quantity;
+            }
+            if (oldToWarehouse != null)
+            {
+                var oldToStock = oldToWarehouse.Stocks.FirstOrDefault(s => s.ProductId == existingTransfer.ProductId);
+                if (oldToStock != null)
+                    oldToStock.Quantity -= existingTransfer.Quantity;
+            }
+
+            await _unitOfWork.Warehouses.UpdateAsync(oldFromWarehouse);
+            await _unitOfWork.Warehouses.UpdateAsync(oldToWarehouse);
+
+            // Check new stock availability
+            var fromStock = fromWarehouse.Stocks.FirstOrDefault(s => s.ProductId == transferDto.ProductId);
+            if (fromStock == null || fromStock.Quantity < transferDto.Quantity)
+                throw new BusinessException($"Insufficient stock in FromWarehouse ID {transferDto.FromWarehouseId} for Product ID {transferDto.ProductId}. Available: {fromStock?.Quantity ?? 0}, Requested: {transferDto.Quantity}");
+
+            // Update stock in FromWarehouse and ToWarehouse
+            fromStock.Quantity -= transferDto.Quantity;
+            var toStock = toWarehouse.Stocks.FirstOrDefault(s => s.ProductId == transferDto.ProductId);
+            if (toStock != null)
+                toStock.Quantity += transferDto.Quantity;
+            else
+                toWarehouse.Stocks.Add(new Stock { ProductId = transferDto.ProductId, Quantity = transferDto.Quantity });
+
+            // Update transfer entity
+            existingTransfer.FromWarehouseId = transferDto.FromWarehouseId;
+            existingTransfer.ToWarehouseId = transferDto.ToWarehouseId;
+            existingTransfer.ProductId = transferDto.ProductId;
+            existingTransfer.Quantity = transferDto.Quantity;
+            existingTransfer.UpdatedAt = DateTime.UtcNow;
+
+
+            await _unitOfWork.Warehouses.UpdateAsync(fromWarehouse);
+            await _unitOfWork.Warehouses.UpdateAsync(toWarehouse);
+            await _unitOfWork.Transfers.UpdateAsync(existingTransfer);
             await _unitOfWork.SaveChangesAsync();
 
+            var updatedTransfer = await _unitOfWork.Transfers.GetByIdAsync(id);
+            return _mapper.Map<TransferResponseDto>(updatedTransfer);
         }
 
-        public async Task DeleteTransferAsync(int id)
+        public async Task cancelTransferAsync(int id)
         {
-            var transfere = await _unitOfWork.Transfers.GetByIdAsync(id);
-            if (transfere == null) throw new KeyNotFoundException($"Transfer with ID {id} not found.");
+            var transfer = await _unitOfWork.Transfers.GetByIdAsync(id);
+            if (transfer == null)
+                throw new BusinessException($"Transfer with ID {id} not found.");
+
+            // Revert stock changes
+            var fromWarehouse = await _unitOfWork.Warehouses.GetWarehouseByIdWithStockAsync(transfer.FromWarehouseId);
+            var toWarehouse = await _unitOfWork.Warehouses.GetWarehouseByIdWithStockAsync(transfer.ToWarehouseId);
+            if (fromWarehouse != null)
+            {
+                var fromStock = fromWarehouse.Stocks.FirstOrDefault(s => s.ProductId == transfer.ProductId);
+                if (fromStock != null)
+                    fromStock.Quantity += transfer.Quantity;
+            }
+            if (toWarehouse != null)
+            {
+                var toStock = toWarehouse.Stocks.FirstOrDefault(s => s.ProductId == transfer.ProductId);
+                if (toStock != null)
+                    toStock.Quantity -= transfer.Quantity;
+            }
+
+            await _unitOfWork.Warehouses.UpdateAsync(fromWarehouse);
+            await _unitOfWork.Warehouses.UpdateAsync(toWarehouse);
             await _unitOfWork.Transfers.DeleteAsync(id);
             await _unitOfWork.SaveChangesAsync();
         }
-        public TransferDto MapToDto(Transfer transfer) 
+
+        public async Task<IEnumerable<TransferResponseDto>> GetByWarehouseIdAsync(int warehouseId)
         {
-            return new TransferDto
-            {
-                Id = transfer.Id,
-                FromWarehouseId = transfer.FromWarehouseId,
-                ToWarehouseId = transfer.ToWarehouseId,
-                ProductId = transfer.ProductId,
-                Quantity = transfer.Quantity,
-                CreatedAt = transfer.CreatedAt,
-                UpdatedAt = transfer.UpdatedAt
-            };
-        }
-        private Transfer MapToEntity(TransferDto Dto)
-        {
-            return new Transfer
-            {
-                Id = Dto.Id,
-                FromWarehouseId = Dto.FromWarehouseId,
-                ToWarehouseId = Dto.ToWarehouseId,
-                ProductId = Dto.ProductId,
-                Quantity = Dto.Quantity,
-                CreatedAt = Dto.CreatedAt,
-                UpdatedAt = Dto.UpdatedAt
-            };
+            var transfers = await _unitOfWork.Transfers.GetAllAsync();
+            var filteredTransfers = transfers.Where(t => t.FromWarehouseId == warehouseId || t.ToWarehouseId == warehouseId);
+            return _mapper.Map<IEnumerable<TransferResponseDto>>(filteredTransfers);
         }
     }
-}
+    }

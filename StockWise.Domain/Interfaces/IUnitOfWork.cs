@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StockWise.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ namespace StockWise.Domain.Interfaces
         IStockRepository Stocks { get; }
         IRepresentativeRepository Representatives { get; }
         ITransferRepository Transfers { get; }
+        IDamagedProductRepositories DamagedProduct { get; }
 
 
         Task<int> SaveChangesAsync();

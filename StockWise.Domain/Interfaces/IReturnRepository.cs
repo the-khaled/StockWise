@@ -9,5 +9,8 @@ namespace StockWise.Domain.Interfaces
 {
     public interface IReturnRepository:IRepository<Return>
     {
+        Task<IEnumerable<Return>> GetByProductIdAsync(int productId);
+        Task<IEnumerable<Return>> GetByRepresentativeIdAsync(int representativeId);
+        Task<IEnumerable<Return>> GetByCustomerIdAsync(int customerId);
     }
 }

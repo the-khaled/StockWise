@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 using StockWise.Domain.Interfaces;
 using StockWise.Domain.Models;
 using StockWise.Services.DTOS;
+using StockWise.Services.DTOS.CustomerDto;
 using StockWise.Services.Exceptions;
 using StockWise.Services.IServices;
 using System;
@@ -16,86 +18,86 @@ namespace StockWise.Services.Services
     public class CustomerService : ICustomerService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public CustomerService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public CustomerService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper=mapper;
         }
-        public async Task CreatCastomerAsync(CustomerDto customerDto)
+        public async Task<CustomerResponseDto> CreatCastomerAsync(CustomerCreateDto customerDto)
         {
            if (customerDto == null)
                 throw new ArgumentNullException(nameof(customerDto));
             if (customerDto.CreditBalance != null && customerDto.CreditBalance.Amount < 0)
                 throw new BusinessException("Credit balance cannot be negative.");
-            var customer = MapToEntity(customerDto);
-            await _unitOfWork.Customer.AddAsync(customer);
+            var existingCustomer = await _unitOfWork.Customer.GetByNameAsync(customerDto.Name);
+            if (existingCustomer.Any())
+                throw new BusinessException($"Customer with name '{customerDto.Name}' already exists.");
+
+            var Customer = _mapper.Map<Customer>(customerDto);
+            Customer.CreatedAt = DateTime.UtcNow;
+            Customer.UpdatedAt = DateTime.UtcNow;
+            await _unitOfWork.Customer.AddAsync(Customer);
             await _unitOfWork.SaveChangesAsync();
+            var createdCustomer = await _unitOfWork.Customer.GetByIdAsync(Customer.Id);
+            return _mapper.Map<CustomerResponseDto>(createdCustomer);
+
         }
 
         public async Task DeleteCustomerAsync(int id)
         {
-            var existingCustomer = await _unitOfWork.Customer.GetByIdAsync(id);
-            if (existingCustomer == null)
+            var Customer = await _unitOfWork.Customer.GetByIdAsync(id);
+            if (Customer == null)
                 throw new KeyNotFoundException($"Customer with ID {id} not found.");
+            if (Customer.Invoices.Any() || Customer.Payments.Any() || Customer.Returns.Any())
+                throw new BusinessException("Cannot delete customer with associated invoices, payments, or returns.");
             await _unitOfWork.Customer.DeleteAsync(id);
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<CustomerDto>> GetAllCustomersAsync()
+        public async Task<IEnumerable<CustomerResponseDto>> GetAllCustomersAsync()
         {
-            var Customers= await _unitOfWork.Customer.GetAllAsync();
-            return Customers.Select(x =>MapToDto(x)).ToList();
+            var Customers= await _unitOfWork.Customer.GetAllAsync();     
+            return _mapper.Map<IEnumerable<CustomerResponseDto>>(Customers);
         }
 
-        public async Task<CustomerDto> GetCustomerByIdAsync(int id)
+        public async Task<CustomerResponseDto> GetCustomerByIdAsync(int id)
         {
             var customer = await _unitOfWork.Customer.GetByIdAsync(id);
             if (customer == null) throw new KeyNotFoundException($"Customer with ID {id} not found.");
-            return MapToDto(customer);
+            return _mapper.Map<CustomerResponseDto>(customer);
         }
 
-        public async Task UpdateCustomerAsync(CustomerDto customerdto)
+        public async Task<CustomerResponseDto> UpdateCustomerAsync(int id,CustomerCreateDto customerdto)
         {
             if (customerdto == null)
                 throw new ArgumentNullException(nameof(customerdto));
-            var existingCustomer = await _unitOfWork.Customer.GetByIdAsync(customerdto.Id);
+            var existingCustomer = await _unitOfWork.Customer.GetByIdAsync(id);
             if (existingCustomer == null)
-                throw new KeyNotFoundException($"Customer with ID {customerdto.Id} not found.");
+                throw new KeyNotFoundException($"Customer with ID {id} not found.");
             if (customerdto.CreditBalance != null && customerdto.CreditBalance.Amount < 0)
                 throw new BusinessException("Credit balance cannot be negative.");
-            existingCustomer.Name = customerdto.Name;
-            existingCustomer.PhoneNumbers = customerdto.PhoneNumbers;
-            existingCustomer.Address = customerdto.Address;
-            existingCustomer.CreditBalance = customerdto.CreditBalance;
-            existingCustomer.UpdatedAt = DateTime.Now;
+            var duplicateCustomer = await _unitOfWork.Customer.GetByNameAsync(customerdto.Name);
+            if (duplicateCustomer.Any(c => c.Id != id))
+                throw new BusinessException($"Customer with name '{customerdto.Name}' already exists.");
+
+            _mapper.Map(customerdto, existingCustomer);
+            existingCustomer.UpdatedAt = DateTime.UtcNow;
+
             await _unitOfWork.Customer.UpdateAsync(existingCustomer);
             await _unitOfWork.SaveChangesAsync();
-        }
-        private CustomerDto MapToDto(Customer customer) 
-        {
-            return new CustomerDto
-            {
-                Id = customer.Id,
-                Name = customer.Name,
-                PhoneNumbers=customer.PhoneNumbers.ToList(),
-                Address =customer.Address,
-                CreditBalance=customer.CreditBalance,
-                UpdatedAt = customer.UpdatedAt,
-                CreatedAt = customer.CreatedAt
 
-            };
+            return _mapper.Map<CustomerResponseDto>(existingCustomer);
+          
         }
-        private Customer MapToEntity(CustomerDto customerdto) 
+
+        public async Task<IEnumerable<CustomerResponseDto>> GetCustomersByNameAsync(string name)
         {
-            return new Customer
-            {
-                Id = customerdto.Id,
-                Name = customerdto.Name,
-                PhoneNumbers = customerdto.PhoneNumbers.ToList(),
-                Address = customerdto.Address,
-                CreditBalance = customerdto.CreditBalance,
-                UpdatedAt = customerdto.UpdatedAt,
-                CreatedAt = customerdto.CreatedAt
-            };
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Name cannot be empty or whitespace.", nameof(name));
+            var customers = await _unitOfWork.Customer.GetByNameAsync(name);
+            return _mapper.Map<IEnumerable<CustomerResponseDto>>(customers);
         }
+
     }
 }

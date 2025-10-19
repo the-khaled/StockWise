@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StockWise.Services.DTOS;
+using StockWise.Services.DTOS.ReturnDto;
 using StockWise.Services.Exceptions;
 using StockWise.Services.IServices;
 
@@ -48,17 +49,75 @@ namespace StockWise.Controllers
                 return StatusCode(500, new { error = ex.Message });
             }
         }
+        [HttpGet("by-product/{productId}")]
+        public async Task<IActionResult> GetByProductId(int productId)
+        {
+            try
+            {
+                var returns = await _returnService.GetReturnsByProductIdAsync(productId);
+                return Ok(returns);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] ReturnDto dto)
+        [HttpGet("by-representative/{representativeId}")]
+        public async Task<IActionResult> GetByRepresentativeId(int representativeId)
+        {
+            try 
+            {
+                var returns = await _returnService.GetReturnsByRepresentativeIdAsync(representativeId);
+                return Ok(returns);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
+        [HttpGet("by-customer/{customerId}")]
+        public async Task<IActionResult> GetByCustomerId(int customerId)
+        { 
+            try 
+            {
+                var returns = await _returnService.GetReturnsByCustomerIdAsync(customerId);
+                return Ok(returns);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
+
+        }
+            [HttpPost]
+        public async Task<IActionResult> Create([FromBody] ReturnCreateDto returnDto)
         {
             try
             {
                 if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
+                {
+                    var errors = ModelState
+                        .SelectMany(x => x.Value.Errors)
+                        .Select(x => x.ErrorMessage)
+                        .ToList();
+                    return BadRequest(new { errors });
+                }
 
-                await _returnService.CreateReturnAsync(dto);
-                return CreatedAtAction(nameof(GetById), new { id = dto.Id }, dto);
+                var createdReturn = await _returnService.CreateReturnAsync(returnDto);
+                return CreatedAtAction(nameof(GetById), new { id = createdReturn.Id }, createdReturn);
             }
             catch (BusinessException ex)
             {
@@ -71,15 +130,21 @@ namespace StockWise.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] ReturnDto dto)
+        public async Task<IActionResult> Update(int id, [FromBody] ReturnCreateDto returnDto)
         {
             try
             {
-                if (id != dto.Id)
-                    return BadRequest("ID mismatch");
+                if (!ModelState.IsValid)
+                {
+                    var errors = ModelState
+                        .SelectMany(x => x.Value.Errors)
+                        .Select(x => x.ErrorMessage)
+                        .ToList();
+                    return BadRequest(new { errors });
+                }
 
-                await _returnService.UpdateReturnAsync(dto);
-                return NoContent();
+                var updatedReturn = await _returnService.UpdateReturnAsync(id, returnDto);
+                return Ok(updatedReturn);
             }
             catch (KeyNotFoundException ex)
             {

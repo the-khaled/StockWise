@@ -114,7 +114,7 @@ namespace StockWise.Controllers
                     return BadRequest(ModelState);
 
                 var createdProduct = await _productService.CreateProductAsync(productDto);
-                // [مميز] إرجاع CreatedAtAction مع الـ ID الجديد
+                //  إرجاعCreatedAtAction مع الـ ID الجديد
                 return CreatedAtAction(nameof(GetById), new { id = createdProduct.Id }, createdProduct);
             }
             catch (BusinessException ex)
@@ -136,7 +136,7 @@ namespace StockWise.Controllers
                     return BadRequest(ModelState);
 
                 var updatedProduct = await _productService.UpdateProductAsync(id, productDto);
-                // [مميز] إرجاع الـ ProductResponseDto بدل NoContent لتوفير تفاصيل أكتر
+              
                 return Ok(updatedProduct);
             }
             catch (KeyNotFoundException ex)

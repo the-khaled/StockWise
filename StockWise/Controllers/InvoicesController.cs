@@ -4,6 +4,7 @@ using StockWise.Services.DTOS.InvoiceDto;
 using StockWise.Services.Exceptions;
 using StockWise.Services.IServices;
 using StockWise.Services.Services;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace StockWise.Controllers
 {
@@ -35,7 +36,12 @@ namespace StockWise.Controllers
         {
             try
             {
+
                 var invoice = await _invoiceService.GetInvoiceByIdAsync(id);
+                if (!invoice.Success)
+                {
+                    return StatusCode(invoice.StatusCode, invoice);
+                }
                 return Ok(invoice);
             }
             catch (KeyNotFoundException ex)
@@ -53,11 +59,22 @@ namespace StockWise.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
-
                 var createdInvoice = await _invoiceService.CreateInvoiceAsync(invoiceDto);
-                return CreatedAtAction(nameof(GetById), new { id = createdInvoice.Id }, createdInvoice);
+
+                if (!ModelState.IsValid)
+                {
+                    var errors = ModelState
+                       .SelectMany(x => x.Value.Errors)
+                       .Select(x => x.ErrorMessage)
+                       .ToList();
+                    return BadRequest(new { errors });
+                }
+
+                if (!createdInvoice.Success)
+                {
+                    return StatusCode(createdInvoice.StatusCode, createdInvoice);
+                }
+                return CreatedAtAction(nameof(GetById), new { id = createdInvoice.Data.Id }, createdInvoice);
             }
             catch (BusinessException ex)
             {
@@ -74,10 +91,20 @@ namespace StockWise.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
+               var UpdateInvois= await _invoiceService.UpdateInvoiceAsync(id, updateDto);
 
-               await _invoiceService.UpdateInvoiceAsync(id, updateDto);
+                if (!ModelState.IsValid)
+                {
+                    var errors = ModelState
+                       .SelectMany(x => x.Value.Errors)
+                       .Select(x => x.ErrorMessage)
+                       .ToList();
+                    return BadRequest(new { errors });
+                }
+                if (!UpdateInvois.Success)
+                {
+                    return StatusCode(UpdateInvois.StatusCode, UpdateInvois);
+                }
                 return NoContent();
             }
             catch (KeyNotFoundException ex)
@@ -99,7 +126,11 @@ namespace StockWise.Controllers
         {
             try
             {
-                await _invoiceService.DeleteInvoiceAsync(id);
+               var deletedExist= await _invoiceService.DeleteInvoiceAsync(id);
+                if (!deletedExist.Success)
+                {
+                    return StatusCode(deletedExist.StatusCode, deletedExist);
+                }
                 return NoContent();
             }
             catch (KeyNotFoundException ex)

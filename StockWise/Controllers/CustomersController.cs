@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StockWise.Domain.Models;
 using StockWise.Services.DTOS;
 using StockWise.Services.DTOS.CustomerDto;
 using StockWise.Services.Exceptions;
 using StockWise.Services.IServices;
+using StockWise.Services.ServicesResponse;
+using System.Net;
 
 namespace StockWise.Controllers
 {
@@ -39,10 +42,14 @@ namespace StockWise.Controllers
         {
             try
             {
+                var customers = await _customerService.GetCustomersByNameAsync(name);
+
                 if (string.IsNullOrWhiteSpace(name))
                     return BadRequest(new { error = "Name cannot be empty or whitespace." });
-
-                var customers = await _customerService.GetCustomersByNameAsync(name);
+                if (!customers.Success)
+                {
+                    return StatusCode(customers.StatusCode, customers);
+                }
                 return Ok(customers);
             }
             catch (ArgumentException ex)
@@ -64,7 +71,12 @@ namespace StockWise.Controllers
         {
             try
             {
+
                 var customer = await _customerService.GetCustomerByIdAsync(id);
+                if (!customer.Success)
+                {
+                    return StatusCode(customer.StatusCode, customer);
+                }
                 return Ok(customer);
             }
             catch (KeyNotFoundException ex)
@@ -86,7 +98,13 @@ namespace StockWise.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
+                var createdCustomer = await _customerService.CreatCastomerAsync(customerDto);
+
+                if (!createdCustomer.Success)
+                {
+                    return StatusCode(createdCustomer.StatusCode, createdCustomer);
+                }
+                if (!ModelState.IsValid|| createdCustomer.Data==null)
                 {
                     var errors = ModelState
                         .SelectMany(x => x.Value.Errors)
@@ -95,8 +113,8 @@ namespace StockWise.Controllers
                     return BadRequest(new { errors });
                 }
 
-                var createdCustomer = await _customerService.CreatCastomerAsync(customerDto);
-                return CreatedAtAction(nameof(GetById), new { id = createdCustomer.Id }, createdCustomer);
+                //return CreatedAtAction(nameof(GetById), new { id = createdCustomer.Data.Id }, createdCustomer.Data);
+                return StatusCode(createdCustomer.StatusCode, createdCustomer);
             }
             catch (BusinessException ex)
             {
@@ -117,6 +135,8 @@ namespace StockWise.Controllers
         {
             try
             {
+                var updatedCustomer = await _customerService.UpdateCustomerAsync(id, customerDto);
+
                 if (!ModelState.IsValid)
                 {
                     var errors = ModelState
@@ -125,8 +145,11 @@ namespace StockWise.Controllers
                         .ToList();
                     return BadRequest(new { errors });
                 }
+                if (!updatedCustomer.Success)
+                {
+                    return StatusCode(updatedCustomer.StatusCode, updatedCustomer);
+                }
 
-                var updatedCustomer = await _customerService.UpdateCustomerAsync(id, customerDto);
                 return Ok(updatedCustomer);
             }
             catch (KeyNotFoundException ex)
@@ -151,8 +174,8 @@ namespace StockWise.Controllers
         {
             try
             {
-                await _customerService.DeleteCustomerAsync(id);
-                return NoContent();
+               var deletedState= await _customerService.DeleteCustomerAsync(id);
+                return Ok(deletedState);
             }
             catch (KeyNotFoundException ex)
             {

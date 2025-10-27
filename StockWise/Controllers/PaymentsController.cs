@@ -39,6 +39,11 @@ namespace StockWise.Controllers
             try
             {
                 var payment = await _paymentService.GetPaymentByIdAsync(id);
+
+                if (!payment.Success)
+                {
+                    return StatusCode(payment.StatusCode, payment);
+                }
                 return Ok(payment);
             }
             catch (BusinessException ex)
@@ -56,6 +61,10 @@ namespace StockWise.Controllers
             try
             {
                 var payments = await _paymentService.GetPaymentsByInvoiceIdAsync(invoiceId);
+                if (!payments.Success)
+                {
+                    return StatusCode(payments.StatusCode, payments);
+                }
                 return Ok(payments);
             }
             catch (Exception ex)
@@ -70,6 +79,11 @@ namespace StockWise.Controllers
             try
             {
                 var payments = await _paymentService.GetPaymentsByCustomerIdAsync(customerId);
+
+                if (!payments.Success)
+                {
+                    return StatusCode(payments.StatusCode, payments);
+                }
                 return Ok(payments);
             }
             catch (Exception ex)
@@ -84,6 +98,10 @@ namespace StockWise.Controllers
             try
             {
                 var payments = await _paymentService.GetPendingPaymentsAsync();
+                if (!payments.Success)
+                {
+                    return StatusCode(payments.StatusCode, payments);
+                }
                 return Ok(payments);
             }
             catch (Exception ex)
@@ -97,11 +115,16 @@ namespace StockWise.Controllers
         {
             try
             {
+                var createdPayment = await _paymentService.CreatePaymentAsync(paymentDto);
+
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var createdPayment = await _paymentService.CreatePaymentAsync(paymentDto);
-                return CreatedAtAction(nameof(GetById), new { id = createdPayment.Id }, createdPayment);
+                if (!createdPayment.Success)
+                {
+                    return StatusCode(createdPayment.StatusCode, createdPayment);
+                }
+                return CreatedAtAction(nameof(GetById), new { id = createdPayment.Data.Id }, createdPayment);
             }
             catch (BusinessException ex)
             {
@@ -122,6 +145,10 @@ namespace StockWise.Controllers
                     return BadRequest(ModelState);
 
                 var updatedPayment = await _paymentService.UpdatePaymentAsync(id, paymentDto);
+                if (!updatedPayment.Success)
+                {
+                    return StatusCode(updatedPayment.StatusCode, updatedPayment);
+                }
                 return Ok(updatedPayment);
             }
             catch (BusinessException ex)

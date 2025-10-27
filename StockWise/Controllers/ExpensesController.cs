@@ -1,9 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StockWise.Domain.Models;
 using StockWise.Services.DTOS;
+using StockWise.Services.DTOS.CustomerDto;
 using StockWise.Services.DTOS.ExpenseDto;
 using StockWise.Services.Exceptions;
 using StockWise.Services.IServices;
+using StockWise.Services.ServicesResponse;
+using System.Net;
 
 namespace StockWise.Controllers
 {
@@ -37,6 +41,10 @@ namespace StockWise.Controllers
             try
             {
                 var expenses = await _expenseService.GetExpensesByRepresentativeIdAsync(representativeId);
+                if (!expenses.Success)
+                {
+                    return StatusCode(expenses.StatusCode, expenses);
+                }
                 return Ok(expenses);
             }
             catch (KeyNotFoundException ex)
@@ -58,6 +66,10 @@ namespace StockWise.Controllers
             try
             {
                 var expense = await _expenseService.GetExpenseByIdAsync(id);
+                if (!expense.Success)
+                {
+                    return StatusCode(expense.StatusCode, expense);
+                }
                 return Ok(expense);
             }
             catch (KeyNotFoundException ex)
@@ -75,7 +87,9 @@ namespace StockWise.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
+                var createdExpense = await _expenseService.CreateExpenseAsync(expenseDto);
+
+                if (!ModelState.IsValid|| createdExpense.Data==null)
                 {
                     var errors = ModelState
                         .SelectMany(x => x.Value.Errors)
@@ -83,9 +97,12 @@ namespace StockWise.Controllers
                         .ToList();
                     return BadRequest(new { errors });
                 }
-
-                var createdExpense = await _expenseService.CreateExpenseAsync(expenseDto);
-                return CreatedAtAction(nameof(GetById), new { id = createdExpense.Id }, createdExpense);
+                if (!createdExpense.Success)
+                {
+                    return StatusCode(createdExpense.StatusCode, createdExpense);
+                }
+                return CreatedAtAction(nameof(GetById), new { id = createdExpense.Data.Id }, createdExpense);
+                
             }
             catch (BusinessException ex)
             {
@@ -102,6 +119,8 @@ namespace StockWise.Controllers
         {
             try
             {
+                var updatedExpense = await _expenseService.UpdateExpenseAsync(id, expenseDto);
+
                 if (!ModelState.IsValid)
                 {
                     var errors = ModelState
@@ -110,8 +129,11 @@ namespace StockWise.Controllers
                         .ToList();
                     return BadRequest(new { errors });
                 }
+                if (!updatedExpense.Success)
+                {
+                    return StatusCode(updatedExpense.StatusCode, updatedExpense);
+                }
 
-                var updatedExpense = await _expenseService.UpdateExpenseAsync(id, expenseDto);
                 return Ok(updatedExpense);
             }
             catch (KeyNotFoundException ex)

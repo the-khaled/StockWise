@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StockWise.Domain.Interfaces;
 using StockWise.Domain.Models;
@@ -9,6 +10,7 @@ using StockWise.Services.Services;
 
 namespace StockWise.Controllers
 {
+    [Authorize]   
     [Route("api/[controller]")]
     [ApiController]
     public class TransfersController : ControllerBase

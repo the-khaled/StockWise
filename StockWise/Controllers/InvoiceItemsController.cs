@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StockWise.Services.DTOS.CustomerDto;
 using StockWise.Services.DTOS.InvoiceDto;
 using StockWise.Services.DTOS.InvoiceItemDto;
 using StockWise.Services.DTOS.InvoiceItemDto.InvoiceItemDto;
 using StockWise.Services.Exceptions;
 using StockWise.Services.IServices;
+using StockWise.Services.ServicesResponse;
+using System.Net;
 
 namespace StockWise.Controllers
 {
@@ -40,6 +43,10 @@ namespace StockWise.Controllers
             try
             {
                 var invoiceItem = await _invoiceItemService.GetInvoiceItemByIdAsync(id);
+                if (!invoiceItem.Success)
+                {
+                    return StatusCode(invoiceItem.StatusCode, invoiceItem);
+                }
                 return Ok(invoiceItem);
             }
             catch (KeyNotFoundException ex)
@@ -57,11 +64,26 @@ namespace StockWise.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
-
                 var createdItem = await _invoiceItemService.CreateInvoiceItemAsync(createDto);
-                return CreatedAtAction(nameof(GetById), new { id = createdItem.Id }, createdItem);
+                /*      if (!ModelState.IsValid|| createdItem.Data == null)
+                      {
+
+
+                          var response = new GenericResponse<CustomerResponseDto>
+                          {
+                              StatusCode = (int)HttpStatusCode.BadRequest,
+                              Success = false,
+                              Message = "Validation errors occurred.",
+                              Data = null
+                          };
+                          return StatusCode(response.StatusCode, response);
+                      }*/
+                if (!createdItem.Success)
+                {
+                    return StatusCode(createdItem.StatusCode, createdItem);
+                }
+
+                return CreatedAtAction(nameof(GetById), new { id = createdItem.Data.Id }, createdItem);
             }
             catch (BusinessException ex)
             {
@@ -78,10 +100,15 @@ namespace StockWise.Controllers
         {
             try
             {
+                var updatedItem = await _invoiceItemService.UpdateInvoiceItemAsync(id, updateDto);
                 if (updateDto.InvoiceId != id)
                     return BadRequest("ID mismatch");
+                if (!updatedItem.Success)
+                {
+                    return StatusCode(updatedItem.StatusCode, updatedItem);
+                }
 
-                var updatedItem = await _invoiceItemService.UpdateInvoiceItemAsync(id,updateDto);
+               
                 return NoContent();
             }
             catch (KeyNotFoundException ex)

@@ -117,13 +117,12 @@ namespace StockWise.Controllers
             {
                 var createdPayment = await _paymentService.CreatePaymentAsync(paymentDto);
 
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
-
                 if (!createdPayment.Success)
                 {
                     return StatusCode(createdPayment.StatusCode, createdPayment);
                 }
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
                 return CreatedAtAction(nameof(GetById), new { id = createdPayment.Data.Id }, createdPayment);
             }
             catch (BusinessException ex)
@@ -141,14 +140,15 @@ namespace StockWise.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
+         
 
                 var updatedPayment = await _paymentService.UpdatePaymentAsync(id, paymentDto);
                 if (!updatedPayment.Success)
                 {
                     return StatusCode(updatedPayment.StatusCode, updatedPayment);
                 }
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
                 return Ok(updatedPayment);
             }
             catch (BusinessException ex)
@@ -166,7 +166,12 @@ namespace StockWise.Controllers
         {
             try
             {
-                await _paymentService.CancelPaymentAsync(id);
+                var payment = await _paymentService.CancelPaymentAsync(id);
+
+                if (!payment.Success)
+                {
+                    return StatusCode(payment.StatusCode, payment);
+                }
                 return NoContent();
             }
             catch (BusinessException ex)

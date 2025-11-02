@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static StockWise.Domain.Enums.Enums;
 
 namespace StockWise.Services.DTOS.ExpenseDto
 {
@@ -14,7 +13,7 @@ namespace StockWise.Services.DTOS.ExpenseDto
         public MoneyDto Amount { get; set; }
 
         [Required(ErrorMessage = "ExpenseType is required.")]
-        public ExpenseType ExpenseType { get; set; }
+        public Domain.Enums.ExpenseType? ExpenseType { get; set; }
 
         public string? Description { get; set; }
 

@@ -12,5 +12,6 @@ namespace StockWise.Domain.Interfaces
         Task<IEnumerable<Payment>> GetPaymentsByInvoiceIdAsync(int invoiceId);
         Task<IEnumerable<Payment>> GetPaymentsByCustomerIdAsync(int customerId);
          Task<IEnumerable<Payment>> GetPendingPaymentsAsync();
+        Task<Payment> Cancel(int id);
     }
 }

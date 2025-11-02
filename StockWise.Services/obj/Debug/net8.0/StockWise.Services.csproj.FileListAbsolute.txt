@@ -9,10 +9,10 @@ E:\New folder\WebAPI\StockWise\StockWise.Services\obj\Debug\net8.0\StockWise.Ser
 E:\New folder\WebAPI\StockWise\StockWise.Services\obj\Debug\net8.0\StockWise.Services.AssemblyInfoInputs.cache
 E:\New folder\WebAPI\StockWise\StockWise.Services\obj\Debug\net8.0\StockWise.Services.AssemblyInfo.cs
 E:\New folder\WebAPI\StockWise\StockWise.Services\obj\Debug\net8.0\StockWise.Services.csproj.CoreCompileInputs.cache
+E:\New folder\WebAPI\StockWise\StockWise.Services\obj\Debug\net8.0\StockWise.Services.sourcelink.json
 E:\New folder\WebAPI\StockWise\StockWise.Services\obj\Debug\net8.0\StockWis.1A35DA9F.Up2Date
 E:\New folder\WebAPI\StockWise\StockWise.Services\obj\Debug\net8.0\StockWise.Services.dll
 E:\New folder\WebAPI\StockWise\StockWise.Services\obj\Debug\net8.0\refint\StockWise.Services.dll
 E:\New folder\WebAPI\StockWise\StockWise.Services\obj\Debug\net8.0\StockWise.Services.pdb
 E:\New folder\WebAPI\StockWise\StockWise.Services\obj\Debug\net8.0\StockWise.Services.genruntimeconfig.cache
 E:\New folder\WebAPI\StockWise\StockWise.Services\obj\Debug\net8.0\ref\StockWise.Services.dll
-E:\New folder\WebAPI\StockWise\StockWise.Services\obj\Debug\net8.0\StockWise.Services.sourcelink.json

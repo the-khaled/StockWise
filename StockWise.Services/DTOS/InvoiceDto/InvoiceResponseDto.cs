@@ -6,7 +6,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static StockWise.Domain.Enums.Enums;
 
 namespace StockWise.Services.DTOS.InvoiceDto
 {
@@ -18,7 +17,7 @@ namespace StockWise.Services.DTOS.InvoiceDto
         public int RepresentativeId { get; set; }
         public string RepresentativeName { get; set; } 
         public MoneyDto TotalAmount { get; set; }
-        public InvoiceStatus Status { get; set; }
+        public Domain.Enums.InvoiceStatus Status { get; set; }
         public List<InvoiceItemResponseDto> Items { get; set; } = new List<InvoiceItemResponseDto>();
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }

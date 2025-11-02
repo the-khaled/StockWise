@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static StockWise.Domain.Enums.Enums;
 
 namespace StockWise.Domain.Models
 {
@@ -15,8 +14,8 @@ namespace StockWise.Domain.Models
         public Customer Customer { get; set; }
         public int CustomerId { get; set; }
         public Money Amount { get; set; }
-        public PaymentMethod Method { get; set; } // Cash or Electronic
-        public PaymentStatus Status { get; set; } = PaymentStatus.Pending;
+        public Enums.PaymentMethod Method { get; set; } // Cash or Electronic
+        public Enums.PaymentStatus Status { get; set; } = Enums.PaymentStatus.Pending;
         public string TransactionId { get; set; }
     }
 }

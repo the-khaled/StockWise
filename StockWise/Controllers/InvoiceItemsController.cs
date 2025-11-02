@@ -101,8 +101,6 @@ namespace StockWise.Controllers
             try
             {
                 var updatedItem = await _invoiceItemService.UpdateInvoiceItemAsync(id, updateDto);
-                if (updateDto.InvoiceId != id)
-                    return BadRequest("ID mismatch");
                 if (!updatedItem.Success)
                 {
                     return StatusCode(updatedItem.StatusCode, updatedItem);
@@ -130,7 +128,10 @@ namespace StockWise.Controllers
         {
             try
             {
-                await _invoiceItemService.DeleteInvoiceItemAsync(id);
+                var deletedInvoiceitem= await _invoiceItemService.DeleteInvoiceItemAsync(id);
+                if (!deletedInvoiceitem.Success)
+                    return StatusCode(deletedInvoiceitem.StatusCode,deletedInvoiceitem);
+
                 return NoContent();
             }
             catch (KeyNotFoundException ex)

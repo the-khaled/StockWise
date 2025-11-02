@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StockWise.Domain.Models;
 using StockWise.Services.DTOS;
 using StockWise.Services.DTOS.WarehouseDto;
 using StockWise.Services.Exceptions;
@@ -40,6 +41,8 @@ namespace StockWise.Controllers
             try
             {
                 var warehouse = await _warehouseService.GetWarehouseByIdAsync(id);
+                if (!warehouse.Success)
+                    return StatusCode(warehouse.StatusCode, warehouse);
                 return Ok(warehouse);
             }
             catch (KeyNotFoundException ex)
@@ -57,6 +60,8 @@ namespace StockWise.Controllers
             try
             {
                 var warehouses = await _warehouseService.GetWarehousesByNameAsync(name);
+                if (!warehouses.Success)
+                    return StatusCode(warehouses.StatusCode, warehouses);
                 return Ok(warehouses);
             }
             catch (BusinessException ex)
@@ -78,7 +83,9 @@ namespace StockWise.Controllers
                     return BadRequest(ModelState);
 
                 var createdWarehouse = await _warehouseService.CreateWarehouseAsync(warehouseDto);
-                return CreatedAtAction(nameof(GetById), new { id = createdWarehouse.Id }, createdWarehouse);
+                if (!createdWarehouse.Success)
+                    return StatusCode(createdWarehouse.StatusCode, createdWarehouse);
+                return CreatedAtAction(nameof(GetById), new { id = createdWarehouse.Data.Id }, createdWarehouse);
             }
             catch (BusinessException ex)
             {
@@ -95,10 +102,13 @@ namespace StockWise.Controllers
         {
             try
             {
+                var updatedWarehouse = await _warehouseService.UpdateWarehouseAsync(id, warehouseDto);
+
+                if (!updatedWarehouse.Success)
+                    return StatusCode(updatedWarehouse.StatusCode, updatedWarehouse);
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var updatedWarehouse = await _warehouseService.UpdateWarehouseAsync(id, warehouseDto);
                 return Ok(updatedWarehouse);
             }
             catch (KeyNotFoundException ex)
@@ -120,6 +130,9 @@ namespace StockWise.Controllers
         {
             try
             {
+                var warhous = await _warehouseService.GetWarehouseByIdAsync(id);
+                if (!warhous.Success)
+                    return StatusCode(warhous.StatusCode, warhous);
                 await _warehouseService.DeleteWarehouseAsync(id);
                 return NoContent();
             }

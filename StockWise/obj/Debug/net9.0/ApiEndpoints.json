@@ -1,6 +1,38 @@
 [
   {
     "ContainingType": "StockWise.Controllers.AuthonticatController",
+    "Method": "AddToRole",
+    "RelativePath": "api/Authonticat/AddToRole",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "StockWise.Controllers.AuthonticatController\u002BAddToRoleDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StockWise.Controllers.AuthonticatController",
+    "Method": "ForgotPassword",
+    "RelativePath": "api/Authonticat/ForgotPassword",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "StockWise.Services.DTOS.ForgotPasswordDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StockWise.Controllers.AuthonticatController",
     "Method": "Login",
     "RelativePath": "api/Authonticat/Login",
     "HttpMethod": "POST",
@@ -17,6 +49,22 @@
   },
   {
     "ContainingType": "StockWise.Controllers.AuthonticatController",
+    "Method": "Refresh",
+    "RelativePath": "api/Authonticat/Refresh",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "StockWise.Services.DTOS.RefreshTokenRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StockWise.Controllers.AuthonticatController",
     "Method": "Register",
     "RelativePath": "api/Authonticat/Register",
     "HttpMethod": "POST",
@@ -26,6 +74,22 @@
       {
         "Name": "UserformRequest",
         "Type": "StockWise.Services.DTOS.RegisterDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StockWise.Controllers.AuthonticatController",
+    "Method": "ResetPassword",
+    "RelativePath": "api/Authonticat/ResetPassword",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "StockWise.Services.DTOS.ResetPasswordDto",
         "IsRequired": true
       }
     ],
@@ -598,9 +662,49 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "productDto",
-        "Type": "StockWise.Services.DTOS.ProductDto.StandaloneProductCreateDto",
-        "IsRequired": true
+        "Name": "Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Price.Amount",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      },
+      {
+        "Name": "Price.Currency",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProductionDate",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "ExpiryDate",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "InitialQuantity",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "WarehouseId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Condition",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Image",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -688,6 +792,16 @@
         "IsRequired": false
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StockWise.Controllers.ProductsController",
+    "Method": "Test",
+    "RelativePath": "api/Products/test",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

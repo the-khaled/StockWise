@@ -1,0 +1,15 @@
+E:\New folder\WebAPI\StockWise\StockWise.Domain\bin\Release\net9.0\StockWise.Domain.deps.json
+E:\New folder\WebAPI\StockWise\StockWise.Domain\bin\Release\net9.0\StockWise.Domain.runtimeconfig.json
+E:\New folder\WebAPI\StockWise\StockWise.Domain\bin\Release\net9.0\StockWise.Domain.dll
+E:\New folder\WebAPI\StockWise\StockWise.Domain\bin\Release\net9.0\StockWise.Domain.pdb
+E:\New folder\WebAPI\StockWise\StockWise.Domain\obj\Release\net9.0\StockWise.Domain.csproj.AssemblyReference.cache
+E:\New folder\WebAPI\StockWise\StockWise.Domain\obj\Release\net9.0\StockWise.Domain.GeneratedMSBuildEditorConfig.editorconfig
+E:\New folder\WebAPI\StockWise\StockWise.Domain\obj\Release\net9.0\StockWise.Domain.AssemblyInfoInputs.cache
+E:\New folder\WebAPI\StockWise\StockWise.Domain\obj\Release\net9.0\StockWise.Domain.AssemblyInfo.cs
+E:\New folder\WebAPI\StockWise\StockWise.Domain\obj\Release\net9.0\StockWise.Domain.csproj.CoreCompileInputs.cache
+E:\New folder\WebAPI\StockWise\StockWise.Domain\obj\Release\net9.0\StockWise.Domain.sourcelink.json
+E:\New folder\WebAPI\StockWise\StockWise.Domain\obj\Release\net9.0\StockWise.Domain.dll
+E:\New folder\WebAPI\StockWise\StockWise.Domain\obj\Release\net9.0\refint\StockWise.Domain.dll
+E:\New folder\WebAPI\StockWise\StockWise.Domain\obj\Release\net9.0\StockWise.Domain.pdb
+E:\New folder\WebAPI\StockWise\StockWise.Domain\obj\Release\net9.0\StockWise.Domain.genruntimeconfig.cache
+E:\New folder\WebAPI\StockWise\StockWise.Domain\obj\Release\net9.0\ref\StockWise.Domain.dll

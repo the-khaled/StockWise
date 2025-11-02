@@ -6,7 +6,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static StockWise.Domain.Enums.Enums;
 
 namespace StockWise.Services.DTOS.PaymentDto
 {
@@ -22,10 +21,10 @@ namespace StockWise.Services.DTOS.PaymentDto
         public MoneyDto Amount { get; set; }
 
         [Required(ErrorMessage = "Method is required.")]
-        public PaymentMethod Method { get; set; }
+        public Domain.Enums.PaymentMethod Method { get; set; }
 
         [Required(ErrorMessage = "Status is required.")]
-        public PaymentStatus Status { get; set; }
+        public Domain.Enums.PaymentStatus Status { get; set; }
 
         public string TransactionId { get; set; }
     }

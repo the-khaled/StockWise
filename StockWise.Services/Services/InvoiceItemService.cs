@@ -12,6 +12,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.HttpResults;
+using StockWise.Services.ServicesResponse;
+using System.Net;
+using Azure;
 
 namespace StockWise.Services.Services
 {
@@ -26,38 +29,86 @@ namespace StockWise.Services.Services
             _mapper = mapper;
         }
 
-        public async Task<InvoiceItemResponseDto> CreateInvoiceItemAsync(InvoiceItemCreateDto createDto)
+        public async Task<GenericResponse<InvoiceItemResponseDto>> CreateInvoiceItemAsync(InvoiceItemCreateDto createDto)
         {
+            var respons=new GenericResponse<InvoiceItemResponseDto>();
             if (createDto == null)
-                throw new ArgumentNullException(nameof(createDto));
+            {
+                respons.StatusCode=(int)HttpStatusCode.BadRequest;
+                respons.Success=false;
+                respons.Message = "InvoiceItem data is required.";
+                return respons;
+            }
 
             if (!createDto.InvoiceId.HasValue || createDto.InvoiceId <= 0)
-                throw new BusinessException("Valid InvoiceId is required.");
+            {
+                respons.StatusCode = (int)HttpStatusCode.BadRequest;
+                respons.Success = false;
+                respons.Message = "Valid Invoice Id is required.";
+                return respons;
+            }
 
             if (createDto.Quantity <= 0)
-                throw new BusinessException("Quantity must be greater than zero.");
+            {
+                respons.StatusCode = (int)HttpStatusCode.BadRequest;
+                respons.Success = false;
+                respons.Message = "Quantity must be greater than zero.";
+                return respons;
+            }
 
             if (createDto.Price.Amount < 0)
-                throw new BusinessException("Price cannot be negative.");
-
+            {
+                respons.StatusCode = (int)HttpStatusCode.BadRequest;
+                respons.Success = false;
+                respons.Message = "Price cannot be negative.";
+                return respons;
+            }
+            var allowedCurrencies = new[] { "EGP", "$", "USD", "EUR" };
+            createDto.Price.Currency = createDto.Price.Currency?.Trim();
+            if (string.IsNullOrWhiteSpace(createDto.Price.Currency) || !allowedCurrencies.Contains(createDto.Price.Currency))
+            {
+                respons.StatusCode = (int)HttpStatusCode.BadRequest;
+                respons.Success = false;
+                respons.Message = "Invalid currency , Allowed values are: EGP , $ , USD , EUR ";
+                respons.Data = null;
+                return respons;
+            }
             var invoice = await _unitOfWork.Invoice.GetByIdAsync(createDto.InvoiceId.Value);
             if (invoice == null)
-                throw new BusinessException("Invoice not found.");
+            {
+                respons.StatusCode = (int)HttpStatusCode.NotFound;
+                respons.Success = false;
+                respons.Message = "Invoice not found.";
+                return respons;
+            }
 
             var representative = await _unitOfWork.Representatives.GetByIdAsync(invoice.RepresentativeId);
             if (representative == null)
-                throw new BusinessException("Representative not found.");
-
+            {
+                respons.StatusCode = (int)HttpStatusCode.NotFound;
+                respons.Success = false;
+                respons.Message = "Representative not found.";
+                return respons;
+            }
             var product = await _unitOfWork.Products.GetByIdAsync(createDto.ProductId);
             if (product == null)
-                throw new BusinessException("Product not found.");
+            {
+                respons.StatusCode = (int)HttpStatusCode.NotFound;
+                respons.Success = false;
+                respons.Message = "Product not found.";
+                return respons;
+            }
 
             //  Stock validation
             var warehouseId = representative.WarehouseId ;
             var stock = await _unitOfWork.Stocks.GetByWarehouseAndProductAsync(createDto.ProductId, warehouseId);
             if (stock == null || stock.Quantity < createDto.Quantity)
-                throw new BusinessException($"Insufficient stock for product ID {createDto.ProductId}. Available: {stock?.Quantity ?? 0}, Requested: {createDto.Quantity}");
-
+            {
+                respons.StatusCode = (int)HttpStatusCode.BadRequest;
+                respons.Success = false;
+                respons.Message = $"Insufficient stock for product ID {createDto.ProductId}. Available: {stock?.Quantity ?? 0}, Requested: {createDto.Quantity}";
+                return respons;
+            }
             var invoiceItem = new InvoiceItem
             {
                 InvoiceId = createDto.InvoiceId.Value,
@@ -82,17 +133,36 @@ namespace StockWise.Services.Services
             await _unitOfWork.SaveChangesAsync();
 
             var createdItem = await _unitOfWork.InvoiceItem.GetByIdAsync(invoiceItem.Id);
-            return _mapper.Map<InvoiceItemResponseDto>(createdItem);
+            respons.StatusCode = (int)HttpStatusCode.Created;
+            respons.Success = true;
+            respons.Message = "Success";
+            respons.Data = _mapper.Map<InvoiceItemResponseDto>(createdItem);
+            return respons;
+           
         }
 
-        public async Task DeleteInvoiceItemAsync(int id)
+        public async Task<GenericResponse<InvoiceItemResponseDto>> DeleteInvoiceItemAsync(int id)
         {
+            var respons = new GenericResponse<InvoiceItemResponseDto>();
             var invoiceItem = await _unitOfWork.InvoiceItem.GetByIdAsync(id);
             if (invoiceItem == null)
-                throw new KeyNotFoundException($"Invoice item with ID {id} not found.");
-
-            //  Restore Stock
+            {
+                respons.StatusCode = (int)HttpStatusCode.NotFound;
+                respons.Success = false;
+                respons.Message = $"Invoice item with ID {id} not found.";
+                return respons;
+            }
+            // Draft, Issued, Paid, Cancelled
             var invoice = await _unitOfWork.Invoice.GetByIdAsync(invoiceItem.InvoiceId);
+
+            if (invoice==null ||!invoice.Status.Equals("Draft"))
+            {
+                respons.StatusCode = (int)HttpStatusCode.BadRequest;
+                respons.Success = false;
+                respons.Message = "Cannot delete item from a non-draft invoice";
+                return respons;
+            }
+            //  Restore Stock
             if (invoice != null)
             {
                 var representative = await _unitOfWork.Representatives.GetByIdAsync(invoice.RepresentativeId);
@@ -105,55 +175,127 @@ namespace StockWise.Services.Services
                     _unitOfWork.Stocks.UpdateAsync(stock);
                 }
             }
-
+      
             await _unitOfWork.InvoiceItem.DeleteAsync(id);
             await _unitOfWork.SaveChangesAsync();
+
+            respons.StatusCode = (int)HttpStatusCode.OK;
+            respons.Success = true;
+            respons.Message = "Invoice item deleted successfully.";
+            return respons;
         }
 
-        public async Task<IEnumerable<InvoiceItemResponseDto>> GetAllInvoiceItemAsync()
+        public async Task<GenericResponse<IEnumerable<InvoiceItemResponseDto>>> GetAllInvoiceItemAsync()
         {
+            var respons=new GenericResponse<IEnumerable<InvoiceItemResponseDto>>();
             var invoiceItems = await _unitOfWork.InvoiceItem.GetAllAsync();
-            return _mapper.Map<IEnumerable<InvoiceItemResponseDto>>(invoiceItems);
+            respons.StatusCode = (int)HttpStatusCode.OK;
+            respons.Success = true;
+            respons.Message = "Success";
+            respons.Data = _mapper.Map<IEnumerable<InvoiceItemResponseDto>>(invoiceItems);
+            return respons;
         }
 
-        public async Task<InvoiceItemResponseDto> GetInvoiceItemByIdAsync(int id)
+        public async Task<GenericResponse<InvoiceItemResponseDto>> GetInvoiceItemByIdAsync(int id)
         {
+            var respons=new GenericResponse<InvoiceItemResponseDto> ();
             var invoiceItem = await _unitOfWork.InvoiceItem.GetByIdAsync(id);
             if (invoiceItem == null)
-                throw new KeyNotFoundException($"Invoice item with ID {id} not found.");
-            return _mapper.Map<InvoiceItemResponseDto>(invoiceItem);
+            {
+                respons.StatusCode = (int)HttpStatusCode.NotFound;
+                respons.Success = false;
+                respons.Message = $"Invoice item with ID {id} not found.";
+                return respons;
+            }
+            respons.StatusCode = (int)HttpStatusCode.OK;
+            respons.Success = true;
+            respons.Message = "Success";
+            respons.Data = _mapper.Map<InvoiceItemResponseDto>(invoiceItem);
+            return respons;
         }
 
-        public async Task<InvoiceItemResponseDto> UpdateInvoiceItemAsync(int id, InvoiceItemCreateDto updateDto)
+        public async Task<GenericResponse<InvoiceItemResponseDto>> UpdateInvoiceItemAsync(int id, InvoiceItemCreateDto updateDto)
         {
+            var respons = new GenericResponse<InvoiceItemResponseDto>();
             if (updateDto == null)
-                throw new ArgumentNullException(nameof(updateDto));
+            {
+                respons.StatusCode = (int)HttpStatusCode.BadRequest;
+                respons.Success = false;
+                respons.Message = "InvoiceItem data is required.";
+                return respons;
+            }
 
             if (!updateDto.InvoiceId.HasValue || updateDto.InvoiceId <= 0)
-                throw new BusinessException("Valid InvoiceId is required.");
+            {
+                respons.StatusCode = (int)HttpStatusCode.BadRequest;
+                respons.Success = false;
+                respons.Message = "Valid InvoiceId is required.";
+                return respons;
+                //throw new BusinessException("Valid InvoiceId is required.");
+            }
+            var invoice = await _unitOfWork.Invoice.GetByIdAsync(updateDto.InvoiceId.Value);
 
+            if (invoice == null || !invoice.Status.Equals("Draft"))
+            {
+                respons.StatusCode = (int)HttpStatusCode.BadRequest;
+                respons.Success = false;
+                respons.Message = "Cannot delete item from a non-draft invoice";
+                return respons;
+            }
             var existingInvoiceItem = await _unitOfWork.InvoiceItem.GetByIdAsync(id);
             if (existingInvoiceItem == null)
-                throw new KeyNotFoundException($"Invoice item with ID {id} not found.");
+            {
+                respons.StatusCode = (int)HttpStatusCode.NotFound;
+                respons.Success = false;
+                respons.Message = $"Invoice item with ID {id} not found.";
+                return respons;
+            }
 
-            var invoice = await _unitOfWork.Invoice.GetByIdAsync(updateDto.InvoiceId.Value);
             if (invoice == null)
-                throw new BusinessException("Invoice not found.");
+            {
+                respons.StatusCode = (int)HttpStatusCode.NotFound;
+                respons.Success = false;
+                respons.Message = "Invoice not found.";
+                return respons;
+            }
 
             var representative = await _unitOfWork.Representatives.GetByIdAsync(invoice.RepresentativeId);
             if (representative == null)
-                throw new BusinessException("Representative not found.");
+            {
+                respons.StatusCode = (int)HttpStatusCode.NotFound;
+                respons.Success = false;
+                respons.Message = "Representative not found.";
+                return respons;
+            }
 
             var product = await _unitOfWork.Products.GetByIdAsync(updateDto.ProductId);
             if (product == null)
-                throw new BusinessException("Product not found.");
-
+            {
+                respons.StatusCode = (int)HttpStatusCode.NotFound;
+                respons.Success = false;
+                respons.Message = "Product not found.";
+                return respons;
+            }
             //  Stock validation (مع الـ old quantity)
             var warehouseId = representative.WarehouseId ;
             var stock = await _unitOfWork.Stocks.GetByWarehouseAndProductAsync(updateDto.ProductId, warehouseId);
             if (stock == null || stock.Quantity + existingInvoiceItem.Quantity < updateDto.Quantity)
-                throw new BusinessException($"Insufficient stock for product ID {updateDto.ProductId}. Available: {stock?.Quantity + existingInvoiceItem.Quantity ?? 0}, Requested: {updateDto.Quantity}");
-
+            {
+                respons.StatusCode = (int)HttpStatusCode.BadRequest;
+                respons.Success = false;
+                respons.Message = $"Insufficient stock for product ID {updateDto.ProductId}. Available: {stock?.Quantity + existingInvoiceItem.Quantity ?? 0}, Requested: {updateDto.Quantity}";
+                return respons;
+            }
+            var allowedCurrencies = new[] { "EGP", "$", "USD", "EUR" };
+            updateDto.Price.Currency = updateDto.Price.Currency?.Trim();
+            if (string.IsNullOrWhiteSpace(updateDto.Price.Currency) || !allowedCurrencies.Contains(updateDto.Price.Currency))
+            {
+                respons.StatusCode = (int)HttpStatusCode.BadRequest;
+                respons.Success = false;
+                respons.Message = "Invalid currency";
+                respons.Data = null;
+                return respons;
+            }
             //  Restore old quantity to stock
             if (stock != null && existingInvoiceItem.ProductId == updateDto.ProductId)
             {
@@ -167,8 +309,8 @@ namespace StockWise.Services.Services
             existingInvoiceItem.ProductId = updateDto.ProductId;
             existingInvoiceItem.Quantity = updateDto.Quantity;
             existingInvoiceItem.Price = updateDto.Price != null
-        ? new Money(updateDto.Price.Amount, updateDto.Price.Currency ?? "EGP")
-        : product.Price;
+                ? new Money(updateDto.Price.Amount, updateDto.Price.Currency ?? "EGP")
+                : product.Price;
             existingInvoiceItem.UpdatedAt = DateTime.UtcNow;
 
             await _unitOfWork.InvoiceItem.UpdateAsync(existingInvoiceItem);
@@ -182,7 +324,11 @@ namespace StockWise.Services.Services
             }
 
             await _unitOfWork.SaveChangesAsync();
-            return _mapper.Map<InvoiceItemResponseDto>(existingInvoiceItem);
+            respons.StatusCode = (int)HttpStatusCode.OK;
+            respons.Success = true;
+            respons.Message = "Success";
+            respons.Data = _mapper.Map<InvoiceItemResponseDto>(existingInvoiceItem);
+            return respons;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using StockWise.Domain.Models;
 using StockWise.Services.DTOS;
 using StockWise.Services.DTOS.PaymentDto;
+using StockWise.Services.ServicesResponse;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +12,13 @@ namespace StockWise.Services.IServices
 {
     public interface IPaymentService
     {
-        Task<IEnumerable<PaymentResponseDto>> GetAllPaymentAsync();
-        Task<PaymentResponseDto> GetPaymentByIdAsync(int id);
-        Task<PaymentResponseDto> UpdatePaymentAsync(int id,PaymentCreateDto paymentDto);
-        Task<PaymentResponseDto> CreatePaymentAsync(PaymentCreateDto paymentDto);
-        Task<IEnumerable<PaymentResponseDto>> GetPaymentsByInvoiceIdAsync(int invoiceId);
-        Task<IEnumerable<PaymentResponseDto>> GetPaymentsByCustomerIdAsync(int customerId);
-        Task<IEnumerable<PaymentResponseDto>> GetPendingPaymentsAsync();
-        Task CancelPaymentAsync(int id);
+        Task<GenericResponse<IEnumerable<PaymentResponseDto>>> GetAllPaymentAsync();
+        Task<GenericResponse<PaymentResponseDto>> GetPaymentByIdAsync(int id);
+        Task<GenericResponse<PaymentResponseDto>> UpdatePaymentAsync(int id,PaymentCreateDto paymentDto);
+        Task<GenericResponse<PaymentResponseDto>> CreatePaymentAsync(PaymentCreateDto paymentDto);
+        Task<GenericResponse<IEnumerable<PaymentResponseDto>>> GetPaymentsByInvoiceIdAsync(int invoiceId);
+        Task<GenericResponse<IEnumerable<PaymentResponseDto>>> GetPaymentsByCustomerIdAsync(int customerId);
+        Task<GenericResponse<IEnumerable<PaymentResponseDto>>> GetPendingPaymentsAsync();
+        Task<GenericResponse<PaymentResponseDto>> CancelPaymentAsync(int id);
     }
 }

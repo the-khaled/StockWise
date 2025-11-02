@@ -93,8 +93,8 @@ namespace StockWise.Services.Services
             if (transferDto == null)
                 throw new ArgumentNullException(nameof(transferDto));
 
-            if (transferDto.Quantity <= 0)
-                throw new BusinessException("Quantity must be greater than zero.");
+        /*    if (transferDto.Quantity <= 0)
+                throw new BusinessException("Quantity must be greater than zero.");*/
 
             if (transferDto.FromWarehouseId == transferDto.ToWarehouseId)
                 throw new BusinessException("Cannot transfer to the same warehouse.");

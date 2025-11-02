@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using StockWise.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static StockWise.Domain.Enums.Enums;
 
 namespace StockWise.Services.DTOS.ProductDto
 {
@@ -27,6 +28,8 @@ namespace StockWise.Services.DTOS.ProductDto
         public int WarehouseId { get; set; } 
 
         [Required(ErrorMessage = "Condition is required.")]
-        public ProductCondition Condition { get; set; }
+        public Domain.Enums.ProductCondition Condition { get; set; }
+        [Required(ErrorMessage = "Product image is required.")]
+        public IFormFile Image { get; set; } = null!;
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static StockWise.Domain.Enums.Enums;
 
 namespace StockWise.Services.DTOS.ReturnDto
 {
@@ -17,7 +16,7 @@ namespace StockWise.Services.DTOS.ReturnDto
         public int? CustomerId { get; set; }
         public string CustomerName { get; set; }
         public int Quantity { get; set; }
-        public ReturnType ReturnType { get; set; }
+        public Domain.Enums.ReturnType ReturnType { get; set; }
         public string Reason { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }

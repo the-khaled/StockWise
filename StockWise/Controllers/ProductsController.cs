@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Azure;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using StockWise.Domain.Models;
 using StockWise.Services.DTOS;
 using StockWise.Services.DTOS.ProductDto;
 using StockWise.Services.Exceptions;
@@ -14,10 +17,11 @@ namespace StockWise.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
-
-        public ProductsController(IProductService productService)
+        private readonly  IWebHostEnvironment _env;
+        public ProductsController(IProductService productService, IWebHostEnvironment env)
         {
             _productService = productService;
+            _env = env;
         }
 
         [HttpGet]
@@ -26,11 +30,13 @@ namespace StockWise.Controllers
             try
             {
                 var products = await _productService.GetAllProductsAsync();
-                return Ok(products);
+                if (!products.Success)
+                    return StatusCode(products.StatusCode, products);
+                return Ok(products.Data);
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { error = ex.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError, new { error = ex.ToString() });
             }
         }
 
@@ -41,6 +47,11 @@ namespace StockWise.Controllers
             try
             {
                 var product = await _productService.GetProductByIdAsync(id);
+
+                if (!product.Success) 
+                {
+                    return StatusCode(product.StatusCode,product);
+                }
                 return Ok(product);
             }
             catch (KeyNotFoundException ex)
@@ -59,6 +70,11 @@ namespace StockWise.Controllers
             try
             {
                 var products = await _productService.GetProductsByNameAsync(name);
+
+                if (!products.Success)
+                {
+                    return StatusCode(products.StatusCode, products);
+                }
                 return Ok(products);
             }
             catch (BusinessException ex)
@@ -76,6 +92,10 @@ namespace StockWise.Controllers
             try
             {
                 var products = await _productService.GetExpiringProductsAsync(daysBeforeExpiry);
+                if (!products.Success)
+                {
+                    return StatusCode(products.StatusCode, products);
+                }
                 return Ok(products);
             }
             catch (BusinessException ex)
@@ -94,6 +114,10 @@ namespace StockWise.Controllers
             try
             {
                 var products = await _productService.GetProductsByWarehouseAsync(warehouseId);
+                if (!products.Success)
+                {
+                    return StatusCode(products.StatusCode, products);
+                }
                 return Ok(products);
             }
             catch (BusinessException ex)
@@ -106,16 +130,21 @@ namespace StockWise.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] StandaloneProductCreateDto productDto)
+        public async Task<IActionResult> Create([FromForm] StandaloneProductCreateDto productDto)
         {
             try
             {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
 
-                var createdProduct = await _productService.CreateProductAsync(productDto);
+                var createdProduct = await _productService.CreateProductAsync(productDto,_env);
+                if (!createdProduct.Success)
+                    return StatusCode(createdProduct.StatusCode,createdProduct);
                 //  إرجاعCreatedAtAction مع الـ ID الجديد
-                return CreatedAtAction(nameof(GetById), new { id = createdProduct.Id }, createdProduct);
+                if (createdProduct.Success && createdProduct.Data?.ImageUrl != null)
+                {
+                    createdProduct.Data.ImageUrl = Url.Content(createdProduct.Data.ImageUrl);
+                }
+
+                return CreatedAtAction(nameof(GetById), new { id = createdProduct.Data.Id }, createdProduct);
             }
             catch (BusinessException ex)
             {
@@ -128,15 +157,20 @@ namespace StockWise.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] StandaloneProductCreateDto productDto)
+        public async Task<IActionResult> Update(int id, [FromBody] StandaloneProductCreateDto productDto, IWebHostEnvironment env)
         {
             try
             {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
 
-                var updatedProduct = await _productService.UpdateProductAsync(id, productDto);
-              
+                var updatedProduct = await _productService.UpdateProductAsync(id, productDto ,env);
+                if (!updatedProduct.Success)
+                    return StatusCode(updatedProduct.StatusCode, updatedProduct);
+
+                if (updatedProduct.Success && updatedProduct.Data?.ImageUrl != null)
+                {
+                    updatedProduct.Data.ImageUrl = Url.Content(updatedProduct.Data.ImageUrl);
+                }
+
                 return Ok(updatedProduct);
             }
             catch (KeyNotFoundException ex)
@@ -158,6 +192,9 @@ namespace StockWise.Controllers
         {
             try
             {
+                var product = await _productService.GetProductByIdAsync(id);
+                if (!product.Success)
+                    return StatusCode(product.StatusCode, product);
                 await _productService.DeleteProductAsync(id);
                 return NoContent();
             }

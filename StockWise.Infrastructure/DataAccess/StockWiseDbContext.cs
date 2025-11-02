@@ -1,15 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using StockWise.Domain.Models;
 using System;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace StockWise.Infrastructure.DataAccess
 {
-    public class StockWiseDbContext : DbContext
+    public class StockWiseDbContext : IdentityDbContext<ApplicationUser>
     {
         public StockWiseDbContext(DbContextOptions<StockWiseDbContext> options):base(options) { }
 
@@ -144,7 +146,7 @@ namespace StockWise.Infrastructure.DataAccess
 
             modelBuilder.Entity<Invoice>()
                 .OwnsOne(p => p.TotalAmount, p => {
-                   p.WithOwner().HasForeignKey("InvoiceItemId"); //  هنا  بيقول للـ EF إن ده مملوك بالكامل بدون مفتاح منفصل
+                    p.WithOwner();//  هنا  بيقول للـ EF إن ده مملوك بالكامل بدون مفتاح منفصل
                     p.Property(p => p.Amount).HasPrecision(18, 2).HasColumnName("TotalAmount");
                     p.Property(p => p.Currency).HasColumnName("TotalAmountCurrency");
                 });
@@ -187,8 +189,8 @@ namespace StockWise.Infrastructure.DataAccess
                 .OwnsOne(p => p.Amount, amount =>
                 {
                     amount.WithOwner();
-                    amount.Property(m => m.Amount).HasPrecision(18, 2).HasJsonPropertyName("Amount");
-                    amount.Property(m => m.Currency).HasJsonPropertyName("Currency");
+                    amount.Property(m => m.Amount).HasPrecision(18, 2).HasColumnName("Amount");
+                    amount.Property(m => m.Currency).HasColumnName("Currency");
 
                 });
 
@@ -279,11 +281,15 @@ namespace StockWise.Infrastructure.DataAccess
                 .HasIndex(i => i.Status);
 
 
+            modelBuilder.Entity<IdentityUserLogin<string>>().HasKey(l => new { l.LoginProvider, l.ProviderKey });
+            modelBuilder.Entity<IdentityUserRole<string>>().HasKey(r => new { r.UserId, r.RoleId });
+            modelBuilder.Entity<IdentityUserToken<string>>().HasKey(t => new { t.UserId, t.LoginProvider, t.Name });
         }
+    }
 
 
 
 
 
     }
-}
+

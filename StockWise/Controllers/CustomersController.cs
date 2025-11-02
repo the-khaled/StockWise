@@ -175,6 +175,10 @@ namespace StockWise.Controllers
             try
             {
                var deletedState= await _customerService.DeleteCustomerAsync(id);
+                if (!deletedState.Success)
+                {
+                    return StatusCode(deletedState.StatusCode, deletedState);
+                }
                 return Ok(deletedState);
             }
             catch (KeyNotFoundException ex)

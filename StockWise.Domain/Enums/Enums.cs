@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Runtime.Serialization;
+    using System.Text;
+    using System.Threading.Tasks;
 
-namespace StockWise.Domain.Enums
-{
-    public class Enums
+    namespace StockWise.Domain.Enums
     {
-        public enum WarehouseType { Main, Branch }
-        public enum ProductCondition { Good, Damaged, [EnumMember(Value = "no condition")] NoCondition }
-        public enum PaymentMethod { Cash, Electronic }
-        public enum PaymentStatus { Pending, Completed, Failed }
-        public enum ReturnType { FromRepresentative, FromCustomer }
-        public enum ExpenseType { General, Advance, Fuel, Rent, Maintenance }
-        public enum InvoiceStatus { Draft, Issued, Paid, Cancelled }
+      
+            public enum WarehouseType { Main, Branch }
+            public enum ProductCondition { Good, Damaged, [EnumMember(Value = "no condition")] NoCondition }
+            public enum PaymentMethod { Cash, Electronic }
+            public enum PaymentStatus { Pending, Completed, Failed , Cancelled }
+            public enum ReturnType { FromRepresentative, FromCustomer }
+            public enum ExpenseType { General, Advance, Fuel, Rent, Maintenance }
+            public enum InvoiceStatus { Draft, Issued, Paid, Cancelled }
 
+        
     }
-}

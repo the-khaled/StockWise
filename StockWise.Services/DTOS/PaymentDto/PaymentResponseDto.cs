@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static StockWise.Domain.Enums.Enums;
 
 namespace StockWise.Services.DTOS.PaymentDto
 {
@@ -16,7 +15,7 @@ namespace StockWise.Services.DTOS.PaymentDto
         public int CustomerId { get; set; }
         public Money Amount { get; set; }
         public string Method { get; set; }
-        public PaymentStatus Status { get; set; }
+        public Domain.Enums.PaymentStatus Status { get; set; }
         public string TransactionId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }

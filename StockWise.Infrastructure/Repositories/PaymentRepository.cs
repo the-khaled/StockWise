@@ -32,8 +32,23 @@ namespace StockWise.Infrastructure.Repositories
             public async Task<IEnumerable<Payment>> GetPendingPaymentsAsync()
             {
                 return await _context.payments
-                    .Where(p => p.Status == Enums.PaymentStatus.Pending)
+                    .Where(p => p.Status == Domain.Enums.PaymentStatus.Pending)
                     .ToListAsync();
             }
+            public async Task<Payment> Cancel(int id) 
+            {
+                var existPayment = await _context.Set<Payment>().FindAsync(id);
+                if (existPayment == null)
+                {
+                    return null;
+                }
+
+            existPayment.Status = Domain.Enums.PaymentStatus.Cancelled;
+            existPayment.UpdatedAt = DateTime.UtcNow;
+            _context.Set<Payment>().Update(existPayment);
+            await _context.SaveChangesAsync();
+
+            return existPayment;
+        }
         }
     }

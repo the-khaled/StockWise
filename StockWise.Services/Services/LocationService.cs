@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using StockWise.Domain.Interfaces;
 using StockWise.Domain.Models;
 using StockWise.Services.DTOS;
@@ -15,9 +16,11 @@ namespace StockWise.Services.Services
     public class LocationService: ILocationService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public LocationService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public LocationService(IUnitOfWork unitOfWork,IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+          
         }
 
         public async Task<IEnumerable<LocationDto>> GetAllLocationsAsync()

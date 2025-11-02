@@ -24,6 +24,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.SqlServer.Server" Version="1.0.0" />
+    <PackageReference Include="MimeKit" Version="4.14.0" />
     <PackageReference Include="Rex.Microsoft.AspNetCore.Mvc.Extensions" Version="8.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
   </ItemGroup>
@@ -31,6 +32,10 @@
   <ItemGroup>
     <ProjectReference Include="..\StockWise.Infrastructure\StockWise.Infrastructure.csproj" />
     <ProjectReference Include="..\StockWise.Services\StockWise.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\" />
   </ItemGroup>
 
 </Project>

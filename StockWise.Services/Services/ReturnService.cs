@@ -14,7 +14,6 @@ using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
-using static StockWise.Domain.Enums.Enums;
 
 namespace StockWise.Services.Services
 {
@@ -84,7 +83,7 @@ namespace StockWise.Services.Services
             await _unitOfWork.SaveChangesAsync();
 
             // Business Logic: If condition is Damaged, add to Expense and DamagedProducts
-            if (returnDto.Condition == ProductCondition.Damaged)
+            if (returnDto.Condition == Domain.Enums.ProductCondition.Damaged)
             {
                 if (product.Price == null || product.Price.Amount <= 0)
                     throw new BusinessException($"Invalid Price for Product ID {returnDto.ProductId}.");
@@ -94,7 +93,7 @@ namespace StockWise.Services.Services
                 {
                     Description = $"Damaged product return for Product ID {returnDto.ProductId}",
                     Amount = new Money(product.Price.Amount, product.Price.Currency),
-                    ExpenseType = ExpenseType.General,
+                    ExpenseType = Domain.Enums.ExpenseType.General,
                     RepresentativeId = returnDto.RepresentativeId
                 };
                 await _unitOfWork.Expense.AddAsync(expense);
@@ -111,7 +110,7 @@ namespace StockWise.Services.Services
 
                 await _unitOfWork.SaveChangesAsync();
             }
-            else if (returnDto.Condition == ProductCondition.Good)
+            else if (returnDto.Condition == Domain.Enums.ProductCondition.Good)
             {
                 // Add back to Stock if condition is Good
                 warehouseId = returnDto.RepresentativeId.HasValue ? warehouseId : 1; // Assume 1 is Main Warehouse ID for FromCustomer returns
@@ -161,22 +160,22 @@ namespace StockWise.Services.Services
                 // If all items have quantity 0, cancel the invoice
                 if (invoice.Items.All(it => it.Quantity == 0))
                 {
-                    invoice.Status = InvoiceStatus.Cancelled;
+                    invoice.Status = Domain.Enums.InvoiceStatus.Cancelled;
                 }
-                else if (invoice.Status == InvoiceStatus.Paid)
+                else if (invoice.Status == Domain.Enums.InvoiceStatus.Paid)
                 {
                     // If paid, don't change status, just adjust quantities
                 }
                 else
                 {
-                    invoice.Status = InvoiceStatus.Issued; // Ensure it stays Issued if partially returned
+                    invoice.Status = Domain.Enums.InvoiceStatus.Issued; // Ensure it stays Issued if partially returned
                 }
 
                 await _unitOfWork.Invoice.UpdateAsync(invoice);
                 await _unitOfWork.SaveChangesAsync();
 
                 // If invoice not paid and associated with a customer, adjust credit balance
-                if (invoice.Status != InvoiceStatus.Paid && invoice.CustomerId != 0)
+                if (invoice.Status != Domain.Enums.InvoiceStatus.Paid && invoice.CustomerId != 0)
                 {
                     var customerCredit = await _unitOfWork.Customer.GetByIdAsync(invoice.CustomerId);
                     if (customerCredit != null)
@@ -279,7 +278,7 @@ namespace StockWise.Services.Services
                 if (oldRepresentative != null)
                 {
                     // Revert previous Stock changes if Good
-                    if (existingReturn.Condition == ProductCondition.Good)
+                    if (existingReturn.Condition == Domain.Enums.ProductCondition.Good)
                     {
                         var oldStock = await _unitOfWork.Stocks.GetByWarehouseAndProductAsync(existingReturn.ProductId, oldRepresentative.WarehouseId);
                         if (oldStock != null)
@@ -298,11 +297,11 @@ namespace StockWise.Services.Services
                             && i.Items.Any(it => it.ProductId == existingReturn.ProductId));
                     if (oldInvoice != null)
                     {
-                        oldInvoice.Status = InvoiceStatus.Issued; // Revert to Issued
+                        oldInvoice.Status = Domain.Enums.InvoiceStatus.Issued; // Revert to Issued
                         await _unitOfWork.Invoice.UpdateAsync(oldInvoice);
 
                         // Revert CreditBalance if not paid
-                        if (oldInvoice.Status != InvoiceStatus.Paid && oldInvoice.CustomerId != 0)
+                        if (oldInvoice.Status != Domain.Enums.InvoiceStatus.Paid && oldInvoice.CustomerId != 0)
                         {
                             var customerCredit = await _unitOfWork.Customer.GetByIdAsync(oldInvoice.CustomerId);
                             if (customerCredit != null)
@@ -331,11 +330,11 @@ namespace StockWise.Services.Services
                         && i.Items.Any(it => it.ProductId == existingReturn.ProductId));
                 if (oldInvoice != null)
                 {
-                    oldInvoice.Status = InvoiceStatus.Issued; // Revert to Issued
+                    oldInvoice.Status = Domain.Enums.InvoiceStatus.Issued; // Revert to Issued
                     await _unitOfWork.Invoice.UpdateAsync(oldInvoice);
 
                     // Revert CreditBalance if not paid
-                    if (oldInvoice.Status != InvoiceStatus.Paid && oldInvoice.CustomerId != 0)
+                    if (oldInvoice.Status != Domain.Enums.InvoiceStatus.Paid && oldInvoice.CustomerId != 0)
                     {
                         var customerCredit = await _unitOfWork.Customer.GetByIdAsync(oldInvoice.CustomerId);
                         if (customerCredit != null)
@@ -393,7 +392,7 @@ namespace StockWise.Services.Services
             await _unitOfWork.SaveChangesAsync();
 
             // Business Logic: If condition is Damaged, add to Expense
-            if (returnDto.Condition == ProductCondition.Damaged)
+            if (returnDto.Condition == Domain.Enums.ProductCondition.Damaged)
             {
                 if (product.Price == null || product.Price.Amount <= 0)
                     throw new BusinessException($"Invalid Price for Product ID {returnDto.ProductId}.");
@@ -401,13 +400,13 @@ namespace StockWise.Services.Services
                 {
                     Description = $"Damaged product return for Product ID {returnDto.ProductId}",
                     Amount = new Money(product.Price.Amount,product.Price.Currency), // Use Price.Amount
-                    ExpenseType = ExpenseType.General,
+                    ExpenseType = Domain.Enums.ExpenseType.General,
                     RepresentativeId = returnDto.RepresentativeId
                 };
                 await _unitOfWork.Expense.AddAsync(expense);
                 await _unitOfWork.SaveChangesAsync();
             }
-            else if (returnDto.Condition == ProductCondition.Good)
+            else if (returnDto.Condition == Domain.Enums.ProductCondition.Good)
             {
                 // Add back to Stock if condition is Good
                 warehouseId = returnDto.RepresentativeId.HasValue ? warehouseId : 1; // Assume 1 is Main Warehouse ID for FromCustomer returns
@@ -456,12 +455,12 @@ namespace StockWise.Services.Services
 
             if (invoice != null)
             {
-                invoice.Status = InvoiceStatus.Cancelled;
+                invoice.Status = Domain.Enums.InvoiceStatus.Cancelled;
                 await _unitOfWork.Invoice.UpdateAsync(invoice);
                 await _unitOfWork.SaveChangesAsync();
 
                 // If invoice not paid and associated with a customer, adjust credit balance
-                if (invoice.Status != InvoiceStatus.Paid && invoice.CustomerId != 0)
+                if (invoice.Status != Domain.Enums.InvoiceStatus.Paid && invoice.CustomerId != 0)
                 {
                     var customerCredit = await _unitOfWork.Customer.GetByIdAsync(invoice.CustomerId);
                     if (customerCredit != null)

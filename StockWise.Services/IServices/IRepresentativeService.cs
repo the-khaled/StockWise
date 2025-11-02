@@ -1,5 +1,6 @@
 ﻿using StockWise.Services.DTOS;
 using StockWise.Services.DTOS.RepresentativeDto;
+using StockWise.Services.ServicesResponse;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,12 @@ namespace StockWise.Services.IServices
 {
     public interface IRepresentativeService
     {
-        Task<IEnumerable<RepresentativeResponseDto>> GetAllRepresentativeAsync();
-        Task<RepresentativeResponseDto> GetRepresentativeByIdAsync(int id);
-        Task<RepresentativeResponseDto> CreateRepresentativeAsync(RepresentativeCreateDto dto);
-        Task<RepresentativeResponseDto> UpdateRepresentativeAsync(int id,RepresentativeCreateDto dto);
-        Task<IEnumerable<RepresentativeResponseDto>> GetRepresentativesByWarehouseIdAsync(int warehouseId);
-        Task<RepresentativeResponseDto> GetRepresentativeByNationalIdAsync(string nationalId);
-        Task DeleteRepresentativeAsync(int id);
+        Task<GenericResponse<IEnumerable<RepresentativeResponseDto>>> GetAllRepresentativeAsync();
+        Task<GenericResponse<RepresentativeResponseDto>> GetRepresentativeByIdAsync(int id);
+        Task<GenericResponse<RepresentativeResponseDto>> CreateRepresentativeAsync(RepresentativeCreateDto dto);
+        Task<GenericResponse<RepresentativeResponseDto>> UpdateRepresentativeAsync(int id,RepresentativeCreateDto dto);
+        Task<GenericResponse<IEnumerable<RepresentativeResponseDto>>> GetRepresentativesByWarehouseIdAsync(int warehouseId);
+        Task<GenericResponse<RepresentativeResponseDto>> GetRepresentativeByNationalIdAsync(string nationalId);
+        Task<GenericResponse<RepresentativeResponseDto>> DeleteRepresentativeAsync(int id);
     }
 }

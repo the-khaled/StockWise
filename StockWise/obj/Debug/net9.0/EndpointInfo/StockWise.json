@@ -14,22 +14,90 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/RegisterDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/RegisterDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/RegisterDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/RegisterDto"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Authonticat/AddToRole": {
+      "post": {
+        "tags": [
+          "Authonticat"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AddToRoleDto"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AddToRoleDto"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AddToRoleDto"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AddToRoleDto"
+                  }
+                ]
               }
             }
           }
@@ -50,22 +118,194 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LoginDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LoginDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LoginDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LoginDto"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Authonticat/ForgotPassword": {
+      "post": {
+        "tags": [
+          "Authonticat"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ForgotPasswordDto"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ForgotPasswordDto"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ForgotPasswordDto"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ForgotPasswordDto"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Authonticat/ResetPassword": {
+      "post": {
+        "tags": [
+          "Authonticat"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ResetPasswordDto"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ResetPasswordDto"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ResetPasswordDto"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ResetPasswordDto"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Authonticat/Refresh": {
+      "post": {
+        "tags": [
+          "Authonticat"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/RefreshTokenRequestDto"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/RefreshTokenRequestDto"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/RefreshTokenRequestDto"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/RefreshTokenRequestDto"
+                  }
+                ]
               }
             }
           }
@@ -96,22 +336,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerCreateDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerCreateDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerCreateDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerCreateDto"
+                  }
+                ]
               }
             }
           }
@@ -185,22 +441,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerCreateDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerCreateDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerCreateDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CustomerCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CustomerCreateDto"
+                  }
+                ]
               }
             }
           }
@@ -252,22 +524,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/ExpenseCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ExpenseCreateDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ExpenseCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ExpenseCreateDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/ExpenseCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ExpenseCreateDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/ExpenseCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ExpenseCreateDto"
+                  }
+                ]
               }
             }
           }
@@ -343,22 +631,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/ExpenseCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ExpenseCreateDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ExpenseCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ExpenseCreateDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/ExpenseCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ExpenseCreateDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/ExpenseCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ExpenseCreateDto"
+                  }
+                ]
               }
             }
           }
@@ -410,22 +714,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/InvoiceItemCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/InvoiceItemCreateDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/InvoiceItemCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/InvoiceItemCreateDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/InvoiceItemCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/InvoiceItemCreateDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/InvoiceItemCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/InvoiceItemCreateDto"
+                  }
+                ]
               }
             }
           }
@@ -478,22 +798,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/InvoiceItemCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/InvoiceItemCreateDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/InvoiceItemCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/InvoiceItemCreateDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/InvoiceItemCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/InvoiceItemCreateDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/InvoiceItemCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/InvoiceItemCreateDto"
+                  }
+                ]
               }
             }
           }
@@ -545,22 +881,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/InvoiceCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/InvoiceCreateDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/InvoiceCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/InvoiceCreateDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/InvoiceCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/InvoiceCreateDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/InvoiceCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/InvoiceCreateDto"
+                  }
+                ]
               }
             }
           }
@@ -613,22 +965,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/InvoiceCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/InvoiceCreateDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/InvoiceCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/InvoiceCreateDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/InvoiceCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/InvoiceCreateDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/InvoiceCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/InvoiceCreateDto"
+                  }
+                ]
               }
             }
           }
@@ -680,22 +1048,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/LocationDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LocationDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LocationDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LocationDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/LocationDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LocationDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/LocationDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LocationDto"
+                  }
+                ]
               }
             }
           }
@@ -748,22 +1132,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/LocationDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LocationDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LocationDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LocationDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/LocationDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LocationDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/LocationDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LocationDto"
+                  }
+                ]
               }
             }
           }
@@ -815,22 +1215,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PaymentCreateDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PaymentCreateDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PaymentCreateDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PaymentCreateDto"
+                  }
+                ]
               }
             }
           }
@@ -883,22 +1299,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PaymentCreateDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PaymentCreateDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PaymentCreateDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PaymentCreateDto"
+                  }
+                ]
               }
             }
           }
@@ -991,6 +1423,18 @@
         }
       }
     },
+    "/api/Products/test": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Products": {
       "get": {
         "tags": [
@@ -1008,24 +1452,88 @@
         ],
         "requestBody": {
           "content": {
-            "application/json-patch+json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/StandaloneProductCreateDto"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StandaloneProductCreateDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StandaloneProductCreateDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/StandaloneProductCreateDto"
+                "required": [
+                  "Condition",
+                  "ExpiryDate",
+                  "Image",
+                  "Name",
+                  "ProductionDate",
+                  "WarehouseId"
+                ],
+                "type": "object",
+                "properties": {
+                  "Name": {
+                    "maxLength": 100,
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "Price.Amount": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "Price.Currency": {
+                    "type": "string"
+                  },
+                  "ProductionDate": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "ExpiryDate": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "InitialQuantity": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "WarehouseId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Condition": {
+                    "enum": [
+                      "Good",
+                      "Damaged",
+                      "NoCondition"
+                    ],
+                    "type": "string"
+                  },
+                  "Image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "Name": {
+                  "style": "form"
+                },
+                "Price.Amount": {
+                  "style": "form"
+                },
+                "Price.Currency": {
+                  "style": "form"
+                },
+                "ProductionDate": {
+                  "style": "form"
+                },
+                "ExpiryDate": {
+                  "style": "form"
+                },
+                "InitialQuantity": {
+                  "style": "form"
+                },
+                "WarehouseId": {
+                  "style": "form"
+                },
+                "Condition": {
+                  "style": "form"
+                },
+                "Image": {
+                  "style": "form"
+                }
               }
             }
           }
@@ -1078,22 +1586,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/StandaloneProductCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/StandaloneProductCreateDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StandaloneProductCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/StandaloneProductCreateDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/StandaloneProductCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/StandaloneProductCreateDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/StandaloneProductCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/StandaloneProductCreateDto"
+                  }
+                ]
               }
             }
           }
@@ -1212,22 +1736,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/RepresentativeCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/RepresentativeCreateDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RepresentativeCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/RepresentativeCreateDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/RepresentativeCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/RepresentativeCreateDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/RepresentativeCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/RepresentativeCreateDto"
+                  }
+                ]
               }
             }
           }
@@ -1280,22 +1820,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/RepresentativeCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/RepresentativeCreateDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RepresentativeCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/RepresentativeCreateDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/RepresentativeCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/RepresentativeCreateDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/RepresentativeCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/RepresentativeCreateDto"
+                  }
+                ]
               }
             }
           }
@@ -1391,22 +1947,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/ReturnCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ReturnCreateDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ReturnCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ReturnCreateDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/ReturnCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ReturnCreateDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/ReturnCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ReturnCreateDto"
+                  }
+                ]
               }
             }
           }
@@ -1459,22 +2031,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/ReturnCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ReturnCreateDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ReturnCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ReturnCreateDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/ReturnCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ReturnCreateDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/ReturnCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ReturnCreateDto"
+                  }
+                ]
               }
             }
           }
@@ -1595,22 +2183,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/StockCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/StockCreateDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StockCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/StockCreateDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/StockCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/StockCreateDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/StockCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/StockCreateDto"
+                  }
+                ]
               }
             }
           }
@@ -1663,22 +2267,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/StockCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/StockCreateDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StockCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/StockCreateDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/StockCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/StockCreateDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/StockCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/StockCreateDto"
+                  }
+                ]
               }
             }
           }
@@ -1760,22 +2380,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/TransferCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TransferCreateDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TransferCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TransferCreateDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/TransferCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TransferCreateDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/TransferCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TransferCreateDto"
+                  }
+                ]
               }
             }
           }
@@ -1828,22 +2464,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/TransferCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TransferCreateDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TransferCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TransferCreateDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/TransferCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TransferCreateDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/TransferCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TransferCreateDto"
+                  }
+                ]
               }
             }
           }
@@ -1918,22 +2570,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/WarehouseCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WarehouseCreateDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WarehouseCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WarehouseCreateDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/WarehouseCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WarehouseCreateDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/WarehouseCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WarehouseCreateDto"
+                  }
+                ]
               }
             }
           }
@@ -1986,22 +2654,38 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/WarehouseCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WarehouseCreateDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WarehouseCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WarehouseCreateDto"
+                  }
+                ]
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/WarehouseCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WarehouseCreateDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/WarehouseCreateDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WarehouseCreateDto"
+                  }
+                ]
               }
             }
           }
@@ -2058,6 +2742,20 @@
   },
   "components": {
     "schemas": {
+      "AddToRoleDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "CustomerCreateDto": {
         "required": [
           "creditBalance",
@@ -2082,7 +2780,11 @@
             "nullable": true
           },
           "creditBalance": {
-            "$ref": "#/components/schemas/MoneyDto"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MoneyDto"
+              }
+            ]
           }
         },
         "additionalProperties": false
@@ -2095,10 +2797,21 @@
         "type": "object",
         "properties": {
           "amount": {
-            "$ref": "#/components/schemas/MoneyDto"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MoneyDto"
+              }
+            ]
           },
           "expenseType": {
-            "$ref": "#/components/schemas/ExpenseType"
+            "enum": [
+              "General",
+              "Advance",
+              "Fuel",
+              "Rent",
+              "Maintenance"
+            ],
+            "type": "string"
           },
           "description": {
             "type": "string",
@@ -2112,16 +2825,15 @@
         },
         "additionalProperties": false
       },
-      "ExpenseType": {
-        "enum": [
-          0,
-          1,
-          2,
-          3,
-          4
-        ],
-        "type": "integer",
-        "format": "int32"
+      "ForgotPasswordDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       },
       "InvoiceCreateDto": {
         "required": [
@@ -2141,7 +2853,11 @@
             "format": "int32"
           },
           "status": {
-            "$ref": "#/components/schemas/InvoiceStatus"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/InvoiceStatus"
+              }
+            ]
           },
           "items": {
             "minItems": 1,
@@ -2177,7 +2893,11 @@
             "format": "int32"
           },
           "price": {
-            "$ref": "#/components/schemas/MoneyDto"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MoneyDto"
+              }
+            ]
           }
         },
         "additionalProperties": false
@@ -2275,13 +2995,27 @@
             "format": "int32"
           },
           "amount": {
-            "$ref": "#/components/schemas/MoneyDto"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MoneyDto"
+              }
+            ]
           },
           "method": {
-            "$ref": "#/components/schemas/PaymentMethod"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaymentMethod"
+              }
+            ]
           },
           "status": {
-            "$ref": "#/components/schemas/PaymentStatus"
+            "enum": [
+              "Pending",
+              "Completed",
+              "Failed",
+              "Cancelled"
+            ],
+            "type": "string"
           },
           "transactionId": {
             "type": "string",
@@ -2298,23 +3032,15 @@
         "type": "integer",
         "format": "int32"
       },
-      "PaymentStatus": {
-        "enum": [
-          0,
-          1,
-          2
-        ],
-        "type": "integer",
-        "format": "int32"
-      },
-      "ProductCondition": {
-        "enum": [
-          0,
-          1,
-          2
-        ],
-        "type": "integer",
-        "format": "int32"
+      "RefreshTokenRequestDto": {
+        "type": "object",
+        "properties": {
+          "refreshToken": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       },
       "RegisterDto": {
         "type": "object",
@@ -2374,6 +3100,24 @@
         },
         "additionalProperties": false
       },
+      "ResetPasswordDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "token": {
+            "type": "string",
+            "nullable": true
+          },
+          "newPassword": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "ReturnCreateDto": {
         "required": [
           "productId",
@@ -2382,7 +3126,11 @@
         "type": "object",
         "properties": {
           "returnType": {
-            "$ref": "#/components/schemas/ReturnType"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ReturnType"
+              }
+            ]
           },
           "productId": {
             "type": "integer",
@@ -2405,7 +3153,12 @@
             "format": "int32"
           },
           "condition": {
-            "$ref": "#/components/schemas/ProductCondition"
+            "enum": [
+              "Good",
+              "Damaged",
+              "NoCondition"
+            ],
+            "type": "string"
           },
           "reason": {
             "type": "string",
@@ -2426,6 +3179,7 @@
         "required": [
           "condition",
           "expiryDate",
+          "image",
           "name",
           "price",
           "productionDate",
@@ -2439,7 +3193,11 @@
             "type": "string"
           },
           "price": {
-            "$ref": "#/components/schemas/MoneyDto"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MoneyDto"
+              }
+            ]
           },
           "productionDate": {
             "type": "string",
@@ -2459,7 +3217,16 @@
             "format": "int32"
           },
           "condition": {
-            "$ref": "#/components/schemas/ProductCondition"
+            "enum": [
+              "Good",
+              "Damaged",
+              "NoCondition"
+            ],
+            "type": "string"
+          },
+          "image": {
+            "type": "string",
+            "format": "binary"
           }
         },
         "additionalProperties": false
@@ -2534,7 +3301,11 @@
             "type": "string"
           },
           "warehouseType": {
-            "$ref": "#/components/schemas/WarehouseType"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WarehouseType"
+              }
+            ]
           },
           "address": {
             "maxLength": 200,

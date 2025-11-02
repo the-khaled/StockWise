@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StockWise.Domain.Models;
 using StockWise.Services.DTOS;
 using StockWise.Services.DTOS.RepresentativeDto;
 using StockWise.Services.Exceptions;
@@ -36,6 +37,10 @@ namespace StockWise.Controllers
             try
             {
                 var representative = await _representativeService.GetRepresentativeByIdAsync(id);
+                if (!representative.Success)
+                {
+                    return StatusCode(representative.StatusCode, representative);
+                }
                 return Ok(representative);
             }
             catch (KeyNotFoundException ex)
@@ -53,7 +58,12 @@ namespace StockWise.Controllers
         {
             try
             {
+                var createdRepresentative = await _representativeService.CreateRepresentativeAsync(dto);
 
+                if (!createdRepresentative.Success) 
+                {
+                    return StatusCode(createdRepresentative.StatusCode, createdRepresentative);
+                }
                 if (!ModelState.IsValid)
                 {
                     var errors = ModelState
@@ -63,8 +73,7 @@ namespace StockWise.Controllers
                     return BadRequest(new { errors });
                 }
 
-                var createdRepresentative = await _representativeService.CreateRepresentativeAsync(dto);
-                return CreatedAtAction(nameof(GetById), new { id = createdRepresentative.Id }, createdRepresentative);
+                return CreatedAtAction(nameof(GetById), new { id = createdRepresentative.Data.Id }, createdRepresentative);
             }
             catch (BusinessException ex)
             {
@@ -81,6 +90,12 @@ namespace StockWise.Controllers
         {
             try
             {
+                var updatedRepresentative = await _representativeService.UpdateRepresentativeAsync(id, dto);
+
+                if (!updatedRepresentative.Success)
+                {
+                    return StatusCode(updatedRepresentative.StatusCode, updatedRepresentative);
+                }
                 if (!ModelState.IsValid)
                 {
                     var errors = ModelState
@@ -90,7 +105,6 @@ namespace StockWise.Controllers
                     return BadRequest(new { errors });
                 }
 
-                var updatedRepresentative = await _representativeService.UpdateRepresentativeAsync(id, dto);
                 return Ok(updatedRepresentative);
             }
             catch (KeyNotFoundException ex)
@@ -112,6 +126,10 @@ namespace StockWise.Controllers
             try
             {
                 var representatives = await _representativeService.GetRepresentativesByWarehouseIdAsync(warehouseId);
+                if (!representatives.Success)
+                {
+                    return StatusCode(representatives.StatusCode, representatives);
+                }
                 return Ok(representatives);
             }
             catch (KeyNotFoundException ex)
@@ -133,10 +151,14 @@ namespace StockWise.Controllers
         {
             try
             {
+                var representative = await _representativeService.GetRepresentativeByNationalIdAsync(nationalId);
+                if (!representative.Success)
+                {
+                    return StatusCode(representative.StatusCode, representative);
+                }
                 if (string.IsNullOrWhiteSpace(nationalId))
                     return BadRequest(new { error = "National ID cannot be empty or whitespace." });
 
-                var representative = await _representativeService.GetRepresentativeByNationalIdAsync(nationalId);
                 return Ok(representative);
             }
             catch (KeyNotFoundException ex)
@@ -161,6 +183,11 @@ namespace StockWise.Controllers
         {
             try
             {
+                var representative = await _representativeService.GetRepresentativeByIdAsync(id);
+                if (!representative.Success)
+                {
+                    return StatusCode(representative.StatusCode, representative);
+                }
                 await _representativeService.DeleteRepresentativeAsync(id);
                 return NoContent();
             }

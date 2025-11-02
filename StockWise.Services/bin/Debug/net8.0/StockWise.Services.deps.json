@@ -1279,7 +1279,10 @@
           "Rex.Microsoft.AspNetCore.Mvc.Extensions": "8.0.0"
         },
         "runtime": {
-          "StockWise.Domain.dll": {}
+          "StockWise.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

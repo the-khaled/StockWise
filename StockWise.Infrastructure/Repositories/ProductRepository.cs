@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static StockWise.Domain.Enums.Enums;
 
 namespace StockWise.Infrastructure.Repositories
 {
@@ -19,19 +18,15 @@ namespace StockWise.Infrastructure.Repositories
         public override async Task<Product> GetByIdAsync(int id)
         {
             return await _context.Products
-                .AsNoTracking()
-                .Include(p => p.stocks)
-                    .ThenInclude(s => s.Warehouse)
-                .Include(p => p.invoiceItems) 
-                .Include(p => p.returns)      
-                .Include(p => p.transfers)  
-                .FirstOrDefaultAsync(p => p.Id == id);
+             .Include(p => p.stocks) 
+             .AsNoTracking()
+             .FirstOrDefaultAsync(p => p.Id == id);
         }
         public async Task<IEnumerable<Product>> GetExpiringProductsAsync(int daysBeforeExpiry)
         {
             var expireDate = DateTime.UtcNow.AddDays(daysBeforeExpiry);
             return await _context.Products
-                .Where(p => p.ExpiryDate.HasValue && p.ExpiryDate <= expireDate && p.Condition == ProductCondition.Good)
+                .Where(p => p.ExpiryDate.HasValue && p.ExpiryDate <= expireDate && p.Condition == Domain.Enums.ProductCondition.Good)
                 .Include(p => p.stocks)
                     .ThenInclude(s => s.Warehouse)
                 .ToListAsync();
@@ -50,6 +45,13 @@ namespace StockWise.Infrastructure.Repositories
                 .Include(p => p.stocks)
                     .ThenInclude(s => s.Warehouse)
                 .ToListAsync();
+        }
+        public override async Task<IEnumerable<Product>> GetAllAsync()
+        {
+            return await _context.Products
+             .Include(p => p.stocks)
+             .AsNoTracking()
+             .ToListAsync();
         }
     }
 }

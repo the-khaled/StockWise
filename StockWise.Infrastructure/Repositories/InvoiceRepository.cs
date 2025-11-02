@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static StockWise.Domain.Enums.Enums;
 
 namespace StockWise.Infrastructure.Repositories
 {
@@ -36,7 +35,7 @@ namespace StockWise.Infrastructure.Repositories
                 .Include(i => i.Representative)
                 .FirstOrDefaultAsync(i => i.Id == id);
         }
-        public async Task<IEnumerable<Invoice>> GetByStatusAsync(InvoiceStatus status)
+        public async Task<IEnumerable<Invoice>> GetByStatusAsync(Domain.Enums.InvoiceStatus status)
         {
             return await _context.invoices
                 .Include(i => i.Items)

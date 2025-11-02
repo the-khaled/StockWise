@@ -61,14 +61,14 @@ namespace StockWise.Controllers
             {
                 var createdInvoice = await _invoiceService.CreateInvoiceAsync(invoiceDto);
 
-                if (!ModelState.IsValid)
+    /*            if (!ModelState.IsValid)
                 {
                     var errors = ModelState
                        .SelectMany(x => x.Value.Errors)
                        .Select(x => x.ErrorMessage)
                        .ToList();
                     return BadRequest(new { errors });
-                }
+                }*/
 
                 if (!createdInvoice.Success)
                 {
@@ -93,14 +93,14 @@ namespace StockWise.Controllers
             {
                var UpdateInvois= await _invoiceService.UpdateInvoiceAsync(id, updateDto);
 
-                if (!ModelState.IsValid)
+         /*       if (!ModelState.IsValid)
                 {
                     var errors = ModelState
                        .SelectMany(x => x.Value.Errors)
                        .Select(x => x.ErrorMessage)
                        .ToList();
                     return BadRequest(new { errors });
-                }
+                }*/
                 if (!UpdateInvois.Success)
                 {
                     return StatusCode(UpdateInvois.StatusCode, UpdateInvois);

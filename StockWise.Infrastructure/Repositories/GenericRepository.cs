@@ -27,11 +27,11 @@ namespace StockWise.Infrastructure.Repositories
         {
             return  await _context.Set<T>().FindAsync(id);
         }
-        public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> predicate)
+        public virtual async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> predicate)
         {
             return await _context.Set<T>().Where(predicate).ToListAsync();
         }
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
             return await _context.Set<T>().ToListAsync();
         }
@@ -58,6 +58,10 @@ namespace StockWise.Infrastructure.Repositories
         public async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate)// to search with name 
         {
             return await _context.Set<T>().AnyAsync(predicate);
+        }
+        public async Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _context.Set<T>().Where(predicate).ToListAsync();
         }
         public void Remove(T entity)
         {

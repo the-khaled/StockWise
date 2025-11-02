@@ -155,7 +155,11 @@ namespace StockWise.Controllers
         {
             try
             {
-                await _expenseService.DeleteExpenseAsync(id);
+                var deleteexpense= await _expenseService.DeleteExpenseAsync(id);
+                if (!deleteexpense.Success)
+                {
+                    return StatusCode(deleteexpense.StatusCode, deleteexpense);
+                }
                 return NoContent();
             }
             catch (KeyNotFoundException ex)
